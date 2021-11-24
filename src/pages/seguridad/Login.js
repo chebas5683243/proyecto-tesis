@@ -18,7 +18,7 @@ const Login = () => {
 
   const [ errorLogin, setErrorLogin ] = useState(false);
 
-  const { values, errors, setErrors, handleInputChange } = useForm({
+  const { values, setValues, errors, setErrors, handleInputChange } = useForm({
     email: '',
     password: ''
   });
@@ -38,6 +38,9 @@ const Login = () => {
         }
         else{
           setErrorLogin(f => true);
+          setValues({...values,
+            password: ''
+          })
         }
       })
     }
@@ -56,7 +59,7 @@ const Login = () => {
         <div className="subtitulo">
           <p>Aliados para la conservación de la naturaleza</p>
         </div>
-        {errorLogin && <Alert severity="error">Email o contraseña incorrecta</Alert>}
+        {errorLogin && <Alert variant="filled" severity="error">Email o contraseña incorrecta</Alert>}
         <form className="formulario" onSubmit={handleLogin} autoComplete="off">
           <StyledCustomLoginField
             type="text"

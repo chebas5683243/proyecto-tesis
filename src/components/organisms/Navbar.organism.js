@@ -3,7 +3,7 @@ import Hamburger from "../atoms/Hambuger.atom";
 import Logo from "../atoms/Logo.atom";
 import CambiarContrasena from "../../pages/seguridad/CambiarContrasena";
 import { useState, useContext } from "react";
-import { Button, Menu, MenuItem } from '@mui/material';
+import { Alert, Button, Menu, MenuItem, Snackbar } from '@mui/material';
 import axios from "axios";
 import Config from "../../constants/Config.constants";
 import ApiRoutes from "../../constants/ApiRoutes.constants";
@@ -14,6 +14,8 @@ const NavBar = () => {
   const { infoUsuario, setInfoUsuario, token, setToken } = useContext(UserContext);
 
   const [ openModal, setOpenModal ] = useState(false);
+  
+  const [ openSnackbar, setOpenSnackbar ] = useState(false);
 
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -40,6 +42,10 @@ const NavBar = () => {
   const handleOpenModal = () => {
     setOpenModal(true);
     handleCloseMenu();
+  }
+
+  const handleCloseSnackbar = () => {
+    setOpenSnackbar(false);
   }
 
   const getName = (info) => {
@@ -82,7 +88,15 @@ const NavBar = () => {
         <MenuItem onClick={handleOpenModal}>Cambiar Contraseña</MenuItem>
         <MenuItem onClick={handleCerrarSesion}>Cerrar sesión</MenuItem>
       </Menu>
-      <CambiarContrasena open={openModal} setOpen={setOpenModal}/>
+      <CambiarContrasena open={openModal} setOpen={setOpenModal} setOpenSnackbar={setOpenSnackbar}/>
+      <Snackbar
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right'}}
+        open={openSnackbar}
+        autoHideDuration={6000}
+        onClose={handleCloseSnackbar}
+      >
+        <Alert variant="filled" severity="success" onClose={handleCloseSnackbar}>Su contraseña ha sido cambiada exitosamente.</Alert>
+      </Snackbar>
     </NavbarContainer>
   );
 }

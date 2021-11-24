@@ -7,33 +7,41 @@ import Config from "../../constants/Config.constants";
 import axios from "axios";
 import CustomTextField from "../../components/atoms/CustomTextField.atom";
 import EVButton from "../../components/atoms/EVButton.atom";
+import useForm from '../../hooks/useForm.hook';
+import { validateChangePassword } from '../../utils/formValidations';
 
-const CambiarContrasena = ({ open, setOpen}) => {
+const CambiarContrasena = ({ open, setOpen, setOpenSnackbar}) => {
 
-  const { infoUsuario } = useContext(UserContext);
+  const { infoUsuario, token } = useContext(UserContext);
 
-  const [ datos, setDatos ] = useState({
+  const { values, setValues, errors, setErrors, handleInputChange } = useForm({
     current: '',
     newPassword: '',
     repeatPassword: ''
-  })
-
-  const handleOnChange = (e) => {
-    setDatos({
-      ...datos,
-      [e.target.name]: e.target.value
-    })
-  }
+  });
 
   const handleClose = () => {
     setOpen(false);
+    setValues({
+      current: '',
+      newPassword: '',
+      repeatPassword: ''
+    })
+    setErrors({})
   }
 
-  const handleSave = () => {
-    axios.post(`${Config.API_URL}${Config.API_PATH}${ApiRoutes.USUARIOS}cambiarPassword`, {'id': infoUsuario.id, 'password': datos.newPassword})
-    .then(() => {
-      setOpen(false);
-    })
+  const handleSave = async (e) => {
+    e.preventDefault();
+    setErrors(f => ({}));
+    let validation = await validateChangePassword(values, infoUsuario, token);
+    setErrors(f => validation.errors);
+    if(validation.isValid){
+      axios.post(`${Config.API_URL}${Config.API_PATH}${ApiRoutes.USUARIOS}cambiarPassword`, {'id': infoUsuario.id, 'password': values.newPassword})
+      .then(() => {
+        setOpen(false);
+        setOpenSnackbar(true);
+      })
+    }
   }
 
   return (
@@ -45,29 +53,43 @@ const CambiarContrasena = ({ open, setOpen}) => {
         <div className="title">
           <span>Cambiar Contraseña</span>
         </div>
-        <div className="fields-container">
+        <form className="fields-container" autoComplete="off" onSubmit={handleSave}>
           <CustomTextField
+            type="password"
             label="CONTRASEÑA ACTUAL"
+            autoComplete="off"
             size={4}
             name="current"
-            value={datos.current}
-            onChange={handleOnChange} />
+            value={values.current}
+            error={errors.current ? true : false}
+            helperText={errors.current}
+            onChange={handleInputChange} />
+
           <CustomTextField
+            type="password"
             label="NUEVA CONTRASEÑA"
+            autoComplete="off"
             size={4}
             name="newPassword"
-            value={datos.newPassword}
-            onChange={handleOnChange} />
+            value={values.newPassword}
+            error={errors.newPassword ? true : false}
+            helperText={errors.newPassword}
+            onChange={handleInputChange} />
+
           <CustomTextField
+            type="password"
             label="REPETIR CONTRASEÑA"
+            autoComplete="off"
             size={4}
             name="repeatPassword"
-            value={datos.repeatPassword}
-            onChange={handleOnChange} />
-        </div>
+            value={values.repeatPassword}
+            error={errors.repeatPassword ? true : false}
+            helperText={errors.repeatPassword}
+            onChange={handleInputChange} />
+        </form>
         <div className="buttons-container">
           <EVButton label="Cancelar" variant="outlined" onClick={handleClose} />
-          <EVButton label="Guardar" variant="contained" onClick={handleSave} />
+          <EVButton label="Guardar" variant="contained" />
         </div>
       </ModalContainer>
     </Modal>
