@@ -65,7 +65,6 @@ const NavBar = () => {
       <Menu
         id="basic-menu"
         anchorEl={anchorEl}
-        getContentAnchorEl={null}
         open={openMenu}
         onClose={handleCloseMenu}
         MenuListProps={{
@@ -83,7 +82,7 @@ const NavBar = () => {
         <MenuItem onClick={handleOpenModal}>Cambiar Contraseña</MenuItem>
         <MenuItem onClick={handleCerrarSesion}>Cerrar sesión</MenuItem>
       </Menu>
-      {/* <CambiarContrasena open={openModal} setOpen={setOpenModal}/> */}
+      <CambiarContrasena open={openModal} setOpen={setOpenModal}/>
     </NavbarContainer>
   );
 }
