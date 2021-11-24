@@ -30,8 +30,8 @@ const CambiarContrasena = ({ open, setOpen}) => {
   }
 
   const handleSave = () => {
-    axios.post(`${Config.API_URL}${Config.API_PATH}${ApiRoutes.USUARIOS}cambiarPassword`, {'id': infoUsuario.id, 'password': datos.newPassword}).
-    then(() => {
+    axios.post(`${Config.API_URL}${Config.API_PATH}${ApiRoutes.USUARIOS}cambiarPassword`, {'id': infoUsuario.id, 'password': datos.newPassword})
+    .then(() => {
       setOpen(false);
     })
   }

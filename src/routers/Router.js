@@ -15,7 +15,7 @@ import CrearUsuario from '../pages/usuarios/CrearUsuario';
 import DetalleUsuario from '../pages/usuarios/DetalleUsuario';
 import EditarUsuario from '../pages/usuarios/EditarUsuario';
 import Login from '../pages/seguridad/Login';
-import { useEffect, useContext } from 'react';
+import { useContext } from 'react';
 import { UserContext } from '../context/UserContext';
 import React from 'react';
 import CrearProyecto from '../pages/proyectos/CrearProyecto';

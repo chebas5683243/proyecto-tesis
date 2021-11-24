@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from 'react';
+import React, { createContext, useState } from 'react';
 
 export const UserContext = createContext({
     infoUsuario: null,
@@ -10,11 +10,6 @@ export const UserContext = createContext({
 export const UserProvider = (props) => {
   const [infoUsuario, setInfoUsuario] = useState(null);
   const [token, setToken] = useState(null);
-
-  useEffect(() => {
-    setInfoUsuario(infoUsuario);
-    setToken(token);
-  }, []);
 
   return (
     <UserContext.Provider

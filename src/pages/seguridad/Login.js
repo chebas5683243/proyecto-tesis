@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useContext, useState } from "react";
 import EVButton from "../../components/atoms/EVButton.atom";
 import LogoImg from "../../assets/logo.png";
 import axios from "axios";
@@ -6,40 +6,41 @@ import ApiRoutes from '../../constants/ApiRoutes.constants';
 import Config from '../../constants/Config.constants';
 import { UserContext } from "../../context/UserContext";
 import { LoginContainer } from "../../styles/Login.style";
-import { InputAdornment } from '@mui/material';
+import { InputAdornment, Alert } from '@mui/material';
 import { Visibility, Email } from '@mui/icons-material';
 import { StyledCustomLoginField } from "../../styles/TextField.style";
+import useForm from "../../hooks/useForm.hook";
+import { validateLogin } from "../../utils/formValidations";
 
 const Login = () => {
 
   const { setInfoUsuario, setToken } = useContext(UserContext);
 
-  const [ datos, setDatos ] = useState({
+  const [ errorLogin, setErrorLogin ] = useState(false);
+
+  const { values, errors, setErrors, handleInputChange } = useForm({
     email: '',
     password: ''
   });
 
-  const handleOnChange = (e) => {
-    setDatos({
-      ...datos,
-      [e.target.name] : e.target.value
-    })
-  }
-
   const handleLogin = (e) => {
     e.preventDefault();
-    axios.post(`${Config.API_URL}${Config.API_PATH}${ApiRoutes.AUTH}login`, datos)
+    let validation = validateLogin(values);
+    setErrors(validation.errors);
+    setErrorLogin(f => false);
+    if(validation.isValid){
+      axios.post(`${Config.API_URL}${Config.API_PATH}${ApiRoutes.AUTH}login`, values)
       .then((result) => {
         if(result.data.access_token){
           setInfoUsuario(result.data.usuario);
           setToken(result.data.access_token);
           localStorage.setItem('token', result.data.access_token);
-          // history.push("/home");
         }
         else{
-          // setError(4);
+          setErrorLogin(f => true);
         }
       })
+    }
   }
 
   return (
@@ -55,16 +56,18 @@ const Login = () => {
         <div className="subtitulo">
           <p>Aliados para la conservación de la naturaleza</p>
         </div>
-        <form className="formulario" onSubmit={handleLogin}>
+        {errorLogin && <Alert severity="error">Email o contraseña incorrecta</Alert>}
+        <form className="formulario" onSubmit={handleLogin} autoComplete="off">
           <StyledCustomLoginField
             type="text"
-            autoComplete="off"
             name="email"
             label="Email"
             variant="standard"
             color="secondary"
-            value={datos.email}
-            onChange={handleOnChange}
+            value={values.email}
+            onChange={handleInputChange}
+            error={errors.email ? true : false}
+            helperText={errors.email}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="start">
@@ -74,13 +77,14 @@ const Login = () => {
             }} />
           <StyledCustomLoginField
             type="password"
-            autoComplete="off"
             name="password"
             label="Contraseña"
             variant="standard"
             color="secondary"
-            value={datos.password}
-            onChange={handleOnChange}
+            value={values.password}
+            onChange={handleInputChange}
+            error={errors.password ? true : false}
+            helperText={errors.password}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="start">
