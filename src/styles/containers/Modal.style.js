@@ -32,6 +32,7 @@ export const ModalContainer = styled.div`
 
   .fields-container {
     margin: 1.5rem 0;
+    margin-bottom: 0;
 
     display: flex;
     flex-direction: column;

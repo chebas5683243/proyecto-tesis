@@ -38,7 +38,7 @@ const CambiarContrasena = ({ open, setOpen, setOpenSnackbar}) => {
     if(validation.isValid){
       axios.post(`${Config.API_URL}${Config.API_PATH}${ApiRoutes.USUARIOS}cambiarPassword`, {'id': infoUsuario.id, 'password': values.newPassword})
       .then(() => {
-        setOpen(false);
+        handleClose();
         setOpenSnackbar(true);
       })
     }
@@ -86,11 +86,12 @@ const CambiarContrasena = ({ open, setOpen, setOpenSnackbar}) => {
             error={errors.repeatPassword ? true : false}
             helperText={errors.repeatPassword}
             onChange={handleInputChange} />
+
+          <div className="buttons-container">
+            <EVButton label="Cancelar" variant="outlined" onClick={handleClose} />
+            <EVButton type="submit" label="Guardar" variant="contained"/>
+          </div>
         </form>
-        <div className="buttons-container">
-          <EVButton label="Cancelar" variant="outlined" onClick={handleClose} />
-          <EVButton label="Guardar" variant="contained" />
-        </div>
       </ModalContainer>
     </Modal>
   );

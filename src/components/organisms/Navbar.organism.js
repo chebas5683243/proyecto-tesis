@@ -73,6 +73,7 @@ const NavBar = () => {
         anchorEl={anchorEl}
         open={openMenu}
         onClose={handleCloseMenu}
+        disableRestoreFocus={true}
         MenuListProps={{
           'aria-labelledby': 'basic-button',
         }}
