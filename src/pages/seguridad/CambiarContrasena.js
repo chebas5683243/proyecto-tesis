@@ -1,5 +1,5 @@
 import { Modal } from '@mui/material';
-import { useState, useContext } from "react";
+import { useContext } from "react";
 import { ModalContainer } from "../../styles/containers/Modal.style";
 import { UserContext } from "../../context/UserContext";
 import ApiRoutes from "../../constants/ApiRoutes.constants";

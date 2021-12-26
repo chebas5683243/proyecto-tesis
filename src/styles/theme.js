@@ -21,9 +21,10 @@ const theme = createTheme({
   },
   inputPrimaryColor: '#001d65',
   inputSecondaryColor: '#0030A8',
+  disabledColor: '#f3f3f3',
   gray: '#4F4F4F',
   gray3: '#828282',
-  bgColor: '#F4F8F9',
+  bgColor: '#FAFAFA',
   white: '#fff'
 });
  

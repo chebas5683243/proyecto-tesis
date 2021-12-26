@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const NavbarContainer = styled.div`
   position: sticky;
   top: 0;
-  height: 50px;
+  height: 3rem;
   width: 100%;
   background-color: ${(props) => props.theme.white};
   display: flex;

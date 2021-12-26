@@ -5,3 +5,7 @@ export const emailValidation = (email) => {
 export const notBlankValidation = (value) => {
   return value.trim() !== "";
 }
+
+export const rucValidation = (value) => {
+  return (/^[0-9]{11}$/).test(value);
+}
