@@ -3,7 +3,13 @@ import NavBar from '../components/organisms/Navbar.organism';
 import SideBar from '../components/organisms/Sidebar.organism';
 import { NavbarProvider } from '../context/NavbarContext';
 import Usuarios from '../pages/usuarios';
+import CreateUsuario from '../pages/usuarios/Create';
+import DetalleUsuario from '../pages/usuarios/[usuario]';
+import EditUsuario from '../pages/usuarios/[usuario]/Edit';
 import Empresas from '../pages/empresas';
+import CreateEmpresa from '../pages/empresas/Create';
+import DetalleEmpresa from '../pages/empresas/[empresa]';
+import EditEmpresa from '../pages/empresas/[empresa]/Edit';
 import Incidentes from '../pages/incidentes';
 import MonitoreoAmbiental from '../pages/monitoreo';
 import Parametros from '../pages/parametros';
@@ -11,17 +17,11 @@ import Proyectos from '../pages/proyectos';
 import Repositorio from '../pages/repositorio';
 import TipoIncidentes from '../pages/tipoIncidente';
 import UnidadesMedida from '../pages/unidadesMedida';
-import CrearUsuario from '../pages/usuarios/CrearUsuario';
-import DetalleUsuario from '../pages/usuarios/DetalleUsuario';
-import EditarUsuario from '../pages/usuarios/EditarUsuario';
 import Login from '../pages/seguridad/Login';
 import { useContext } from 'react';
 import { UserContext } from '../context/UserContext';
 import React from 'react';
 import CrearProyecto from '../pages/proyectos/CrearProyecto';
-import CreateEmpresa from '../pages/empresas/Create';
-import DetalleEmpresa from '../pages/empresas/[empresa]';
-import EditEmpresa from '../pages/empresas/[empresa]/Edit';
 
 const Router = () => {
 
@@ -57,9 +57,9 @@ const Router = () => {
             <Route exact path="/tipoIncidentes" component={TipoIncidentes} />
             <Route exact path="/unidadesMedida" component={UnidadesMedida} />
             <Route exact path="/usuarios" component={Usuarios} />
-            <Route exact path="/usuarios/crear" component={CrearUsuario}/>
+            <Route exact path="/usuarios/crear" component={CreateUsuario}/>
             <Route exact path="/usuarios/:id" component={DetalleUsuario}/>
-            <Route exact path="/usuarios/:id/edit" component={EditarUsuario}/>
+            <Route exact path="/usuarios/:id/edit" component={EditUsuario}/>
             <Route render={() => <Redirect to="/proyectos" />} />
           </Switch>
         </React.Fragment>
