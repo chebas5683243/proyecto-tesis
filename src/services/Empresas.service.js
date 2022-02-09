@@ -93,3 +93,27 @@ export const useActivateEmpresa = () => {
 
   return {loadingActive, activateEmpresa};
 }
+
+export const useSimpleListEmpresas = (params = {}, auto = true) => {
+  const [empresas, setEmpresas] = useState([]);
+  const [loadingEmpresas, setLoadingEmpresas] = useState(true);
+
+  const simpleListEmpresas = async function () {
+    setLoadingEmpresas(true);
+    setEmpresas([]);
+    await axios.get(`${Config.API_URL}${Config.API_PATH}${ApiRoutes.EMPRESAS}simpleListar`, {params: params})
+    .then((response) => {
+      setEmpresas(response.data.data.empresas);
+    })
+    .finally(() => {
+      setLoadingEmpresas(false);
+    })
+  };
+
+  useEffect(() => {
+    if(auto) simpleListEmpresas();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  return {loadingEmpresas, empresas, simpleListEmpresas};
+}

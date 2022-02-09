@@ -7,7 +7,7 @@ import { FormGroupContainer } from "../../../styles/containers/FormGroup.style";
 import FormHeader from "../../../components/organisms/FormHeader.organism";
 import { useEffect, useState } from "react";
 import { Collapse } from "@mui/material";
-import CustomTextField from "../../../components/atoms/CustomTextField.atom";
+import EVTextField from "../../../components/atoms/EVTextField.atom";
 import { useFetchDetalleEmpresa } from "../../../services/Empresas.service";
 
 const DetalleEmpresa = () => {
@@ -79,11 +79,10 @@ const DetalleEmpresa = () => {
         <FormHeader isExpanded={formExpand.general} expand={() => handleExpand("general")} title="Datos Generales"/>
         <Collapse className="inputs-container" in={formExpand.general}>
           <div style={{width: '100%', height: '0'}}></div>
-          <CustomTextField
+          <EVTextField
             disabled
             type="number"
             label="RUC"
-            autoComplete="off"
             size={1}
             name="ruc"
             value={values.ruc}
@@ -91,11 +90,10 @@ const DetalleEmpresa = () => {
             helperText={errors.ruc}
             onChange={handleInputChange} />
             
-          <CustomTextField
+          <EVTextField
             disabled
             type="text"
             label="RAZÓN SOCIAL"
-            autoComplete="off"
             size={1}
             name="razon_social"
             value={values.razon_social}
@@ -103,11 +101,10 @@ const DetalleEmpresa = () => {
             helperText={errors.razon_social}
             onChange={handleInputChange} />
             
-          <CustomTextField
+          <EVTextField
             disabled
             type="text"
             label="TIPO CONTRIBUYENTE"
-            autoComplete="off"
             size={1}
             name="tipo_contribuyente"
             value={values.tipo_contribuyente}
@@ -115,11 +112,10 @@ const DetalleEmpresa = () => {
             helperText={errors.tipo_contribuyente}
             onChange={handleInputChange} />
             
-          <CustomTextField
+          <EVTextField
             disabled
             type="text"
             label="DIRECCIÓN FISCAL"
-            autoComplete="off"
             size={1}
             name="direccion_fiscal"
             value={values.direccion_fiscal}
@@ -127,11 +123,10 @@ const DetalleEmpresa = () => {
             helperText={errors.direccion_fiscal}
             onChange={handleInputChange} />
 
-          <CustomTextField
+          <EVTextField
             disabled
             type="text"
             label="DISTRITO/CIUDAD"
-            autoComplete="off"
             size={1}
             name="distrito_ciudad"
             value={values.distrito_ciudad}
@@ -139,11 +134,10 @@ const DetalleEmpresa = () => {
             helperText={errors.distrito_ciudad}
             onChange={handleInputChange} />
 
-          <CustomTextField
+          <EVTextField
             disabled
             type="text"
             label="DEPARTAMENTO"
-            autoComplete="off"
             size={1}
             name="departamento"
             value={values.departamento}
@@ -157,11 +151,10 @@ const DetalleEmpresa = () => {
         <FormHeader isExpanded={formExpand.contacto} expand={() => handleExpand("contacto")} title="Información de contacto"/>
         <Collapse className="inputs-container" in={formExpand.contacto}>
           <div style={{width: '100%', height: '0'}}></div>
-          <CustomTextField
+          <EVTextField
             disabled
             type="email"
             label="CORREO ELECTRÓNICO"
-            autoComplete="off"
             size={1}
             name="email"
             value={values.email}
@@ -169,11 +162,10 @@ const DetalleEmpresa = () => {
             helperText={errors.email}
             onChange={handleInputChange} />
             
-          <CustomTextField
+          <EVTextField
             disabled
             type="text"
             label="NÚMERO TELEFÓNICO"
-            autoComplete="off"
             size={1}
             name="numero_telefonico"
             value={values.numero_telefonico}

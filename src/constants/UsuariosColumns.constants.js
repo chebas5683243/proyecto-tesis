@@ -1,27 +1,18 @@
 import { GridActionsCellItem } from '@mui/x-data-grid';
 import { Circle, Delete, Edit, RemoveRedEye, SettingsBackupRestore } from '@mui/icons-material';
 import { useHistory } from 'react-router';
-import { useDeleteEmpresa, useActivateEmpresa } from '../services/Empresas.service'
 import Box from '@mui/material/Box';
 
 export const useColumnsListUsuarios = (fetchEmpresas) => {
 
   const history = useHistory();
-
-  //const { deleteEmpresa } = useDeleteEmpresa();
-  //const { activateEmpresa } = useActivateEmpresa();
   
   const handleSeeDetails = (selectedId) => {
     history.push("/usuarios/" + selectedId);
   }
 
   const handleEdit = (selectedId) => {
-    history.push("/empresas/" + selectedId + "/edit");
-  }
-
-  const handleDelete = (selectedId, estado) => {
-    //if(estado) deleteEmpresa(selectedId, fetchEmpresas);
-    //else activateEmpresa(selectedId, fetchEmpresas);
+    history.push("/usuarios/" + selectedId + "/edit");
   }
 
   return [
@@ -87,7 +78,7 @@ export const useColumnsListUsuarios = (fetchEmpresas) => {
         <GridActionsCellItem
           icon={<Edit />}
           label="Delete"
-          //onClick={() => handleEdit(params.id)}
+          onClick={() => handleEdit(params.id)}
         />,
         <GridActionsCellItem
           icon={(params.row.estado ? <Delete /> : <SettingsBackupRestore />)}

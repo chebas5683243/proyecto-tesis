@@ -34,7 +34,7 @@ export const useFetchDetalleUsuario = ( idUsuario ) => {
 
   const fetchUsuario = async function () {
     setLoadingUsuario(true);
-    await axios.get(`${Config.API_URL}${Config.API_PATH}${ApiRoutes.EMPRESAS}detalle/${idUsuario}`)
+    await axios.get(`${Config.API_URL}${Config.API_PATH}${ApiRoutes.USUARIOS}detalle/${idUsuario}`)
     .then((response) => {
       setUsuario(response.data.data.usuario);
     })
@@ -49,4 +49,19 @@ export const useFetchDetalleUsuario = ( idUsuario ) => {
   }, []);
 
   return {loadingUsuario, usuario};
+}
+
+export const useEditUsuario = ( usuarioData ) => {
+  const [loadingEdit, setLoadingEdit] = useState(false);
+  const history = useHistory();
+
+  const editUsuario = async function () {
+    setLoadingEdit(true);
+    await axios.put(`${Config.API_URL}${Config.API_PATH}${ApiRoutes.USUARIOS}editar`, usuarioData)
+    .then((response) => {
+      history.push("/usuarios/" + usuarioData.id);
+    })
+  }
+
+  return {loadingEdit, editUsuario};
 }

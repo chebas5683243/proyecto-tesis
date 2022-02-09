@@ -1,16 +1,13 @@
 import { StyledCustomTextField } from "../../styles/TextField.style";
+import { getSizeToPercentage } from "../../utils/utils";
 
-const CustomTextField = ({ size, ...props }) => {
-
-  const getSizeToPercentage = (size) => {
-    return ( 102 * size - 8 ) / 4;
-  }
+const EVTextField = ({ size, ...props }) => {
 
   return (
     <StyledCustomTextField
-      autoComplete="new-password"
       variant="outlined"
       color="secondary"
+      autoComplete="off"
       wsize={getSizeToPercentage(size)}
       InputLabelProps={{ shrink: true }}
       {...props}
@@ -18,4 +15,4 @@ const CustomTextField = ({ size, ...props }) => {
   );
 }
 
-export default CustomTextField;
+export default EVTextField;

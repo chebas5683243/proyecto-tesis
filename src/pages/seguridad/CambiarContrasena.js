@@ -5,7 +5,7 @@ import { UserContext } from "../../context/UserContext";
 import ApiRoutes from "../../constants/ApiRoutes.constants";
 import Config from "../../constants/Config.constants";
 import axios from "axios";
-import CustomTextField from "../../components/atoms/CustomTextField.atom";
+import EVTextField from "../../components/atoms/EVTextField.atom";
 import EVButton from "../../components/atoms/EVButton.atom";
 import useForm from '../../hooks/useForm.hook';
 import { validateChangePassword } from '../../utils/formValidations';
@@ -53,11 +53,10 @@ const CambiarContrasena = ({ open, setOpen, setOpenSnackbar}) => {
         <div className="title">
           <span>Cambiar Contraseña</span>
         </div>
-        <form className="fields-container" autoComplete="off" onSubmit={handleSave}>
-          <CustomTextField
+        <form className="fields-container" onSubmit={handleSave}>
+          <EVTextField
             type="password"
             label="CONTRASEÑA ACTUAL"
-            autoComplete="off"
             size={4}
             name="current"
             value={values.current}
@@ -65,10 +64,9 @@ const CambiarContrasena = ({ open, setOpen, setOpenSnackbar}) => {
             helperText={errors.current}
             onChange={handleInputChange} />
 
-          <CustomTextField
+          <EVTextField
             type="password"
             label="NUEVA CONTRASEÑA"
-            autoComplete="off"
             size={4}
             name="newPassword"
             value={values.newPassword}
@@ -76,10 +74,9 @@ const CambiarContrasena = ({ open, setOpen, setOpenSnackbar}) => {
             helperText={errors.newPassword}
             onChange={handleInputChange} />
 
-          <CustomTextField
+          <EVTextField
             type="password"
             label="REPETIR CONTRASEÑA"
-            autoComplete="off"
             size={4}
             name="repeatPassword"
             value={values.repeatPassword}

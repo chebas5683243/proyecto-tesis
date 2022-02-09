@@ -15,7 +15,7 @@ const Usuarios = () => {
   const {loadingUsuarios, usuarios, fetchUsuarios } = useFetchUsuarios();
 
   const handleCreate = () => {
-    console.log("Crear");
+    history.push("/usuarios/create");
   }
 
   return (

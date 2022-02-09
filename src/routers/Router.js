@@ -57,7 +57,7 @@ const Router = () => {
             <Route exact path="/tipoIncidentes" component={TipoIncidentes} />
             <Route exact path="/unidadesMedida" component={UnidadesMedida} />
             <Route exact path="/usuarios" component={Usuarios} />
-            <Route exact path="/usuarios/crear" component={CreateUsuario}/>
+            <Route exact path="/usuarios/create" component={CreateUsuario}/>
             <Route exact path="/usuarios/:id" component={DetalleUsuario}/>
             <Route exact path="/usuarios/:id/edit" component={EditUsuario}/>
             <Route render={() => <Redirect to="/proyectos" />} />

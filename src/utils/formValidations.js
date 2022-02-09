@@ -1,7 +1,7 @@
 import axios from "axios";
 import ApiRoutes from "../constants/ApiRoutes.constants";
 import Config from "../constants/Config.constants";
-import { emailValidation, notBlankValidation, rucValidation } from "./singleValidations"
+import { dniValidation, emailValidation, isAssignedValidation, notBlankValidation, notNullValidation, rucValidation } from "./singleValidations"
 
 export const parseValidation = (temp) => {
   return {isValid: Object.values(temp).every(x => x === false), errors: temp};
@@ -52,6 +52,21 @@ export const validateCreateEmpresa = (values) => {
   temp.departamento = notBlankValidation(values.departamento) ? false : "Este campo no puede ser vacío";
   temp.email = emailValidation(values.email) ? false : "Email no válido";
   temp.numero_telefonico = notBlankValidation(values.numero_telefonico) ? false : "Este campo no puede ser vacío";
+
+  return parseValidation(temp);
+}
+
+export const validateCreateUsuario = (values) => {
+  let temp = {};
+  temp.primer_nombre = notBlankValidation(values.primer_nombre) ? false : "Este campo no puede ser vacío";
+  temp.segundo_nombre = notBlankValidation(values.segundo_nombre) ? false : "Este campo no puede ser vacío";
+  temp.primer_apellido = notBlankValidation(values.primer_apellido) ? false : "Este campo no puede ser vacío";
+  temp.segundo_apellido = notBlankValidation(values.segundo_apellido) ? false : "Este campo no puede ser vacío";
+  temp.dni = dniValidation(values.dni) ? false : "DNI no válido";
+  temp.email = emailValidation(values.email) ? false : "Email no válido";
+  temp.numero_celular = notBlankValidation(values.numero_celular) ? false : "Este campo no puede ser vacío";
+  temp.company = isAssignedValidation(values.company) ? false : "Seleccione una empresa";
+  temp.cargo = notBlankValidation(values.cargo) ? false : "Este campo no puede ser vacío";
 
   return parseValidation(temp);
 }

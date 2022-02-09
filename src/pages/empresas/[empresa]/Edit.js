@@ -7,7 +7,7 @@ import { FormGroupContainer } from "../../../styles/containers/FormGroup.style";
 import FormHeader from "../../../components/organisms/FormHeader.organism";
 import { useEffect, useState } from "react";
 import { Collapse } from "@mui/material";
-import CustomTextField from "../../../components/atoms/CustomTextField.atom";
+import EVTextField from "../../../components/atoms/EVTextField.atom";
 import { useEditEmpresa, useFetchDetalleEmpresa } from "../../../services/Empresas.service";
 import { validateCreateEmpresa } from "../../../utils/formValidations";
 
@@ -88,10 +88,9 @@ const EditEmpresa = () => {
         <FormHeader isExpanded={formExpand.general} expand={() => handleExpand("general")} title="Datos Generales"/>
         <Collapse className="inputs-container" in={formExpand.general}>
           <div style={{width: '100%', height: '0'}}></div>
-          <CustomTextField
+          <EVTextField
             type="number"
             label="RUC"
-            autoComplete="off"
             size={1}
             name="ruc"
             value={values.ruc}
@@ -99,10 +98,9 @@ const EditEmpresa = () => {
             helperText={errors.ruc}
             onChange={handleInputChange} />
             
-          <CustomTextField
+          <EVTextField
             type="text"
             label="RAZÓN SOCIAL"
-            autoComplete="off"
             size={1}
             name="razon_social"
             value={values.razon_social}
@@ -110,10 +108,9 @@ const EditEmpresa = () => {
             helperText={errors.razon_social}
             onChange={handleInputChange} />
             
-          <CustomTextField
+          <EVTextField
             type="text"
             label="TIPO CONTRIBUYENTE"
-            autoComplete="off"
             size={1}
             name="tipo_contribuyente"
             value={values.tipo_contribuyente}
@@ -121,10 +118,9 @@ const EditEmpresa = () => {
             helperText={errors.tipo_contribuyente}
             onChange={handleInputChange} />
             
-          <CustomTextField
+          <EVTextField
             type="text"
             label="DIRECCIÓN FISCAL"
-            autoComplete="off"
             size={1}
             name="direccion_fiscal"
             value={values.direccion_fiscal}
@@ -132,10 +128,9 @@ const EditEmpresa = () => {
             helperText={errors.direccion_fiscal}
             onChange={handleInputChange} />
 
-          <CustomTextField
+          <EVTextField
             type="text"
             label="DISTRITO/CIUDAD"
-            autoComplete="off"
             size={1}
             name="distrito_ciudad"
             value={values.distrito_ciudad}
@@ -143,10 +138,9 @@ const EditEmpresa = () => {
             helperText={errors.distrito_ciudad}
             onChange={handleInputChange} />
 
-          <CustomTextField
+          <EVTextField
             type="text"
             label="DEPARTAMENTO"
-            autoComplete="off"
             size={1}
             name="departamento"
             value={values.departamento}
@@ -160,10 +154,9 @@ const EditEmpresa = () => {
         <FormHeader isExpanded={formExpand.contacto} expand={() => handleExpand("contacto")} title="Información de contacto"/>
         <Collapse className="inputs-container" in={formExpand.contacto}>
           <div style={{width: '100%', height: '0'}}></div>
-          <CustomTextField
+          <EVTextField
             type="email"
             label="CORREO ELECTRÓNICO"
-            autoComplete="off"
             size={1}
             name="email"
             value={values.email}
@@ -171,10 +164,9 @@ const EditEmpresa = () => {
             helperText={errors.email}
             onChange={handleInputChange} />
             
-          <CustomTextField
+          <EVTextField
             type="text"
             label="NÚMERO TELEFÓNICO"
-            autoComplete="off"
             size={1}
             name="numero_telefonico"
             value={values.numero_telefonico}

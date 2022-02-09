@@ -60,7 +60,7 @@ const Login = () => {
           <p>Aliados para la conservación de la naturaleza</p>
         </div>
         {errorLogin && <Alert variant="filled" severity="error">Email o contraseña incorrecta</Alert>}
-        <form className="formulario" onSubmit={handleLogin} autoComplete="off">
+        <form className="formulario" onSubmit={handleLogin} >
           <StyledCustomLoginField
             type="text"
             name="email"

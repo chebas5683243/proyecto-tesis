@@ -29,7 +29,7 @@ export const FormGroupContainer = styled.div`
 
     span {
       color: ${props => props.theme.inputSecondaryColor};
-      font-size: 14px;
+      font-size: 1.125rem;
       font-weight: 700;
       margin-right: 10px;
     }
