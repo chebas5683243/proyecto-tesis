@@ -42,10 +42,15 @@ const Router = () => {
           </NavbarProvider>
           <Switch >
             <Route exact path="/" render={() => <Redirect to="/proyectos" />} />
+            <Route exact path="/unidadesMedida" component={UnidadesMedida} />
             <Route exact path="/empresas" component={Empresas} />
             <Route exact path="/empresas/create" component={CreateEmpresa} />
             <Route exact path="/empresas/:id" component={DetalleEmpresa} />
             <Route exact path="/empresas/:id/edit" component={EditEmpresa} />
+            <Route exact path="/usuarios/create" component={CreateUsuario}/>
+            <Route exact path="/usuarios/:id" component={DetalleUsuario}/>
+            <Route exact path="/usuarios/:id/edit" component={EditUsuario}/>
+            
             <Route exact path="/incidentes" component={Incidentes} />
             <Route exact path="/monitoreoAmbiental" component={MonitoreoAmbiental} />
             <Route exact path="/parametros" component={Parametros} />
@@ -55,11 +60,7 @@ const Router = () => {
             <Route exact path="/proyectos/editar/:id" component={Proyectos} />
             <Route exact path="/repositorio" component={Repositorio} />
             <Route exact path="/tipoIncidentes" component={TipoIncidentes} />
-            <Route exact path="/unidadesMedida" component={UnidadesMedida} />
             <Route exact path="/usuarios" component={Usuarios} />
-            <Route exact path="/usuarios/create" component={CreateUsuario}/>
-            <Route exact path="/usuarios/:id" component={DetalleUsuario}/>
-            <Route exact path="/usuarios/:id/edit" component={EditUsuario}/>
             <Route render={() => <Redirect to="/proyectos" />} />
           </Switch>
         </React.Fragment>

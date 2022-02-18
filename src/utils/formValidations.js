@@ -70,3 +70,11 @@ export const validateCreateUsuario = (values) => {
 
   return parseValidation(temp);
 }
+
+export const validateCreateUnidadMedida = (values) => {
+  let temp = {};
+  temp.nombre = notBlankValidation(values.nombre) ? false : "Este campo no puede ser vacío";
+  temp.nombre_corto = notBlankValidation(values.nombre_corto) ? false : "Este campo no puede ser vacío";
+
+  return parseValidation(temp);
+}
