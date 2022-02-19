@@ -44,3 +44,27 @@ export const useFetchDetalleUnidad = () => {
 
   return {loadingUnidad, unidad, fetchUnidad};
 }
+
+export const useSimpleListunidades = (params = {}, auto = true) => {
+  const [unidades, setUnidades] = useState([]);
+  const [loadingUnidades, setLoadingUnidades] = useState(true);
+
+  const simpleListUnidades = async function () {
+    setLoadingUnidades(true);
+    setUnidades([]);
+    await axios.get(`${Config.API_URL}${Config.API_PATH}${ApiRoutes.UNIDADES}simpleListar`, {params: params})
+    .then((response) => {
+      setUnidades(response.data.data.unidades);
+    })
+    .finally(() => {
+      setLoadingUnidades(false);
+    })
+  };
+
+  useEffect(() => {
+    if(auto) simpleListUnidades();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  return {loadingUnidades, unidades, simpleListUnidades};
+}

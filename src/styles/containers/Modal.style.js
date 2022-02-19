@@ -61,4 +61,9 @@ export const ModalContainer = styled.div`
     display: flex;
     justify-content: space-around;
   }
+
+  .check-field-container {
+    display: flex;
+    gap: .5rem;
+  }
 `;

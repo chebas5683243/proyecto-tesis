@@ -25,7 +25,6 @@ const EditUnidadMedida = ({ open, handleCloseModal, fetchUnidades, selectedId, s
     e.preventDefault();
     setErrors(f => ({}));
     let validation = validateCreateUnidadMedida(values);
-    console.log(validation);
     setErrors(f => validation.errors);
     if(validation.isValid){
       setLoadingEdit(true);
@@ -91,7 +90,7 @@ const EditUnidadMedida = ({ open, handleCloseModal, fetchUnidades, selectedId, s
 
           <div className="buttons-container">
             <EVButton label="Cancelar" variant="outlined" onClick={handleClose} />
-            <EVButton disabled={loadingUnidad || loadingEdit} label="Agregar" variant="contained" type="submit" />
+            <EVButton disabled={loadingUnidad || loadingEdit} label="Guardar" variant="contained" type="submit" />
           </div>
         </form>
       </ModalContainer>

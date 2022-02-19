@@ -22,7 +22,6 @@ const CreateUnidadMedida = ({ open, handleCloseModal, fetchUnidades }) => {
     e.preventDefault();
     setErrors(f => ({}));
     let validation = validateCreateUnidadMedida(values);
-    console.log(validation);
     setErrors(f => validation.errors);
     if(validation.isValid){
       setLoadingCreate(true);

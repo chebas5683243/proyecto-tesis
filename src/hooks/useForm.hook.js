@@ -11,6 +11,14 @@ const useForm = (initialValues) => {
       [name]: value
     })
   }
+
+  const handleCheckChange = e => {
+    const {name, checked} = e.target;
+    setValues({
+      ...values,
+      [name]: checked
+    })
+  }
   
   const resetForm = () => {
     setValues(initialValues);
@@ -23,6 +31,7 @@ const useForm = (initialValues) => {
     errors,
     setErrors,
     handleInputChange,
+    handleCheckChange,
     resetForm
   }
 }

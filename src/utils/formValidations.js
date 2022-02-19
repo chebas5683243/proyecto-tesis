@@ -1,7 +1,7 @@
 import axios from "axios";
 import ApiRoutes from "../constants/ApiRoutes.constants";
 import Config from "../constants/Config.constants";
-import { dniValidation, emailValidation, isAssignedValidation, notBlankValidation, notNullValidation, rucValidation } from "./singleValidations"
+import { dniValidation, emailValidation, isAssignedValidation, isNumberValidation, notBlankValidation, notNullValidation, rucValidation } from "./singleValidations"
 
 export const parseValidation = (temp) => {
   return {isValid: Object.values(temp).every(x => x === false), errors: temp};
@@ -75,6 +75,17 @@ export const validateCreateUnidadMedida = (values) => {
   let temp = {};
   temp.nombre = notBlankValidation(values.nombre) ? false : "Este campo no puede ser vacío";
   temp.nombre_corto = notBlankValidation(values.nombre_corto) ? false : "Este campo no puede ser vacío";
+
+  return parseValidation(temp);
+}
+
+export const validateCreateParametro = (values) => {
+  let temp = {};
+  temp.nombre = notBlankValidation(values.nombre) ? false : "Este campo no puede ser vacío";
+  temp.nombre_corto = notBlankValidation(values.nombre_corto) ? false : "Este campo no puede ser vacío";
+  temp.unidad = isAssignedValidation(values.unidad) ? false : "Seleccione una unidad";
+  if(values.tiene_minimo) temp.valor_minimo = isNumberValidation(values.valor_minimo) ? false : "Este campo no puede ser vacío";
+  if(values.tiene_maximo) temp.valor_maximo = isNumberValidation(values.valor_maximo) ? false : "Este campo no puede ser vacío";
 
   return parseValidation(temp);
 }

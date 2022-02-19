@@ -21,3 +21,7 @@ export const dniValidation = (value) => {
 export const isAssignedValidation = (value) => {
   return value && value.id !== 0;
 }
+
+export const isNumberValidation = (value) => {
+  return !isNaN(value) && value !== null;
+}
