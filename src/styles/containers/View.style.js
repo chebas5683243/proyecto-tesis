@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
 export const ListViewContainer = styled.div`
-  min-height: calc(100vh - 5rem);
+  min-height: calc(100vh - 8rem);
   height: 100%;
-  padding: 1rem 3rem;
+  padding: 1rem 3rem 4rem 3rem;
   background-color: ${(props) => props.theme.bgColor};
   display: flex;
   flex-direction: column;

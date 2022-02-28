@@ -21,7 +21,9 @@ import Login from '../pages/seguridad/Login';
 import { useContext } from 'react';
 import { UserContext } from '../context/UserContext';
 import React from 'react';
-import CrearProyecto from '../pages/proyectos/CrearProyecto';
+import CreateProyecto from '../pages/proyectos/Create';
+import DetalleProyecto from '../pages/proyectos/[proyecto]';
+import EditProyecto from '../pages/proyectos/[proyecto]/Edit';
 
 const Router = () => {
 
@@ -52,13 +54,13 @@ const Router = () => {
             <Route exact path="/usuarios/create" component={CreateUsuario}/>
             <Route exact path="/usuarios/:id" component={DetalleUsuario}/>
             <Route exact path="/usuarios/:id/edit" component={EditUsuario}/>
+            <Route exact path="/proyectos" component={Proyectos} />
+            <Route exact path="/proyectos/create" component={CreateProyecto} />
+            <Route exact path="/proyectos/:id" component={DetalleProyecto} />
+            <Route exact path="/proyectos/:id/edit" component={EditProyecto} />
             
             <Route exact path="/incidentes" component={Incidentes} />
             <Route exact path="/monitoreoAmbiental" component={MonitoreoAmbiental} />
-            <Route exact path="/proyectos" component={Proyectos} />
-            <Route exact path="/proyectos/crear" component={CrearProyecto} />
-            <Route exact path="/proyectos/detalle/:id" component={Proyectos} />
-            <Route exact path="/proyectos/editar/:id" component={Proyectos} />
             <Route exact path="/repositorio" component={Repositorio} />
             <Route exact path="/tipoIncidentes" component={TipoIncidentes} />
             <Route render={() => <Redirect to="/proyectos" />} />

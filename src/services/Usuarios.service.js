@@ -65,3 +65,46 @@ export const useEditUsuario = ( usuarioData ) => {
 
   return {loadingEdit, editUsuario};
 }
+
+export const useSimpleListUsuarios = () => {
+  const [usuarios, setUsuarios] = useState([]);
+  const [loadingUsuarios, setLoadingUsuarios] = useState(true);
+
+  const simpleListUsuarios = async function (idEmpresa) {
+    setLoadingUsuarios(true);
+    setUsuarios([]);
+    await axios.get(`${Config.API_URL}${Config.API_PATH}${ApiRoutes.USUARIOS}simpleListar/empresa/${idEmpresa}`)
+    .then((response) => {
+      setUsuarios(response.data.data.usuarios);
+    })
+    .finally(() => {
+      setLoadingUsuarios(false);
+    })
+  };
+
+  return {loadingUsuarios, usuarios, simpleListUsuarios};
+}
+
+export const useSimpleListPropioUsuarios = (params = {}, auto = true) => {
+  const [usuarios, setUsuarios] = useState([]);
+  const [loadingUsuarios, setLoadingUsuarios] = useState(true);
+
+  const simpleListPropioUsuarios = async function () {
+    setLoadingUsuarios(true);
+    setUsuarios([]);
+    await axios.get(`${Config.API_URL}${Config.API_PATH}${ApiRoutes.USUARIOS}simpleListarPropio`, {params: params})
+    .then((response) => {
+      setUsuarios(response.data.data.usuarios);
+    })
+    .finally(() => {
+      setLoadingUsuarios(false);
+    })
+  };
+
+  useEffect(() => {
+    if(auto) simpleListPropioUsuarios();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  return {loadingUsuarios, usuarios, simpleListPropioUsuarios};
+}

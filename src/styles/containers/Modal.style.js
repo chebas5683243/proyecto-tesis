@@ -59,7 +59,9 @@ export const ModalContainer = styled.div`
 
   .buttons-container-centered {
     display: flex;
-    justify-content: space-around;
+    width: 100%;
+    justify-content: space-evenly;
+    margin-top: 1rem;
   }
 
   .check-field-container {

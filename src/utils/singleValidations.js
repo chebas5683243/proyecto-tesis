@@ -25,3 +25,17 @@ export const isAssignedValidation = (value) => {
 export const isNumberValidation = (value) => {
   return !isNaN(value) && value !== null;
 }
+
+export const arrayHasElementValidation = (value) => {
+  if(value) {
+    let notDeletedValue = value.filter(element => (!element.deleted) );
+    return notDeletedValue.length !== 0;
+  }
+  else return false;
+}
+
+export const dateIsBeforeOtherValidation = (date1, date2) => {
+  let d1 = new Date(date1);
+  let d2 = new Date(date2);
+  return d1 < d2;
+}

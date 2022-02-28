@@ -1,4 +1,4 @@
-import { Checkbox, FormControlLabel } from "@mui/material";
+import { Checkbox } from "@mui/material";
 import React from "react";
 
 const EVCheckbox = (props) => {

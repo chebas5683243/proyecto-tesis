@@ -7,7 +7,12 @@ const EVTextField = ({ size, ...props }) => {
     <StyledCustomTextField
       variant="outlined"
       color="secondary"
-      autoComplete="off"
+      inputProps={{
+        autoComplete: 'new-password',
+        form: {
+          autoComplete: 'off',
+        },
+      }}
       wsize={getSizeToPercentage(size)}
       InputLabelProps={{ shrink: true }}
       {...props}

@@ -1,6 +1,6 @@
 import { Modal } from "@mui/material";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import EVAutocomplete from "../../../components/atoms/EVAutocomplete.atom";
 import EVButton from "../../../components/atoms/EVButton.atom";
 import EVCheckbox from "../../../components/atoms/EVCheckbox.atom";

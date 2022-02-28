@@ -33,7 +33,7 @@ export const StyledCustomTextField = styled(StyledTextField)`
       background-color: ${props => props.theme.disabledColor};
     }
 
-    input:disabled{
+    input:disabled, textarea:disabled{
       -webkit-text-fill-color: #000;
       color: #000;
     }
