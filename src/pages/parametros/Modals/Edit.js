@@ -1,10 +1,13 @@
-import { Modal } from "@mui/material";
+import { FormControlLabel, Modal, Radio, RadioGroup } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import EVAutocomplete from "../../../components/atoms/EVAutocomplete.atom";
 import EVButton from "../../../components/atoms/EVButton.atom";
-import EVCheckbox from "../../../components/atoms/EVCheckbox.atom";
 import EVTextField from "../../../components/atoms/EVTextField.atom";
+import EstandarValues from "../../../components/molecules/parametros/EstandarValues.molecule";
+import MatrizAQI from "../../../components/molecules/parametros/MatrizAQI.molecules";
+import NoAplica from "../../../components/molecules/parametros/NoAplica.molecule";
+import WQIValues from "../../../components/molecules/parametros/WQIValues.molecule";
 import ApiRoutes from "../../../constants/ApiRoutes.constants";
 import Config from "../../../constants/Config.constants";
 import useForm from "../../../hooks/useForm.hook";
@@ -20,12 +23,24 @@ const EditParametros = ({ open, handleCloseModal, fetchParametros, selectedId, s
     nombre_corto: '',
     unidad: {
       id: 0,
-      label: 'Selecciona una unidad'
+      label: 'Selecciona una unidad',
+      nombre_corto: ''
     },
+    modo_parametros: "usa_estandar",
+    usa_aqi: false,
+    aqi_1: '',
+    aqi_2: '',
+    aqi_3: '',
+    aqi_4: '',
+    aqi_5: '',
+    usa_wqi: false,
+    valor_ideal: '',
+    usa_estandar: true,
     tiene_maximo: false,
     valor_maximo: '',
     tiene_minimo: false,
-    valor_minimo: ''
+    valor_minimo: '',
+    no_aplica: false,
   });
 
   const {loadingParametro, parametro, fetchParametro} = useFetchDetalleParametro();
@@ -56,16 +71,40 @@ const EditParametros = ({ open, handleCloseModal, fetchParametros, selectedId, s
       nombre_corto: '',
       unidad: {
         id: 0,
-        label: 'Selecciona una unidad'
+        label: 'Selecciona una unidad',
+        nombre_corto: ''
       },
+      modo_parametros: "usa_estandar",
+      usa_aqi: false,
+      aqi_1: '',
+      aqi_2: '',
+      aqi_3: '',
+      aqi_4: '',
+      aqi_5: '',
+      usa_wqi: false,
+      valor_ideal: '',
+      usa_estandar: true,
       tiene_maximo: false,
       valor_maximo: '',
       tiene_minimo: false,
-      valor_minimo: ''
+      valor_minimo: '',
+      no_aplica: false,
     });
     setErrors({});
     setSelectedId(null);
     handleCloseModal("edit");
+  }
+
+  const handleChangeRadio = (e) => {
+    setValues(p => ({
+      ...p,
+      usa_aqi: false,
+      usa_wqi: false,
+      usa_estandar: false,
+      no_aplica: false,
+      modo_parametros: e.target.value,
+      [e.target.value]: true,
+    }));
   }
 
   useEffect(() => {
@@ -83,81 +122,90 @@ const EditParametros = ({ open, handleCloseModal, fetchParametros, selectedId, s
       open={open}
       onClose={handleClose}
     >
-      <ModalContainer>
+      <ModalContainer className="two-sides-modal">
         <div className="title">
           <span>Editar parámetro</span>
         </div>
-        <form className="fields-container" onSubmit={handleSave}>
-          <EVTextField
-            disabled={loadingParametro}
-            type="text"
-            label="NOMBRE"
-            size={4}
-            name="nombre"
-            value={values.nombre}
-            error={errors.nombre ? true : false}
-            helperText={errors.nombre}
-            onChange={handleInputChange} />
+        <form className="two-sides-form" onSubmit={handleSave}>
+          <div className="fields-section">
+            <div className="fields-container">
+              <EVTextField
+                disabled={loadingParametro}
+                type="text"
+                label="NOMBRE"
+                size={4}
+                name="nombre"
+                value={values.nombre}
+                error={errors.nombre ? true : false}
+                helperText={errors.nombre}
+                onChange={handleInputChange} />
 
-          <EVTextField
-            disabled={loadingParametro}
-            type="text"
-            label="NOMBRE CORTO"
-            size={4}
-            name="nombre_corto"
-            value={values.nombre_corto}
-            error={errors.nombre_corto ? true : false}
-            helperText={errors.nombre_corto}
-            onChange={handleInputChange} />
+              <EVTextField
+                disabled={loadingParametro}
+                type="text"
+                label="NOMBRE CORTO"
+                size={4}
+                name="nombre_corto"
+                value={values.nombre_corto}
+                error={errors.nombre_corto ? true : false}
+                helperText={errors.nombre_corto}
+                onChange={handleInputChange} />
 
-          <EVAutocomplete
-            disabled={loadingParametro}
-            label="UNIDAD DE MEDIDA"
-            size={4}
-            options={unidades}
-            name="unidad"
-            value={values.unidad}
-            setValues={setValues}
-            error={errors.unidad ? true : false}
-            helperText={errors.unidad}
-            />
+              <EVAutocomplete
+                disabled={loadingParametro}
+                label="UNIDAD DE MEDIDA"
+                size={4}
+                options={unidades}
+                name="unidad"
+                value={values.unidad}
+                setValues={setValues}
+                error={errors.unidad ? true : false}
+                helperText={errors.unidad}
+              />
 
-          <div className="check-field-container">
-            <EVCheckbox
-              disabled={loadingParametro}
-              name="tiene_maximo"
-              checked={values.tiene_maximo}
-              onChange={handleCheckChange}/>
-              
-            <EVTextField
-              disabled={!values.tiene_maximo}
-              type="number"
-              label="VALOR MÁXIMO ADMISIBLE POR DEFECTO"
-              size={4}
-              name="valor_maximo"
-              value={values.tiene_maximo ? values.valor_maximo : ""}
-              error={errors.valor_maximo ? true : false}
-              helperText={errors.valor_maximo}
-              onChange={handleInputChange} />
-          </div>
+              <RadioGroup
+                  value={values.modo_parametros}
+                  onChange={handleChangeRadio}
+                >
+                <FormControlLabel value="usa_aqi" control={<Radio />} label="AQI" />
+                <FormControlLabel value="usa_wqi" control={<Radio />} label="WQI" />
+                <FormControlLabel value="usa_estandar" control={<Radio />} label="Estándar" />
+                <FormControlLabel value="no_aplica" control={<Radio />} label="No aplica" />
+              </RadioGroup>
 
-          <div className="check-field-container">
-            <EVCheckbox
-              disabled={loadingParametro}
-              name="tiene_minimo"
-              checked={values.tiene_minimo}
-              onChange={handleCheckChange}/>
-              
-            <EVTextField
-              disabled={!values.tiene_minimo}
-              type="number"
-              label="VALOR MÍNIMO ADMISIBLE POR DEFECTO"
-              size={4}
-              name="valor_minimo"
-              value={values.tiene_minimo ? values.valor_minimo : ""}
-              error={errors.valor_minimo ? true : false}
-              helperText={errors.valor_minimo}
-              onChange={handleInputChange} />
+            </div>
+            
+            <div className="parameters">
+              {values.usa_estandar ?
+                <EstandarValues
+                  values={values}
+                  errors={errors}
+                  handleInputChange={handleInputChange}
+                  handleCheckChange={handleCheckChange}
+                />
+                : null
+              }
+              {values.usa_aqi ?
+                <MatrizAQI
+                  values={values}
+                  errors={errors}
+                  handleInputChange={handleInputChange}
+                />
+                : null
+              }
+              {values.usa_wqi ?
+                <WQIValues
+                  values={values}
+                  errors={errors}
+                  handleInputChange={handleInputChange}
+                />
+                : null
+              }
+              {values.no_aplica ?
+                <NoAplica />
+                : null
+              }
+            </div>
           </div>
 
           <div className="buttons-container">

@@ -64,7 +64,7 @@ const EditFases = ({fases, setValues}) => {
     }
     else {
       let remainingFases = [...fases];
-      remainingFases.map(fase => {
+      remainingFases.forEach(fase => {
         if(fase.id === deletedFase.id) fase.deleted = true;
       })
       setValues(p => ({
@@ -77,7 +77,7 @@ const EditFases = ({fases, setValues}) => {
   const endFase = (endedFase) => {
     let modifiedFases = [...fases];
     let setEnProgreso = false;
-    modifiedFases.map(fase => {
+    modifiedFases.forEach(fase => {
       if(setEnProgreso && !fase.deleted) {
         fase.estado = 2;
         setEnProgreso = false;

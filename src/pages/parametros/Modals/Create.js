@@ -1,9 +1,8 @@
-import { FormControlLabel, InputAdornment, Modal, Radio, RadioGroup } from "@mui/material";
+import { FormControlLabel, Modal, Radio, RadioGroup } from "@mui/material";
 import axios from "axios";
 import { useState } from "react";
 import EVAutocomplete from "../../../components/atoms/EVAutocomplete.atom";
 import EVButton from "../../../components/atoms/EVButton.atom";
-import EVCheckbox from "../../../components/atoms/EVCheckbox.atom";
 import EVTextField from "../../../components/atoms/EVTextField.atom";
 import EstandarValues from "../../../components/molecules/parametros/EstandarValues.molecule";
 import MatrizAQI from "../../../components/molecules/parametros/MatrizAQI.molecules";
@@ -179,7 +178,11 @@ const CreateParametros = ({ open, handleCloseModal, fetchParametros }) => {
                 : null
               }
               {values.usa_wqi ?
-                <WQIValues />
+                <WQIValues
+                  values={values}
+                  errors={errors}
+                  handleInputChange={handleInputChange}
+                />
                 : null
               }
               {values.no_aplica ?

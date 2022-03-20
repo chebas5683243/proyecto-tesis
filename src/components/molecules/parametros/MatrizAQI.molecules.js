@@ -1,39 +1,9 @@
 import { Error, Help } from "@mui/icons-material";
-import { IconButton, InputAdornment, TextField, Tooltip } from "@mui/material";
+import { IconButton, InputAdornment, Tooltip } from "@mui/material";
 import { MatrixAQIContainer } from "../../../styles/parametros/MatrixAQI.style";
 import { ParamsTextField } from "../../../styles/TextField.style";
 
 const MatrizAQI = ({ values, errors, handleInputChange, disabled }) => {
-
-  const handleRangeChange = (e) => {
-    const {name, value} = e.target;
-    let change = true;
-    // switch (name) {
-    //   case "aqi_1":
-    //     change = value > 0;
-    //     break;
-
-    //   case "aqi_2":
-    //     change = value > values.aqi_1;
-    //     break;
-
-    //   case "aqi_3":
-    //     change = value > values.aqi_2;
-    //     break;
-
-    //   case "aqi_4":
-    //     change = value > values.aqi_3;
-    //     break;
-
-    //   case "aqi_5":
-    //     change = value > values.aqi_4;
-    //     break;
-
-    //   default:
-    //     break;
-    // }
-    if(change) handleInputChange(e);
-  }
 
   return (
     <MatrixAQIContainer>
@@ -144,7 +114,7 @@ const MatrizAQI = ({ values, errors, handleInputChange, disabled }) => {
               type="number"
               disabled={disabled}
               value={values.aqi_1}
-              onChange={handleRangeChange}
+              onChange={handleInputChange}
               name="aqi_1"
               error={errors.aqi_1 ? true : false}
               InputProps={{
@@ -164,7 +134,7 @@ const MatrizAQI = ({ values, errors, handleInputChange, disabled }) => {
               type="number"
               disabled={disabled}
               value={values.aqi_2}
-              onChange={handleRangeChange}
+              onChange={handleInputChange}
               name="aqi_2"
               error={errors.aqi_2 ? true : false}
               InputProps={{
@@ -184,7 +154,7 @@ const MatrizAQI = ({ values, errors, handleInputChange, disabled }) => {
               type="number"
               disabled={disabled}
               value={values.aqi_3}
-              onChange={handleRangeChange}
+              onChange={handleInputChange}
               name="aqi_3"
               error={errors.aqi_3 ? true : false}
               InputProps={{
@@ -204,7 +174,7 @@ const MatrizAQI = ({ values, errors, handleInputChange, disabled }) => {
               type="number"
               disabled={disabled}
               value={values.aqi_4}
-              onChange={handleRangeChange}
+              onChange={handleInputChange}
               name="aqi_4"
               error={errors.aqi_4 ? true : false}
               InputProps={{

@@ -84,21 +84,20 @@ export const validateCreateParametro = (values) => {
   temp.nombre = notBlankValidation(values.nombre) ? false : "Este campo no puede ser vacío";
   temp.nombre_corto = notBlankValidation(values.nombre_corto) ? false : "Este campo no puede ser vacío";
   temp.unidad = isAssignedValidation(values.unidad) ? false : "Seleccione una unidad";
-  // if(values.usa_aqi) {
+  if(values.usa_aqi) {
     temp.aqi_1 = isNumberValidation(values.aqi_1) ? rangeValidation(values.aqi_1, 0) ? false : "El rango debe ser válido" : "Este campo no puede ser vacío";
     temp.aqi_2 = isNumberValidation(values.aqi_2) ? rangeValidation(values.aqi_2, values.aqi_1) ? false : "El rango debe ser válido" : "Este campo no puede ser vacío";
     temp.aqi_3 = isNumberValidation(values.aqi_3) ? rangeValidation(values.aqi_3, values.aqi_2) ? false : "El rango debe ser válido" : "Este campo no puede ser vacío";
     temp.aqi_4 = isNumberValidation(values.aqi_4) ? rangeValidation(values.aqi_4, values.aqi_3) ? false : "El rango debe ser válido" : "Este campo no puede ser vacío";
     temp.aqi_5 = isNumberValidation(values.aqi_5) ? rangeValidation(values.aqi_5, values.aqi_4) ? false : "El rango debe ser válido" : "Este campo no puede ser vacío";
-  // }
-  // else if(values.usa_wqi) {
-    
-  // }
-  // else if(values.usa_estandar) {
-
-  // }
-  if(values.tiene_minimo) temp.valor_minimo = isNumberValidation(values.valor_minimo) ? false : "Este campo no puede ser vacío";
-  if(values.tiene_maximo) temp.valor_maximo = isNumberValidation(values.valor_maximo) ? false : "Este campo no puede ser vacío";
+  }
+  else if(values.usa_wqi) {
+    temp.valor_ideal = isNumberValidation(values.valor_ideal) ? false : "Este campo no puede ser vacío";
+  }
+  else if(values.usa_estandar) {
+    if(values.tiene_minimo) temp.valor_minimo = isNumberValidation(values.valor_minimo) ? false : "Este campo no puede ser vacío";
+    if(values.tiene_maximo) temp.valor_maximo = isNumberValidation(values.valor_maximo) ? false : "Este campo no puede ser vacío";
+  }
 
   return parseValidation(temp);
 }

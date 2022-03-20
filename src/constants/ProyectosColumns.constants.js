@@ -1,5 +1,5 @@
 import { GridActionsCellItem } from '@mui/x-data-grid';
-import { AssignmentTurnedIn, Circle, Delete, Edit, RemoveRedEye, SettingsBackupRestore } from '@mui/icons-material';
+import { AssignmentTurnedIn, Circle, Delete, Edit, RemoveRedEye } from '@mui/icons-material';
 import { useHistory } from 'react-router';
 import { Box } from '@mui/material';
 
