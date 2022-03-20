@@ -24,6 +24,7 @@ import React from 'react';
 import CreateProyecto from '../pages/proyectos/Create';
 import DetalleProyecto from '../pages/proyectos/[proyecto]';
 import EditProyecto from '../pages/proyectos/[proyecto]/Edit';
+import CreateTipoIncidente from '../pages/tipoIncidente/Create';
 
 const Router = () => {
 
@@ -45,24 +46,30 @@ const Router = () => {
           <Switch >
             <Route exact path="/" render={() => <Redirect to="/proyectos" />} />
             <Route exact path="/unidadesMedida" component={UnidadesMedida} />
+
             <Route exact path="/parametros" component={Parametros} />
+
             <Route exact path="/empresas" component={Empresas} />
             <Route exact path="/empresas/create" component={CreateEmpresa} />
             <Route exact path="/empresas/:id" component={DetalleEmpresa} />
             <Route exact path="/empresas/:id/edit" component={EditEmpresa} />
+
             <Route exact path="/usuarios" component={Usuarios} />
             <Route exact path="/usuarios/create" component={CreateUsuario}/>
             <Route exact path="/usuarios/:id" component={DetalleUsuario}/>
             <Route exact path="/usuarios/:id/edit" component={EditUsuario}/>
+
             <Route exact path="/proyectos" component={Proyectos} />
             <Route exact path="/proyectos/create" component={CreateProyecto} />
             <Route exact path="/proyectos/:id" component={DetalleProyecto} />
             <Route exact path="/proyectos/:id/edit" component={EditProyecto} />
             
+            <Route exact path="/tipoIncidentes" component={TipoIncidentes} />
+            <Route exact path="/tipoIncidentes/create" component={CreateTipoIncidente} />
+            
             <Route exact path="/incidentes" component={Incidentes} />
             <Route exact path="/monitoreoAmbiental" component={MonitoreoAmbiental} />
             <Route exact path="/repositorio" component={Repositorio} />
-            <Route exact path="/tipoIncidentes" component={TipoIncidentes} />
             <Route render={() => <Redirect to="/proyectos" />} />
           </Switch>
         </React.Fragment>

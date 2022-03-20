@@ -1,7 +1,7 @@
 import axios from "axios";
 import ApiRoutes from "../constants/ApiRoutes.constants";
 import Config from "../constants/Config.constants";
-import { arrayHasElementValidation, dateIsBeforeOtherValidation, dniValidation, emailValidation, isAssignedValidation, isNumberValidation, notBlankValidation, notNullValidation, rucValidation } from "./singleValidations"
+import { arrayHasElementValidation, dateIsBeforeOtherValidation, dniValidation, emailValidation, isAssignedValidation, isNumberValidation, notBlankValidation, notNullValidation, rangeValidation, rucValidation } from "./singleValidations"
 
 export const parseValidation = (temp) => {
   return {isValid: Object.values(temp).every(x => x === false), errors: temp};
@@ -84,6 +84,19 @@ export const validateCreateParametro = (values) => {
   temp.nombre = notBlankValidation(values.nombre) ? false : "Este campo no puede ser vacío";
   temp.nombre_corto = notBlankValidation(values.nombre_corto) ? false : "Este campo no puede ser vacío";
   temp.unidad = isAssignedValidation(values.unidad) ? false : "Seleccione una unidad";
+  // if(values.usa_aqi) {
+    temp.aqi_1 = isNumberValidation(values.aqi_1) ? rangeValidation(values.aqi_1, 0) ? false : "El rango debe ser válido" : "Este campo no puede ser vacío";
+    temp.aqi_2 = isNumberValidation(values.aqi_2) ? rangeValidation(values.aqi_2, values.aqi_1) ? false : "El rango debe ser válido" : "Este campo no puede ser vacío";
+    temp.aqi_3 = isNumberValidation(values.aqi_3) ? rangeValidation(values.aqi_3, values.aqi_2) ? false : "El rango debe ser válido" : "Este campo no puede ser vacío";
+    temp.aqi_4 = isNumberValidation(values.aqi_4) ? rangeValidation(values.aqi_4, values.aqi_3) ? false : "El rango debe ser válido" : "Este campo no puede ser vacío";
+    temp.aqi_5 = isNumberValidation(values.aqi_5) ? rangeValidation(values.aqi_5, values.aqi_4) ? false : "El rango debe ser válido" : "Este campo no puede ser vacío";
+  // }
+  // else if(values.usa_wqi) {
+    
+  // }
+  // else if(values.usa_estandar) {
+
+  // }
   if(values.tiene_minimo) temp.valor_minimo = isNumberValidation(values.valor_minimo) ? false : "Este campo no puede ser vacío";
   if(values.tiene_maximo) temp.valor_maximo = isNumberValidation(values.valor_maximo) ? false : "Este campo no puede ser vacío";
 
@@ -117,6 +130,36 @@ export const validateCreateProyecto = (values, handleOpenSnackbar) => {
     temp.fases = "El proyecto debe contar con al menos una fase";
     handleOpenSnackbar("fases");
   }
+
+  return parseValidation(temp);
+}
+
+export const validateCreateTipoIncidente = (values, handleOpenSnackbar) => {
+  let temp = {};
+  temp.nombre = notBlankValidation(values.nombre) ? false : "Este campo no puede ser vacío";
+  if(!arrayHasElementValidation(values.parametros)) {
+    temp.parametros = "El proyecto debe contar con al menos un parámetro asociado";
+    handleOpenSnackbar("parametros");
+  }
+  if(!arrayHasElementValidation(values.personas_alertas)) {
+    temp.personas_alertas = "El proyecto debe contar con al menos una persona a alertar";
+    handleOpenSnackbar("personas_alertas");
+  }
+
+  return parseValidation(temp);
+}
+
+export const validateCreatePersona = (values) => {
+  let temp = {};
+  temp.nombre_completo = notBlankValidation(values.nombre_completo) ? false : "Este campo no puede ser vacío";
+  temp.email = emailValidation(values.email) ? false : "Email no válido";
+
+  return parseValidation(temp);
+}
+
+export const validateCreateParametroAsociado = (values) => {
+  let temp = {};
+  temp.parametro = isAssignedValidation(values.parametro) ? false : "Seleccione un parámetro";
 
   return parseValidation(temp);
 }

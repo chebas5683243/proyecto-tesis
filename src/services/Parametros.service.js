@@ -44,3 +44,27 @@ export const useFetchDetalleParametro = () => {
 
   return {loadingParametro, parametro, fetchParametro};
 }
+
+export const useSimpleListParametros = (params = {}, auto = true) => {
+  const [parametros, setParametros] = useState([]);
+  const [loadingParametros, setLoadingParametros] = useState(true);
+
+  const simpleListParametros = async function () {
+    setLoadingParametros(true);
+    setParametros([]);
+    await axios.get(`${Config.API_URL}${Config.API_PATH}${ApiRoutes.PARAMETROS}simpleListar`, {params: params})
+    .then((response) => {
+      setParametros(response.data.data.parametros);
+    })
+    .finally(() => {
+      setLoadingParametros(false);
+    })
+  };
+
+  useEffect(() => {
+    if(auto) simpleListParametros();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  return {loadingParametros, parametros, simpleListParametros};
+}

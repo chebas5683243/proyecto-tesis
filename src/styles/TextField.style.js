@@ -114,3 +114,24 @@ export const StyledSearchTextField = withStyles((theme) => ({
 export const StyledAutoComplete = withStyles(() => ({
 
 }))(Autocomplete);
+
+const AuxTextField = TextField;
+
+export const ParamsTextField = withStyles((theme) => ({
+  root: {
+    width: 150,
+    background: 'white',
+    
+    "& fieldset": {
+      borderRadius: 0,
+    },
+    "& .MuiOutlinedInput-input": {
+      height: "2.3125rem",
+      padding: "0 14px 0 14px",
+      fontSize: ".875rem", 
+    },
+    "& .Mui-disabled": {
+      background: theme.disabledColor,
+    }
+  }
+}))(AuxTextField);
