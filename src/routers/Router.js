@@ -25,6 +25,8 @@ import CreateProyecto from '../pages/proyectos/Create';
 import DetalleProyecto from '../pages/proyectos/[proyecto]';
 import EditProyecto from '../pages/proyectos/[proyecto]/Edit';
 import CreateTipoIncidente from '../pages/tipoIncidente/Create';
+import DetalleTipoIncidente from '../pages/tipoIncidente/[tipoIncidente]';
+import EditTipoIncidente from '../pages/tipoIncidente/[tipoIncidente]/Edit';
 
 const Router = () => {
 
@@ -66,6 +68,8 @@ const Router = () => {
             
             <Route exact path="/tipoIncidentes" component={TipoIncidentes} />
             <Route exact path="/tipoIncidentes/create" component={CreateTipoIncidente} />
+            <Route exact path="/tipoIncidentes/:id" component={DetalleTipoIncidente}/>
+            <Route exact path="/tipoIncidentes/:id/edit" component={EditTipoIncidente} />
             
             <Route exact path="/incidentes" component={Incidentes} />
             <Route exact path="/monitoreoAmbiental" component={MonitoreoAmbiental} />

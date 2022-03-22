@@ -45,12 +45,24 @@ const CreatePersonas = ({disabled, personas_alertas, setValues}) => {
   }
 
   const deletePersona = (deletedPersona) => {
-    setValues(p => ({
-      ...p,
-      personas_alertas: personas_alertas.filter(persona => {
-        return persona.id !== deletedPersona.id;
-      })
-    }))
+    if(deletedPersona.creado) {
+      setValues(p => ({
+        ...p,
+        personas_alertas: personas_alertas.filter(persona => {
+          return persona.id !== deletedPersona.id;
+        })
+      }))
+    }
+    else {
+      let remainingPersonas = [...personas_alertas];
+      remainingPersonas.forEach(persona => {
+        if(persona.id === deletedPersona.id) persona.eliminado = true;
+      });
+      setValues(p => ({
+        ...p,
+        personas_alertas: remainingPersonas
+      }))
+    }
   }
 
   const columnasDetalle = useColumnsListDetallePersonas();
@@ -68,7 +80,9 @@ const CreatePersonas = ({disabled, personas_alertas, setValues}) => {
       }
       <EVDataGridSecondary
         columns={disabled ? columnasDetalle : columnasCreate}
-        rows={personas_alertas}
+        rows={personas_alertas.filter(persona => {
+          return !persona.eliminado;
+        })}
       />
       <AddPersonaModal open={openModal.create} handleCloseModal={handleCloseModal} addPersona={addPersona}/>
       <DeletePersona open={openModal.delete} handleCloseModal={handleCloseModal} persona={selectedPersona} setSelectedPersona={setSelectedPersona} deletePersona={deletePersona}/>

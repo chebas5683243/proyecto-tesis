@@ -11,6 +11,7 @@ const AddPersonaModal = ({open, handleCloseModal, addPersona}) => {
     id: '_' + Math.random().toString(36).substr(2, 9),
     nombre_completo: '',
     email: '',
+    creado: true
   });
 
   const handleSave = (e) => {
@@ -29,6 +30,7 @@ const AddPersonaModal = ({open, handleCloseModal, addPersona}) => {
       id: '_' + Math.random().toString(36).substr(2, 9),
       nombre_completo: '',
       email: '',
+      creado: true
     });
     handleCloseModal("create");
   }

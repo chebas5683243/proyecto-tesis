@@ -45,12 +45,24 @@ const CreateParametros = ({disabled, parametros, setValues}) => {
   }
 
   const deleteParametro = (deletedParametro) => {
-    setValues(p => ({
-      ...p,
-      parametros: parametros.filter(parametro => {
-        return parametro.id !== deletedParametro.id;
-      })
-    }))
+    if(deletedParametro.creado) {
+      setValues(p => ({
+        ...p,
+        parametros: parametros.filter(parametro => {
+          return parametro.id !== deletedParametro.id;
+        })
+      }))
+    }
+    else {
+      let remainingParametros = [...parametros];
+      remainingParametros.forEach(parametro => {
+        if(parametro.id === deletedParametro.id) parametro.eliminado = true;
+      });
+      setValues(p => ({
+        ...p,
+        parametros: remainingParametros
+      }))
+    }
   }
 
   const columnasDetalle = useColumnsListDetalleParametros();
@@ -68,7 +80,9 @@ const CreateParametros = ({disabled, parametros, setValues}) => {
       }
       <EVDataGridSecondary
         columns={disabled ? columnasDetalle : columnasCreate}
-        rows={parametros}
+        rows={parametros.filter(parametro => {
+          return !parametro.eliminado;
+        })}
       />
       <AddParametroModal open={openModal.create} handleCloseModal={handleCloseModal} addParametro={addParametro}/>
       <DeleteParametro open={openModal.delete} handleCloseModal={handleCloseModal} parametro={selectedParametro} setSelectedParametro={setSelectedParametro} deleteParametro={deleteParametro}/>

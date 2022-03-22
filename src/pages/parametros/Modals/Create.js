@@ -50,7 +50,6 @@ const CreateParametros = ({ open, handleCloseModal, fetchParametros }) => {
     e.preventDefault();
     setErrors(f => ({}));
     let validation = validateCreateParametro(values);
-    console.log(validation.errors);
     setErrors(f => validation.errors);
     if (validation.isValid) {
       setLoadingCreate(true);

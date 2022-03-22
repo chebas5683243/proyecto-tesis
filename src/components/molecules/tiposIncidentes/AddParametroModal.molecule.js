@@ -2,18 +2,19 @@ import { Modal } from "@mui/material";
 import useForm from "../../../hooks/useForm.hook";
 import { useSimpleListParametros } from "../../../services/Parametros.service";
 import { ModalContainer } from "../../../styles/containers/Modal.style";
-import { validateCreateFase, validateCreateParametroAsociado } from "../../../utils/formValidations";
+import { validateCreateParametroAsociado } from "../../../utils/formValidations";
 import EVAutocomplete from "../../atoms/EVAutocomplete.atom";
 import EVButton from "../../atoms/EVButton.atom";
 
 const AddParametroModal = ({open, handleCloseModal, addParametro}) => {
 
-  const { values, setValues, errors, setErrors, handleInputChange } = useForm({
+  const { values, setValues, errors, setErrors } = useForm({
     id: '_' + Math.random().toString(36).substr(2, 9),
     parametro: {
       id: 0,
       label: 'Selecciona un parametro'
     },
+    creado: true
   });
 
   const { parametros } = useSimpleListParametros();
@@ -36,6 +37,7 @@ const AddParametroModal = ({open, handleCloseModal, addParametro}) => {
         id: 0,
         label: 'Selecciona un parametro'
       },
+      creado: true
     });
     handleCloseModal("create");
   }

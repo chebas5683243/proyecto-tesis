@@ -119,10 +119,11 @@ export const useColumnsListDetalleParametros = () => {
 
   return [
     {
-      field: 'nombre',
+      field: 'parametro',
       headerName: 'PARÁMETRO RELACIONADO',
-      flex: 2
-    }
+      flex: 2,
+      valueFormatter: (params) => params.value.label,
+    },
   ];
 }
 
