@@ -20,6 +20,7 @@ import UnidadesMedida from '../pages/unidadesMedida';
 import Login from '../pages/seguridad/Login';
 import { useContext } from 'react';
 import { UserContext } from '../context/UserContext';
+import { ProjectProvider } from '../context/ProjectContext';
 import React from 'react';
 import CreateProyecto from '../pages/proyectos/Create';
 import DetalleProyecto from '../pages/proyectos/[proyecto]';
@@ -27,6 +28,7 @@ import EditProyecto from '../pages/proyectos/[proyecto]/Edit';
 import CreateTipoIncidente from '../pages/tipoIncidente/Create';
 import DetalleTipoIncidente from '../pages/tipoIncidente/[tipoIncidente]';
 import EditTipoIncidente from '../pages/tipoIncidente/[tipoIncidente]/Edit';
+import MonitoreoProyecto from '../pages/monitoreo/[proyecto]';
 
 const Router = () => {
 
@@ -71,8 +73,12 @@ const Router = () => {
             <Route exact path="/tipoIncidentes/:id" component={DetalleTipoIncidente}/>
             <Route exact path="/tipoIncidentes/:id/edit" component={EditTipoIncidente} />
             
+            <ProjectProvider>
+              <Route exact path="/monitoreoAmbiental" component={MonitoreoAmbiental} />
+              <Route path="/monitoreoAmbiental/:idProyecto" component={MonitoreoProyecto} />
+            </ProjectProvider>
+            
             <Route exact path="/incidentes" component={Incidentes} />
-            <Route exact path="/monitoreoAmbiental" component={MonitoreoAmbiental} />
             <Route exact path="/repositorio" component={Repositorio} />
             <Route render={() => <Redirect to="/proyectos" />} />
           </Switch>

@@ -162,3 +162,13 @@ export const validateCreateParametroAsociado = (values) => {
 
   return parseValidation(temp);
 }
+
+export const validateCreatePuntoMonitoreo = (values) => {
+  let temp = {};
+  temp.nombre = notBlankValidation(values.nombre) ? false : "Este campo no puede ser vacío";
+  temp.longitud = isNumberValidation(values.longitud) ? false : "Este campo no puede ser vacío";
+  temp.latitud = isNumberValidation(values.latitud) ? false : "Este campo no puede ser vacío";
+  temp.altitud = isNumberValidation(values.altitud) ? false : "Este campo no puede ser vacío";
+
+  return parseValidation(temp);
+}

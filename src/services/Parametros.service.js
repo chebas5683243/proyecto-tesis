@@ -68,3 +68,27 @@ export const useSimpleListParametros = (params = {}, auto = true) => {
 
   return {loadingParametros, parametros, simpleListParametros};
 }
+
+export const useListParametrosConParametrizacion = (params = {}, auto = true) => {
+  const [parametros, setParametros] = useState([]);
+  const [loadingParametros, setLoadingParametros] = useState(true);
+
+  const simpleListParametros = async function () {
+    setLoadingParametros(true);
+    setParametros([]);
+    await axios.get(`${Config.API_URL}${Config.API_PATH}${ApiRoutes.PARAMETROS}listarConParametrizacion`, {params: params})
+    .then((response) => {
+      setParametros(response.data.data.parametros);
+    })
+    .finally(() => {
+      setLoadingParametros(false);
+    })
+  };
+
+  useEffect(() => {
+    if(auto) simpleListParametros();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  return {loadingParametros, parametros, simpleListParametros};
+}

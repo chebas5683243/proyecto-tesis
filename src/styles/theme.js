@@ -21,6 +21,8 @@ const theme = createTheme({
   },
   inputPrimaryColor: '#001d65',
   inputSecondaryColor: '#0030A8',
+  inputSecondaryColorLight: '#0030A811',
+  azulOscuro: '#001F7B',
   disabledColor: '#f3f3f3',
   gray: '#4F4F4F',
   gray3: '#828282',

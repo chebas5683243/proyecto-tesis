@@ -3,7 +3,7 @@ import React, { createContext, useState } from 'react';
 export const UserContext = createContext({
     infoUsuario: null,
     setInfoUsuario: () => {},
-    token: null, //contiene la informacion de los cursos
+    token: null,
     setToken: () => {}
 });
 

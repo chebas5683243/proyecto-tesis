@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { DataGridPrimaryStyle } from '../../styles/DataGrid.style';
 // import { GridToolbar } from '@mui/x-data-grid-pro';
 
-const EVDataGrid = ({loading, rows, columns}) => {
+const EVDataGrid = ({rowHeight, loading, rows, columns}) => {
 
   const [ pageSize, setPageSize ] = useState(10);
 
@@ -12,6 +12,7 @@ const EVDataGrid = ({loading, rows, columns}) => {
       <div style={{ display: 'flex', height: '100%' }}>
         <div style={{ flexGrow: 1 }}>
           <DataGridPrimaryStyle
+            rowHeight={rowHeight || 50}
             loading={loading}
             autoHeight
             rows={rows}
