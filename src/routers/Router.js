@@ -3,7 +3,13 @@ import NavBar from '../components/organisms/Navbar.organism';
 import SideBar from '../components/organisms/Sidebar.organism';
 import { NavbarProvider } from '../context/NavbarContext';
 import Usuarios from '../pages/usuarios';
+import CreateUsuario from '../pages/usuarios/Create';
+import DetalleUsuario from '../pages/usuarios/[usuario]';
+import EditUsuario from '../pages/usuarios/[usuario]/Edit';
 import Empresas from '../pages/empresas';
+import CreateEmpresa from '../pages/empresas/Create';
+import DetalleEmpresa from '../pages/empresas/[empresa]';
+import EditEmpresa from '../pages/empresas/[empresa]/Edit';
 import Incidentes from '../pages/incidentes';
 import MonitoreoAmbiental from '../pages/monitoreo';
 import Parametros from '../pages/parametros';
@@ -11,14 +17,18 @@ import Proyectos from '../pages/proyectos';
 import Repositorio from '../pages/repositorio';
 import TipoIncidentes from '../pages/tipoIncidente';
 import UnidadesMedida from '../pages/unidadesMedida';
-import CrearUsuario from '../pages/usuarios/CrearUsuario';
-import DetalleUsuario from '../pages/usuarios/DetalleUsuario';
-import EditarUsuario from '../pages/usuarios/EditarUsuario';
 import Login from '../pages/seguridad/Login';
-import { useEffect, useContext } from 'react';
+import { useContext } from 'react';
 import { UserContext } from '../context/UserContext';
+import { ProjectProvider } from '../context/ProjectContext';
 import React from 'react';
-import CrearProyecto from '../pages/proyectos/CrearProyecto';
+import CreateProyecto from '../pages/proyectos/Create';
+import DetalleProyecto from '../pages/proyectos/[proyecto]';
+import EditProyecto from '../pages/proyectos/[proyecto]/Edit';
+import CreateTipoIncidente from '../pages/tipoIncidente/Create';
+import DetalleTipoIncidente from '../pages/tipoIncidente/[tipoIncidente]';
+import EditTipoIncidente from '../pages/tipoIncidente/[tipoIncidente]/Edit';
+import MonitoreoProyecto from '../pages/monitoreo/[proyecto]';
 
 const Router = () => {
 
@@ -39,21 +49,37 @@ const Router = () => {
           </NavbarProvider>
           <Switch >
             <Route exact path="/" render={() => <Redirect to="/proyectos" />} />
-            <Route exact path="/empresas" component={Empresas} />
-            <Route exact path="/incidentes" component={Incidentes} />
-            <Route exact path="/monitoreoAmbiental" component={MonitoreoAmbiental} />
-            <Route exact path="/parametros" component={Parametros} />
-            <Route exact path="/proyectos" component={Proyectos} />
-            <Route exact path="/proyectos/crear" component={CrearProyecto} />
-            <Route exact path="/proyectos/detalle/:id" component={Proyectos} />
-            <Route exact path="/proyectos/editar/:id" component={Proyectos} />
-            <Route exact path="/repositorio" component={Repositorio} />
-            <Route exact path="/tipoIncidentes" component={TipoIncidentes} />
             <Route exact path="/unidadesMedida" component={UnidadesMedida} />
+
+            <Route exact path="/parametros" component={Parametros} />
+
+            <Route exact path="/empresas" component={Empresas} />
+            <Route exact path="/empresas/create" component={CreateEmpresa} />
+            <Route exact path="/empresas/:id" component={DetalleEmpresa} />
+            <Route exact path="/empresas/:id/edit" component={EditEmpresa} />
+
             <Route exact path="/usuarios" component={Usuarios} />
-            <Route exact path="/usuarios/crear" component={CrearUsuario}/>
-            <Route exact path="/usuarios/detalle/:id" component={DetalleUsuario}/>
-            <Route exact path="/usuarios/editar/:id" component={EditarUsuario}/>
+            <Route exact path="/usuarios/create" component={CreateUsuario}/>
+            <Route exact path="/usuarios/:id" component={DetalleUsuario}/>
+            <Route exact path="/usuarios/:id/edit" component={EditUsuario}/>
+
+            <Route exact path="/proyectos" component={Proyectos} />
+            <Route exact path="/proyectos/create" component={CreateProyecto} />
+            <Route exact path="/proyectos/:id" component={DetalleProyecto} />
+            <Route exact path="/proyectos/:id/edit" component={EditProyecto} />
+            
+            <Route exact path="/tipoIncidentes" component={TipoIncidentes} />
+            <Route exact path="/tipoIncidentes/create" component={CreateTipoIncidente} />
+            <Route exact path="/tipoIncidentes/:id" component={DetalleTipoIncidente}/>
+            <Route exact path="/tipoIncidentes/:id/edit" component={EditTipoIncidente} />
+            
+            <ProjectProvider>
+              <Route exact path="/monitoreoAmbiental" component={MonitoreoAmbiental} />
+              <Route path="/monitoreoAmbiental/:idProyecto" component={MonitoreoProyecto} />
+            </ProjectProvider>
+            
+            <Route exact path="/incidentes" component={Incidentes} />
+            <Route exact path="/repositorio" component={Repositorio} />
             <Route render={() => <Redirect to="/proyectos" />} />
           </Switch>
         </React.Fragment>

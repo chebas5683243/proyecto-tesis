@@ -1,20 +1,15 @@
-import React, { createContext, useEffect, useState } from 'react';
+import React, { createContext, useState } from 'react';
 
 export const UserContext = createContext({
     infoUsuario: null,
     setInfoUsuario: () => {},
-    token: null, //contiene la informacion de los cursos
+    token: null,
     setToken: () => {}
 });
 
 export const UserProvider = (props) => {
   const [infoUsuario, setInfoUsuario] = useState(null);
   const [token, setToken] = useState(null);
-
-  useEffect(() => {
-    setInfoUsuario(infoUsuario);
-    setToken(token);
-  }, []);
 
   return (
     <UserContext.Provider

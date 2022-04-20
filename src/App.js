@@ -1,6 +1,6 @@
 import { ThemeProvider as ThemeMaterial} from '@mui/material/styles';
 import { ThemeProvider as ThemeStyled} from 'styled-components';
-import { getToken } from './utils/authHelper';
+import { deleteToken, getToken, isEmptyObject } from './utils/authHelper';
 import React from 'react';
 import Router from './routers/Router';
 import theme from './styles/theme';
@@ -27,8 +27,13 @@ function App() {
         const { data } = await axios.post(`${Config.API_URL}${Config.API_PATH}${ApiRoutes.AUTH}me`,null,{
           headers: { 'Authorization': `Bearer ${token}` }
         });
-        setToken(token);
-        setInfoUsuario(data);
+        if(!isEmptyObject(data)) {
+          setToken(token);
+          setInfoUsuario(data);
+        }
+        else {
+          deleteToken();
+        }
         setLoadingUser(false);
       } catch(error) {
         console.log(error);
@@ -36,6 +41,7 @@ function App() {
     }
 
     loadUser();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
