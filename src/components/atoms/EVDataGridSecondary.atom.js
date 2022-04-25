@@ -12,7 +12,7 @@ const EVDataGridSecondary = ({loading, rows, columns}) => {
             autoHeight
             rows={rows}
             columns={columns}
-            density='standard'
+            density='compact'
             hideFooterSelectedRowCount
             disableSelectionOnClick
             hideFooterPagination

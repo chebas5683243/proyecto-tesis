@@ -48,6 +48,7 @@ export const useColumnsListParametros = ( setOpenModal, setSelectedId) => {
         />,
         <GridActionsCellItem
           icon={<Delete />}
+          disabled={!params.row.can_delete}
           label="Delete"
           onClick={() => handleDelete(params.id)}
         />,

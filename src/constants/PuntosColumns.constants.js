@@ -1,7 +1,5 @@
 import { GridActionsCellItem } from '@mui/x-data-grid';
 import { Circle, Delete, Edit, RemoveRedEye, SettingsBackupRestore } from '@mui/icons-material';
-import { useHistory, useParams } from 'react-router';
-import { useDeleteEmpresa, useActivateEmpresa } from '../services/Empresas.service'
 import Box from '@mui/material/Box';
 import { useContext } from 'react';
 import { ProjectContext } from '../context/ProjectContext';
@@ -9,10 +7,7 @@ import { Typography } from '@mui/material';
 
 export const useColumnsListPuntos = (setOpenModal, setSelectedId) => {
 
-  const { proyectoId, setPuntoId } = useContext(ProjectContext);
-
-  // const { deleteEmpresa } = useDeleteEmpresa();
-  // const { activateEmpresa } = useActivateEmpresa();
+  const { setPuntoId } = useContext(ProjectContext);
   
   const handleSeeDetails = (selectedId) => {
     setPuntoId(selectedId);
@@ -26,10 +21,14 @@ export const useColumnsListPuntos = (setOpenModal, setSelectedId) => {
     }));
   }
 
-  // const handleDelete = (selectedId, estado) => {
-  //   if(estado) deleteEmpresa(selectedId, fetchEmpresas);
-  //   else activateEmpresa(selectedId, fetchEmpresas);
-  // }
+  const handleActivateDeactivate = (selectedId, estado) => {
+    setSelectedId(selectedId);
+    const modal = estado ? "deactivate" : "activate";
+    setOpenModal(p => ({
+      ...p,
+      [modal]: true
+    }));
+  }
 
   return [
     {
@@ -98,7 +97,7 @@ export const useColumnsListPuntos = (setOpenModal, setSelectedId) => {
         <GridActionsCellItem
           icon={(params.row.estado ? <Delete /> : <SettingsBackupRestore />)}
           label="Delete"
-          // onClick={() => handleDelete(params.id, params.row.estado)}
+          onClick={() => handleActivateDeactivate(params.id, params.row.estado)}
         />,
       ]
     }

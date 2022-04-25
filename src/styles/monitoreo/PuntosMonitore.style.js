@@ -19,5 +19,8 @@ export const PuntosMonitoreoContainer = styled.div`
 
   .points-list {
     width: 100%;
+    padding-bottom: 0rem;
+    padding-right: 0rem;
+    min-height: unset;
   }
 `;

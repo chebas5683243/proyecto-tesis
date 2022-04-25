@@ -1,5 +1,5 @@
 import { FormControlLabel, Modal, Radio, RadioGroup } from "@mui/material";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { ProjectContext } from "../../../context/ProjectContext";
 import useForm from "../../../hooks/useForm.hook";
 import { ModalContainer } from "../../../styles/containers/Modal.style";
@@ -33,6 +33,7 @@ const AgregarParametro = ({ fetchParametros, disabled }) => {
     aqi_5: '',
     usa_wqi: false,
     valor_ideal: '',
+    valor_estandar_permisible: '',
     usa_estandar: true,
     tiene_maximo: false,
     valor_maximo: '',
@@ -60,6 +61,7 @@ const AgregarParametro = ({ fetchParametros, disabled }) => {
 
   useEffect(() => {
     if(selectedParametroPunto) setValues(selectedParametroPunto);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedParametroPunto]);
 
   return (

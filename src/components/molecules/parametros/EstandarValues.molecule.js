@@ -4,7 +4,7 @@ import { EstandarValuesContainer } from "../../../styles/parametros/EstandarValu
 import { ParamsTextField } from "../../../styles/TextField.style";
 import EVCheckbox from "../../atoms/EVCheckbox.atom";
 
-const EstandarValues = ({ values, errors, handleInputChange, handleCheckChange }) => {
+const EstandarValues = ({ values, errors, handleInputChange, handleCheckChange, disabled }) => {
   return (
     <EstandarValuesContainer>
       <span className="titulo-estandar">
@@ -19,6 +19,7 @@ const EstandarValues = ({ values, errors, handleInputChange, handleCheckChange }
       </span>
       <div className="check-field-container">
         <EVCheckbox
+          disabled={disabled}
           name="tiene_minimo"
           checked={values.tiene_minimo}
           onChange={handleCheckChange} />
@@ -28,7 +29,7 @@ const EstandarValues = ({ values, errors, handleInputChange, handleCheckChange }
         </div>
 
         <ParamsTextField
-          disabled={!values.tiene_minimo}
+          disabled={!values.tiene_minimo || disabled}
           type="number"
           name="valor_minimo"
           value={values.tiene_minimo ? values.valor_minimo : ""}
@@ -49,6 +50,7 @@ const EstandarValues = ({ values, errors, handleInputChange, handleCheckChange }
       </div>
       <div className="check-field-container">
         <EVCheckbox
+          disabled={disabled}
           name="tiene_maximo"
           checked={values.tiene_maximo}
           onChange={handleCheckChange} />
@@ -58,7 +60,7 @@ const EstandarValues = ({ values, errors, handleInputChange, handleCheckChange }
         </div>
 
         <ParamsTextField
-          disabled={!values.tiene_maximo}
+          disabled={!values.tiene_maximo || disabled}
           type="number"
           name="valor_maximo"
           value={values.tiene_maximo ? values.valor_maximo : ""}

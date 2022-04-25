@@ -5,6 +5,10 @@ import { DataGrid } from '@mui/x-data-grid';
 export const DataGridPrimaryStyle = styled(DataGrid)`
   background-color: ${props => props.theme.white};
 
+  .MuiDataGrid-overlay.css-163y13e-MuiDataGrid-overlay {
+    height: unset !important;
+  }
+
   .MuiDataGrid-columnHeaders {
     background-color: ${props => props.theme.palette.primary.main};
     color: ${props => props.theme.white};
@@ -21,6 +25,10 @@ export const DataGridPrimaryStyle = styled(DataGrid)`
 
     button {
       color: ${props => props.theme.inputSecondaryColor};
+
+      &.Mui-disabled {
+        color: ${props => props.theme.gray3};
+      }
     }
   }
 `;
@@ -53,6 +61,10 @@ export const DataGridSecondaryStyle = styled(DataGrid)`
 
     button {
       color: ${props => props.theme.inputSecondaryColor};
+
+      &.Mui-disabled {
+        color: ${props => props.theme.gray3};
+      }
     }
   }
 

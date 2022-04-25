@@ -9,4 +9,5 @@ export default class ApiRoutes {
   static UNIDADES = "unidades/";
   static TIPOS_INCIDENTES = "tipos_incidentes/";
   static PUNTOS = "puntos/";
+  static REGISTROS = "registros/";
 }

@@ -1,6 +1,5 @@
 import { Close, Save } from "@mui/icons-material";
 import { Alert, Collapse, Snackbar } from "@mui/material";
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router";
 import EVButton from "../../../components/atoms/EVButton.atom";
@@ -8,8 +7,6 @@ import EVTextField from "../../../components/atoms/EVTextField.atom";
 import CreateParametros from "../../../components/molecules/tiposIncidentes/CreateParametros.molecule";
 import CreatePersonas from "../../../components/molecules/tiposIncidentes/CreatePersonas.molecule";
 import FormHeader from "../../../components/organisms/FormHeader.organism";
-import ApiRoutes from "../../../constants/ApiRoutes.constants";
-import Config from "../../../constants/Config.constants";
 import useForm from "../../../hooks/useForm.hook";
 import { useEditTipoIncidente, useFetchDetalleTipoIncidente } from "../../../services/TipoIncidente.service";
 import { FormGroupContainer } from "../../../styles/containers/FormGroup.style";

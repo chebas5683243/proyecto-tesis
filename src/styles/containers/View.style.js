@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
 export const ListViewContainer = styled.div`
+  max-width: 1300px;
+  margin: auto;
   min-height: calc(100vh - 8rem);
   height: 100%;
   padding: 1rem 3rem 4rem 3rem;

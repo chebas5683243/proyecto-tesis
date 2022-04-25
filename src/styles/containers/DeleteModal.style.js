@@ -19,4 +19,14 @@ export const DeleteModalContainer = styled.div`
       color: ${props => props.theme.inputSecondaryColor};
     }
   }
+
+  .modal-title {
+    color: ${props => props.theme.inputSecondaryColor};
+  }
+
+  .modal-text {
+    /* width: 100%;
+    text-align: left; */
+    font-size: .875rem;
+  }
 `;

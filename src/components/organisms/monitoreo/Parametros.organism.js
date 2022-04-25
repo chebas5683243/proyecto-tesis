@@ -9,6 +9,7 @@ import EVButton from "../../atoms/EVButton.atom";
 import { useListParametrosConParametrizacion } from "../../../services/Parametros.service";
 import AgregarParametro from "./AgregarParametro.organism";
 import { useListParametrosPunto } from "../../../services/Puntos.service";
+import { getColoresParametrizacion } from "../../../utils/colors";
 
 const ParametersPunto = () => {
 
@@ -16,11 +17,11 @@ const ParametersPunto = () => {
 
   const { loadingParametros, parametros } = useListParametrosConParametrizacion();
 
-  const { loadingParametrosPunto, parametrosPunto, fetchParametros } = useListParametrosPunto(puntoId);
+  const { parametrosPunto, fetchParametros } = useListParametrosPunto(puntoId);
 
   const [disabledForm, setDisabledForm] = useState(false);
 
-  const { values, setValues, errors, setErrors } = useForm({
+  const { values, setValues, errors } = useForm({
     parametro: {
       id: 0,
       label: 'Selecciona un parametro',
@@ -38,7 +39,8 @@ const ParametersPunto = () => {
       case "usa_aqi": return "AQI";
       case "usa_wqi": return "WQI";
       case "usa_estandar": return "Estándar";
-      case "usa_aqi": return "No aplica";
+      case "no_aplica": return "No aplica";
+      default: return "No aplica";
     }
   }
   
@@ -76,30 +78,34 @@ const ParametersPunto = () => {
         </div>
         <Divider />
         <div className="lista-parametros">
-          {parametrosPunto.map( parametroPunto =>
-            <div className="item-parametro">
-              <div className="detalle-parametro">
-                <span className="nombre-parametro">{parametroPunto.nombre}</span>
-                <div className="abreviatura-parametro">
-                  <span>{parametroPunto.nombre_corto} </span>
-                  <span>({parametroPunto.unidad.nombre_corto})</span>
+          {parametrosPunto.map( parametroPunto => {
+            const parametrizacion = getParametrizacion(parametroPunto.modo_parametros);
+            const coloresParam = getColoresParametrizacion(parametrizacion);
+            return (
+              <div className="item-parametro">
+                <div className="detalle-parametro">
+                  <span className="nombre-parametro">{parametroPunto.nombre}</span>
+                  <div className="abreviatura-parametro">
+                    <span>{parametroPunto.nombre_corto} </span>
+                    <span>({parametroPunto.unidad.nombre_corto})</span>
+                  </div>
+                </div>
+                <div className="tipo-parametrizacion-container">
+                  <div className="tipo-parametrizacion" style={{backgroundColor: coloresParam.backgroundColor, color: coloresParam.fontColor}}>
+                    <span>{parametrizacion}</span>
+                  </div>
+                </div>
+                <div className="opciones">
+                  <IconButton onClick={() => handleOpenModalParametro(parametroPunto, true)}>
+                    <RemoveRedEye />
+                  </IconButton>
+                  <IconButton onClick={() => handleOpenModalParametro(parametroPunto, false)}>
+                    <Edit />
+                  </IconButton>
                 </div>
               </div>
-              <div className="tipo-parametrizacion-container">
-                <div className="tipo-parametrizacion">
-                  <span>{getParametrizacion(parametroPunto.modo_parametros)}</span>
-                </div>
-              </div>
-              <div className="opciones">
-                <IconButton onClick={() => handleOpenModalParametro(parametroPunto, true)}>
-                  <RemoveRedEye />
-                </IconButton>
-                <IconButton onClick={() => handleOpenModalParametro(parametroPunto, false)}>
-                  <Edit />
-                </IconButton>
-              </div>
-            </div>
-          )}
+            )
+          })}
         </div>
       </PuntoParamtrosContainer>
       <AgregarParametro fetchParametros={fetchParametros} disabled={disabledForm}/>

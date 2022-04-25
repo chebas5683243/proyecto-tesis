@@ -93,6 +93,7 @@ export const validateCreateParametro = (values) => {
   }
   else if(values.usa_wqi) {
     temp.valor_ideal = isNumberValidation(values.valor_ideal) ? false : "Este campo no puede ser vacío";
+    temp.valor_estandar_permisible = isNumberValidation(values.valor_estandar_permisible) ? false : "Este campo no puede ser vacío";
   }
   else if(values.usa_estandar) {
     if(values.tiene_minimo) temp.valor_minimo = isNumberValidation(values.valor_minimo) ? false : "Este campo no puede ser vacío";

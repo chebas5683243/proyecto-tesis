@@ -8,6 +8,7 @@ import { useFetchUnidades } from "../../services/UnidadesMedida.service";
 import { HeaderContainer, ListViewContainer, MiddleContainer, PrimaryTitle, SecondaryTitle } from "../../styles/containers/View.style";
 import { StyledSearchTextField } from "../../styles/TextField.style";
 import CreateUnidadMedida from "./Modals/Create";
+import DeleteUnidadMedida from "./Modals/Delete";
 import EditUnidadMedida from "./Modals/Edit";
 
 const UnidadesMedida = () => {
@@ -64,11 +65,12 @@ const UnidadesMedida = () => {
       </MiddleContainer>
       <EVDataGrid
         loading={loadingUnidades}
-        columns={useColumnsListUnidades(fetchUnidades, setOpenModal, setSelectedId)}
+        columns={useColumnsListUnidades(setOpenModal, setSelectedId)}
         rows={unidades}
       />
       <CreateUnidadMedida open={openModal.create} handleCloseModal={handleCloseModal} fetchUnidades={fetchUnidades}/>
       <EditUnidadMedida open={openModal.edit} handleCloseModal={handleCloseModal} fetchUnidades={fetchUnidades} selectedId={selectedId} setSelectedId={setSelectedId}/>
+      <DeleteUnidadMedida open={openModal.delete} handleCloseModal={handleCloseModal} fetchUnidades={fetchUnidades} selectedId={selectedId} setSelectedId={setSelectedId}/>
     </ListViewContainer>
   );
 }

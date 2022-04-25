@@ -11,6 +11,7 @@ import { HeaderContainer, ListViewContainer, MiddleContainer, PrimaryTitle, Seco
 import { PuntosMonitoreoContainer } from "../../../../styles/monitoreo/PuntosMonitore.style";
 import { StyledSearchTextField } from "../../../../styles/TextField.style";
 import CreatePuntos from "./Modals/Create";
+import DeactivatePunto from "./Modals/Deactivate";
 import EditPunto from "./Modals/Edit";
 
 const PuntosMonitoreo = () => {
@@ -22,7 +23,8 @@ const PuntosMonitoreo = () => {
   const [ openModal, setOpenModal ] = useState({
     create: false,
     edit: false,
-    delete: false,
+    deactivate: false,
+    activate: false,
   });
 
   const [ selectedId, setSelectedId ] = useState(null);
@@ -79,6 +81,7 @@ const PuntosMonitoreo = () => {
         />
         <CreatePuntos open={openModal.create} handleCloseModal={handleCloseModal} fetchPuntos={fetchPuntos}/>
         <EditPunto open={openModal.edit} handleCloseModal={handleCloseModal} fetchPuntos={fetchPuntos} selectedId={selectedId} setSelectedId={setSelectedId}/>
+        <DeactivatePunto action={openModal.activate ? "activar" : "desactivar"} open={openModal.deactivate || openModal.activate} handleCloseModal={handleCloseModal} fetchPuntos={fetchPuntos} selectedId={selectedId} setSelectedId={setSelectedId}/>
       </ListViewContainer>
     </PuntosMonitoreoContainer>
   );

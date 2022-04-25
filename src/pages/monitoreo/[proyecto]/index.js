@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
-import { useHistory, useParams } from "react-router";
+import { useParams } from "react-router";
 import GeneralInfo from "../../../components/organisms/monitoreo/GeneralInfo.organism";
 import useForm from "../../../hooks/useForm.hook";
 import { useFetchDetalleProyecto } from "../../../services/Proyectos.service";
@@ -9,16 +9,18 @@ import { StyledTab, StyledTabs } from "../../../styles/Tabs.style";
 import PuntosMonitoreo from "./puntosMonitoreo";
 import { ProjectContext } from "../../../context/ProjectContext";
 import PuntoMonitoreo from "./puntosMonitoreo/[punto]";
+import ReporteRegistro from "./puntosMonitoreo/[punto]/[registro]";
+import CustomTooltip from "../../../components/atoms/EVTooltip.atom";
 
 const MonitoreoProyecto = () => {
 
   const { idProyecto } = useParams();
 
-  const { setProyectoId, puntoId, setPuntoId } = useContext(ProjectContext);
+  const { setProyectoId, puntoId, setPuntoId, registroId } = useContext(ProjectContext);
 
   const { loadingProyecto, proyecto } = useFetchDetalleProyecto(idProyecto);
 
-  const { values, setValues, errors, handleInputChange } = useForm({
+  const { values, setValues } = useForm({
     nombre: '',
     descripcion: '',
     codigo: '',
@@ -41,10 +43,12 @@ const MonitoreoProyecto = () => {
 
   useEffect(() => {
     setProyectoId(idProyecto);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     setPuntoId(null);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tab])
 
   useEffect(() => {
@@ -53,7 +57,7 @@ const MonitoreoProyecto = () => {
   }, [loadingProyecto]);
 
   return (
-    <ListViewContainer>
+    <ListViewContainer style={{paddingBottom: '0rem'}}>
       <Box>
         <StyledTabs value={tab} onChange={handleChange}>
           <StyledTab label="Información General" />
@@ -62,9 +66,15 @@ const MonitoreoProyecto = () => {
       </Box>
       {tab === 0 ?
         <GeneralInfo values={values} /> :
-        (puntoId ?
-          <PuntoMonitoreo /> :
-          <PuntosMonitoreo />
+        (registroId ?
+          <CustomTooltip>
+            <ReporteRegistro />
+          </CustomTooltip>
+          :
+          (puntoId ?
+            <PuntoMonitoreo /> :
+            <PuntosMonitoreo />
+          )
         )
       }
     </ListViewContainer>

@@ -6,7 +6,7 @@ import Config from "../constants/Config.constants";
 export const useFetchPuntos = (id, auto = true) => {
   const [puntos, setPuntos] = useState([]);
   const [loadingPuntos, setLoadingPuntos] = useState(true);
-  const [idProyecto, setIdProyecto] = useState(id);
+  const idProyecto = id;
 
   const fetchPuntos = async function () {
     setLoadingPuntos(true);

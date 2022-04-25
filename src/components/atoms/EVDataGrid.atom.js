@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { DataGridPrimaryStyle } from '../../styles/DataGrid.style';
 // import { GridToolbar } from '@mui/x-data-grid-pro';
 
-const EVDataGrid = ({rowHeight, loading, rows, columns}) => {
+const EVDataGrid = ({rowHeight, loading, rows, columns, density}) => {
 
   const [ pageSize, setPageSize ] = useState(10);
 
@@ -20,7 +20,7 @@ const EVDataGrid = ({rowHeight, loading, rows, columns}) => {
             pageSize={pageSize}
             onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
             rowsPerPageOptions={[10,25,50,100]}
-            density='standard'
+            density={density ? density : 'compact'}
             hideFooterSelectedRowCount
             disableSelectionOnClick
             components={{

@@ -8,7 +8,7 @@ import Config from "../../../constants/Config.constants";
 import { ModalContainer } from "../../../styles/containers/Modal.style";
 import { DeleteModalContainer } from "../../../styles/containers/DeleteModal.style";
 
-const DeleteUnidadMedida = ({open, handleCloseModal, fetchUnidades, selectedId, setSelectedId}) => {
+const DeleteParametro = ({open, handleCloseModal, fetchParametros, selectedId, setSelectedId}) => {
 
   const [loadingDelete, setLoadingDelete] = useState(false);
 
@@ -19,9 +19,9 @@ const DeleteUnidadMedida = ({open, handleCloseModal, fetchUnidades, selectedId, 
 
   const handleEliminar = () => {
     setLoadingDelete(true);
-    axios.delete(`${Config.API_URL}${Config.API_PATH}${ApiRoutes.UNIDADES}${selectedId}`)
+    axios.delete(`${Config.API_URL}${Config.API_PATH}${ApiRoutes.PARAMETROS}${selectedId}`)
     .then((response) => {
-      fetchUnidades();
+      fetchParametros();
       handleClose();
       setLoadingDelete(false);
     })
@@ -35,7 +35,7 @@ const DeleteUnidadMedida = ({open, handleCloseModal, fetchUnidades, selectedId, 
       <ModalContainer>
         <DeleteModalContainer>
           <InfoOutlined />
-          <p className="modal-title">¿Estás seguro que deseas eliminar la unidad de medida del sistema?</p>
+          <p className="modal-title">¿Estás seguro que deseas eliminar el parámetro del sistema?</p>
           <div className="buttons-container-centered">
             <EVButton label="Cancelar" variant="outlined" onClick={handleClose} />
             <EVButton disabled={loadingDelete} label="Eliminar" variant="contained" onClick={handleEliminar}/>
@@ -46,4 +46,4 @@ const DeleteUnidadMedida = ({open, handleCloseModal, fetchUnidades, selectedId, 
   );
 }
  
-export default DeleteUnidadMedida;
+export default DeleteParametro;

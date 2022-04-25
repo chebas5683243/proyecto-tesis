@@ -1,4 +1,4 @@
-import { Step, StepContent, StepLabel, Stepper, Typography } from "@mui/material";
+import { Step, StepContent, StepLabel, Stepper } from "@mui/material";
 import { useState } from "react";
 import UbicacionIcon from "../../../assets/ubicacion-icon.png";
 import EmpresaIcon from "../../../assets/empresa-icon.png";
