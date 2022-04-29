@@ -89,7 +89,7 @@ const GeneralInfo = ({ values }) => {
       </div>
       <div className="widgets-container">
         <div className="widget">
-          <span className="big-number">15</span>
+          <span className="big-number">{values.cantidad_puntos}</span>
           <span className="widget-description">Puntos de Monitoreo</span>
         </div>
         <div className="widget">
@@ -97,7 +97,7 @@ const GeneralInfo = ({ values }) => {
           <span className="widget-description">Incidentes asociados al proyecto</span>
         </div>
         <div className="widget">
-          <span className="big-number">102</span>
+          <span className="big-number">{values.cantidad_registros}</span>
           <span className="widget-description">registros de monitoreo realizados</span>
         </div>
       </div>

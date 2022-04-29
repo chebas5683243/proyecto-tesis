@@ -1,5 +1,6 @@
 import { Add, Search } from "@mui/icons-material";
 import { InputAdornment } from "@mui/material";
+import { useState } from "react";
 import { useHistory } from "react-router";
 import EVButton from "../../components/atoms/EVButton.atom";
 import EVDataGrid from "../../components/atoms/EVDataGrid.atom";
@@ -7,6 +8,8 @@ import { useColumnsListUsuarios } from "../../constants/UsuariosColumns.constant
 import { useFetchUsuarios } from "../../services/Usuarios.service";
 import { HeaderContainer, ListViewContainer, MiddleContainer, PrimaryTitle, SecondaryTitle } from "../../styles/containers/View.style";
 import { StyledSearchTextField } from "../../styles/TextField.style";
+import ActivateUsuario from "./Modals/Activate";
+import DeactivateUsuario from "./Modals/Deactivate";
 
 const Usuarios = () => {
 
@@ -14,8 +17,22 @@ const Usuarios = () => {
 
   const {loadingUsuarios, usuarios, fetchUsuarios } = useFetchUsuarios();
 
+  const [openModal, setOpenModal] = useState({
+    activate: false,
+    deactivate: false
+  });
+
+  const [selectedId, setSelectedId] = useState(null);
+
   const handleCreate = () => {
     history.push("/usuarios/create");
+  }
+
+  const handleCloseModal = (modal) => {
+    setOpenModal(s => ({
+      ...s,
+      [modal]: false
+    }));
   }
 
   return (
@@ -46,9 +63,11 @@ const Usuarios = () => {
       </MiddleContainer>
       <EVDataGrid
         loading={loadingUsuarios}
-        columns={useColumnsListUsuarios(fetchUsuarios)}
+        columns={useColumnsListUsuarios(setOpenModal, setSelectedId)}
         rows={usuarios}
       />
+      <DeactivateUsuario open={openModal.deactivate} handleCloseModal={handleCloseModal} fetchUsuarios={fetchUsuarios} selectedId={selectedId} setSelectedId={setSelectedId}/>
+      <ActivateUsuario open={openModal.activate} handleCloseModal={handleCloseModal} fetchUsuarios={fetchUsuarios} selectedId={selectedId} setSelectedId={setSelectedId}/>
     </ListViewContainer>
   );
 }

@@ -3,7 +3,7 @@ import { Circle, Delete, Edit, RemoveRedEye, SettingsBackupRestore } from '@mui/
 import { useHistory } from 'react-router';
 import Box from '@mui/material/Box';
 
-export const useColumnsListUsuarios = (fetchEmpresas) => {
+export const useColumnsListUsuarios = (setOpenModal, setSelectedId) => {
 
   const history = useHistory();
   
@@ -13,6 +13,15 @@ export const useColumnsListUsuarios = (fetchEmpresas) => {
 
   const handleEdit = (selectedId) => {
     history.push("/usuarios/" + selectedId + "/edit");
+  }
+
+  const handleDelete = (selectedId, estado) => {
+    setSelectedId(selectedId);
+    const modal = estado ? "deactivate" : "activate";
+    setOpenModal(p => ({
+      ...p,
+      [modal]: true
+    }));
   }
 
   return [
@@ -83,7 +92,7 @@ export const useColumnsListUsuarios = (fetchEmpresas) => {
         <GridActionsCellItem
           icon={(params.row.estado ? <Delete /> : <SettingsBackupRestore />)}
           label="Delete"
-          //onClick={() => handleDelete(params.id, params.row.estado)}
+          onClick={() => handleDelete(params.id, params.row.estado)}
         />,
       ]
     }

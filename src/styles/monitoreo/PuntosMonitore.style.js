@@ -7,7 +7,7 @@ export const PuntosMonitoreoContainer = styled.div`
 
   .points-map-container {
     margin-top: 1rem;
-    height: 400px;
+    height: calc(100vh - 11rem);
     width: 400px;
     background-color: steelblue;
 
@@ -22,5 +22,6 @@ export const PuntosMonitoreoContainer = styled.div`
     padding-bottom: 0rem;
     padding-right: 0rem;
     min-height: unset;
+    margin: 0;
   }
 `;

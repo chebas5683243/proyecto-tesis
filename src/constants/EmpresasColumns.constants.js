@@ -4,7 +4,7 @@ import { useHistory } from 'react-router';
 import { useDeleteEmpresa, useActivateEmpresa } from '../services/Empresas.service'
 import Box from '@mui/material/Box';
 
-export const useColumnsListEmpresas = (fetchEmpresas) => {
+export const useColumnsListEmpresas = (setOpenModal, setSelectedId) => {
 
   const history = useHistory();
 
@@ -20,8 +20,12 @@ export const useColumnsListEmpresas = (fetchEmpresas) => {
   }
 
   const handleDelete = (selectedId, estado) => {
-    if(estado) deleteEmpresa(selectedId, fetchEmpresas);
-    else activateEmpresa(selectedId, fetchEmpresas);
+    setSelectedId(selectedId);
+    const modal = estado ? "deactivate" : "activate";
+    setOpenModal(p => ({
+      ...p,
+      [modal]: true
+    }));
   }
 
   return [

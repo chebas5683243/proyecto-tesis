@@ -173,7 +173,7 @@ const ReporteRegistro = () => {
                   fill="#000"
                   dataKey="value"
                 >
-                  {porcentajeCategoriasEstandar.map((entry, index) => (
+                  {porcentajeCategoriasAQI.map((entry, index) => (
                     <Cell
                       key={`cell-${index}`}
                       fill={ColoresCategorias['TIPO_' + (index+1)].fontColor}
@@ -220,7 +220,7 @@ const ReporteRegistro = () => {
                   fill="#000"
                   dataKey="value"
                 >
-                  {porcentajeCategoriasEstandar.map((entry, index) => (
+                  {porcentajeCategoriasWQI.map((entry, index) => (
                     <Cell
                       key={`cell-${index}`}
                       fill={ColoresCategorias['TIPO_' + (index+2)].fontColor}

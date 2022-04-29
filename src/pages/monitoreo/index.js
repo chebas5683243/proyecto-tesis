@@ -17,11 +17,6 @@ const Monitoreo = () => {
           <PrimaryTitle>Monitoreo Ambiental</PrimaryTitle>
           <SecondaryTitle>{proyectos.length} proyectos en ejecución</SecondaryTitle>
         </div>
-        <EVButton
-          label="Registrar data"
-          variant="contained"
-          startIcon={<UploadOutlined style={{ fontSize: 24 }}/>}
-        />
       </HeaderContainer>
       <MiddleContainer>
         <StyledSearchTextField

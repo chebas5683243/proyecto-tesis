@@ -1,6 +1,6 @@
 import { Add, BarChart, Search, StackedLineChart } from "@mui/icons-material";
-import { InputAdornment } from "@mui/material";
-import { useContext } from "react";
+import { Alert, InputAdornment, Portal, Snackbar } from "@mui/material";
+import { useContext, useState } from "react";
 import EVButton from "../../../../../components/atoms/EVButton.atom";
 import EVDataGrid from "../../../../../components/atoms/EVDataGrid.atom";
 import EVIconButton from "../../../../../components/atoms/EVIconButton.atom";
@@ -13,6 +13,7 @@ import { PuntosMonitoreoContainer } from "../../../../../styles/monitoreo/Puntos
 import { StyledSearchTextField } from "../../../../../styles/TextField.style";
 import { useFetchRegistros } from "../../../../../services/Registros.service";
 import { useColumnsListRegistros } from "../../../../../constants/RegistrosColumns.constants";
+import ModalRegistro from "../../../../../components/organisms/monitoreo/ModalRegistro.organism";
 
 const PuntoMonitoreo = () => {
 
@@ -20,7 +21,31 @@ const PuntoMonitoreo = () => {
 
   const { loadingPunto, punto } = useFetchDetallePuntoConRegistros(puntoId);
 
-  const { loadingRegistros, registros } = useFetchRegistros(puntoId);
+  const [ openModal, setOpenModal ] = useState(false);
+
+  const { loadingRegistros, registros, fetchRegistros } = useFetchRegistros(puntoId);
+
+  const [ openSnackbars, setOpenSnackbars ] = useState({
+    loadingDownload: false,
+    successDownload: false,
+    loadingUpload: false,
+    errorUpload: false,
+    successUpload: false
+  });
+
+  const handleCloseSnackbar = (snackbar) => {
+    setOpenSnackbars(s => ({
+      ...s,
+      [snackbar]: false,
+    }))
+  }
+
+  const handleOpenSnackbar = (snackbar) => {
+    setOpenSnackbars(s => ({
+      ...s,
+      [snackbar]: true,
+    }))
+  }
 
   return (
     <PuntosMonitoreoContainer>
@@ -31,7 +56,6 @@ const PuntoMonitoreo = () => {
         <HeaderContainer>
           <div>
             <PrimaryTitle>{loadingPunto ? "" : punto.nombre}</PrimaryTitle>
-            {/* <SecondaryTitle>{puntos.length} puntos de monitoreo</SecondaryTitle> */}
           </div>
           <ButtonsContainer>
             <EVIconButton
@@ -42,14 +66,13 @@ const PuntoMonitoreo = () => {
             <EVIconButton
               variant="outlined"
               startIcon={<StackedLineChart style={{ fontSize: 24 }}/>}
-              // onClick={handleCreate}
             />
             {punto?.estado ?
               <EVButton
                 variant="contained"
                 label="Nuevo Registro"
                 startIcon={<Add style={{ fontSize: 24 }}/>}
-                // onClick={handleCreate}
+                onClick={() => setOpenModal(true)}
               />
               : null
             }
@@ -68,13 +91,40 @@ const PuntoMonitoreo = () => {
             />
         </MiddleContainer>
         <EVDataGrid
-          // rowHeight={75}
           loading={loadingRegistros}
           columns={useColumnsListRegistros()}
           rows={registros}
         />
         <ParametersPunto />
       </ListViewContainer>
+      <ModalRegistro open={openModal} setOpenModal={setOpenModal} fetchRegistros={fetchRegistros} handleOpenSnackbar={handleOpenSnackbar} handleCloseSnackbar={handleCloseSnackbar}/>
+      <Portal>
+        <Snackbar open={openSnackbars.loadingDownload}>
+          <Alert variant="filled" severity="info" sx={{ width: '100%' }}>
+            Descargando plantilla ...
+          </Alert>
+        </Snackbar>
+        <Snackbar open={openSnackbars.successDownload} autoHideDuration={6000} onClose={() => handleCloseSnackbar('successDownload')}>
+          <Alert onClose={() => handleCloseSnackbar('successDownload')} variant="filled" severity="success" sx={{ width: '100%' }}>
+            Plantilla descargada
+          </Alert>
+        </Snackbar>
+        <Snackbar open={openSnackbars.loadingUpload}>
+          <Alert variant="filled" severity="info" sx={{ width: '100%' }}>
+            Subiendo archivo ...
+          </Alert>
+        </Snackbar>
+        <Snackbar open={openSnackbars.errorUpload} onClose={() => handleCloseSnackbar('errorUpload')}>
+          <Alert onClose={() => handleCloseSnackbar('errorUpload')} variant="filled" severity="error" sx={{ width: '100%' }}>
+            Error
+          </Alert>
+        </Snackbar>
+        <Snackbar open={openSnackbars.successUpload} autoHideDuration={6000} onClose={() => handleCloseSnackbar('successUpload')}>
+          <Alert onClose={() => handleCloseSnackbar('successUpload')} variant="filled" severity="success" sx={{ width: '100%' }}>
+            Registro exitoso
+          </Alert>
+        </Snackbar>
+      </Portal>
     </PuntosMonitoreoContainer>
   );
 }
