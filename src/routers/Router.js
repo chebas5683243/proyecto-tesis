@@ -73,10 +73,12 @@ const Router = () => {
             <Route exact path="/tipoIncidentes/:id" component={DetalleTipoIncidente}/>
             <Route exact path="/tipoIncidentes/:id/edit" component={EditTipoIncidente} />
             
-            <ProjectProvider>
-              <Route exact path="/monitoreoAmbiental" component={MonitoreoAmbiental} />
-              <Route path="/monitoreoAmbiental/:idProyecto" component={MonitoreoProyecto} />
-            </ProjectProvider>
+            <Route path="/monitoreoAmbiental">
+              <ProjectProvider>
+                <Route exact path="/monitoreoAmbiental" component={MonitoreoAmbiental} />
+                <Route path="/monitoreoAmbiental/:idProyecto" component={MonitoreoProyecto} />
+              </ProjectProvider>
+            </Route>
             
             <Route exact path="/incidentes" component={Incidentes} />
             <Route exact path="/repositorio" component={Repositorio} />

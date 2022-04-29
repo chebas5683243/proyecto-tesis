@@ -1,4 +1,4 @@
-import { Alert, Modal, Portal, Snackbar } from "@mui/material";
+import { Modal } from "@mui/material";
 import { useContext, useState } from "react";
 import { ModalContainer } from "../../../styles/containers/Modal.style";
 import { RegistroModalContainer } from "../../../styles/containers/RegistroModal.style";

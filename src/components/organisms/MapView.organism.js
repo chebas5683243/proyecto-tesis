@@ -39,6 +39,7 @@ const MapView = ({ puntos }) => {
 
   useEffect(() => {
     if(puntos.length && puntos[0] !== null && map) getClosestPointToCenter();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [puntos, map]);
 
   return (

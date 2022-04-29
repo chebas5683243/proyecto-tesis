@@ -1,15 +1,11 @@
 import { GridActionsCellItem } from '@mui/x-data-grid';
 import { Circle, Delete, Edit, RemoveRedEye, SettingsBackupRestore } from '@mui/icons-material';
 import { useHistory } from 'react-router';
-import { useDeleteEmpresa, useActivateEmpresa } from '../services/Empresas.service'
 import Box from '@mui/material/Box';
 
 export const useColumnsListEmpresas = (setOpenModal, setSelectedId) => {
 
   const history = useHistory();
-
-  const { deleteEmpresa } = useDeleteEmpresa();
-  const { activateEmpresa } = useActivateEmpresa();
   
   const handleSeeDetails = (selectedId) => {
     history.push("/empresas/" + selectedId);
