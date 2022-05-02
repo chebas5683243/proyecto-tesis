@@ -48,7 +48,7 @@ const Router = () => {
             <SideBar />
           </NavbarProvider>
           <Switch >
-            <Route exact path="/" render={() => <Redirect to="/proyectos" />} />
+            <Route exact path="/" render={() => <Redirect to="/monitoreoAmbiental" />} />
             <Route exact path="/unidadesMedida" component={UnidadesMedida} />
 
             <Route exact path="/parametros" component={Parametros} />
@@ -82,7 +82,7 @@ const Router = () => {
             
             <Route exact path="/incidentes" component={Incidentes} />
             <Route exact path="/repositorio" component={Repositorio} />
-            <Route render={() => <Redirect to="/proyectos" />} />
+            <Route render={() => <Redirect to="/monitoreoAmbiental" />} />
           </Switch>
         </React.Fragment>
       }

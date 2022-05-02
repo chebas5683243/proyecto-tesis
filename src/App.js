@@ -1,6 +1,5 @@
 import { ThemeProvider as ThemeMaterial} from '@mui/material/styles';
 import { ThemeProvider as ThemeStyled} from 'styled-components';
-import { deleteToken, getToken, isEmptyObject } from './utils/authHelper';
 import React from 'react';
 import Router from './routers/Router';
 import theme from './styles/theme';
@@ -9,6 +8,8 @@ import { UserContext } from './context/UserContext';
 import axios from 'axios';
 import ApiRoutes from './constants/ApiRoutes.constants';
 import Config from './constants/Config.constants';
+import Auth from './modules/auth';
+import { isEmptyObject } from './utils/utils';
 
 function App() {
 
@@ -17,7 +18,7 @@ function App() {
 
   useEffect(() => {
     async function loadUser(){
-      let token = getToken();
+      let token = Auth.getToken();
       if(!token){
         setLoadingUser(false);
         return;
@@ -28,11 +29,12 @@ function App() {
           headers: { 'Authorization': `Bearer ${token}` }
         });
         if(!isEmptyObject(data)) {
+          axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
           setToken(token);
           setInfoUsuario(data);
         }
         else {
-          deleteToken();
+          Auth.deauthenticateUser();
         }
         setLoadingUser(false);
       } catch(error) {

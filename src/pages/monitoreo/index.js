@@ -1,13 +1,13 @@
 import { Search } from "@mui/icons-material";
 import { InputAdornment } from "@mui/material";
 import GridProyecto from "../../components/organisms/monitoreo/GridProyectos.organism";
-import { useFetchProyectos } from "../../services/Proyectos.service";
+import { useFetchProyectosMonitoreo } from "../../services/Proyectos.service";
 import { HeaderContainer, ListViewContainer, MiddleContainer, PrimaryTitle, SecondaryTitle } from "../../styles/containers/View.style";
 import { StyledSearchTextField } from "../../styles/TextField.style";
 
 const Monitoreo = () => {
 
-  const {loadingProyectos, proyectos } = useFetchProyectos();
+  const {loadingProyectos, proyectos } = useFetchProyectosMonitoreo();
 
   return (
     <ListViewContainer>

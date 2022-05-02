@@ -4,14 +4,38 @@ import { useHistory } from "react-router";
 import ApiRoutes from "../constants/ApiRoutes.constants";
 import Config from "../constants/Config.constants";
 
-export const useFetchProyectos = (params = {}, auto = true) => {
+export const useFetchProyectos = (auto = true) => {
   const [proyectos, setProyectos] = useState([]);
   const [loadingProyectos, setLoadingProyectos] = useState(true);
 
   const fetchProyectos = async function () {
     setLoadingProyectos(true);
     setProyectos([]);
-    await axios.get(`${Config.API_URL}${Config.API_PATH}${ApiRoutes.PROYECTOS}listar`, {params: params})
+    await axios.get(`${Config.API_URL}${Config.API_PATH}${ApiRoutes.PROYECTOS}listar`)
+    .then((response) => {
+      setProyectos(response.data.data.proyectos);
+    })
+    .finally(() => {
+      setLoadingProyectos(false);
+    })
+  };
+
+  useEffect(() => {
+    if(auto) fetchProyectos();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  return {loadingProyectos, proyectos, fetchProyectos};
+}
+
+export const useFetchProyectosMonitoreo = (auto = true) => {
+  const [proyectos, setProyectos] = useState([]);
+  const [loadingProyectos, setLoadingProyectos] = useState(true);
+
+  const fetchProyectos = async function () {
+    setLoadingProyectos(true);
+    setProyectos([]);
+    await axios.get(`${Config.API_URL}${Config.API_PATH}${ApiRoutes.PROYECTOS}listarMonitoreo`)
     .then((response) => {
       setProyectos(response.data.data.proyectos);
     })

@@ -11,6 +11,7 @@ import { Visibility, Email } from '@mui/icons-material';
 import { StyledCustomLoginField } from "../../styles/TextField.style";
 import useForm from "../../hooks/useForm.hook";
 import { validateLogin } from "../../utils/formValidations";
+import Auth from "../../modules/auth";
 
 const Login = () => {
 
@@ -32,9 +33,10 @@ const Login = () => {
       axios.post(`${Config.API_URL}${Config.API_PATH}${ApiRoutes.AUTH}login`, values)
       .then((result) => {
         if(result.data.access_token){
+          axios.defaults.headers.common = {'Authorization': `Bearer ${result.data.access_token}`};
+          Auth.authenticateUser(result.data.access_token);
           setInfoUsuario(result.data.usuario);
           setToken(result.data.access_token);
-          localStorage.setItem('token', result.data.access_token);
         }
         else{
           setErrorLogin(f => true);
