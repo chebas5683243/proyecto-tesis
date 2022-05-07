@@ -61,6 +61,8 @@ const AddFaseModal = ({open, handleCloseModal, addFase}) => {
             type="text"
             label="DESCRIPCIÓN"
             size={4}
+            multiline
+            rows={4}
             name="descripcion"
             value={values.descripcion}
             error={errors.descripcion ? true : false}

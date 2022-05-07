@@ -43,11 +43,6 @@ export const useFetchDetallePunto = () => {
     })
   };
 
-  useEffect(() => {
-    fetchPunto();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   return {loadingPunto, punto, fetchPunto};
 }
 

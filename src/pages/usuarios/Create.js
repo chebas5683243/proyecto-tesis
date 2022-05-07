@@ -1,10 +1,11 @@
 import { Close, Save } from "@mui/icons-material";
 import { Collapse } from "@mui/material";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import EVAutocomplete from "../../components/atoms/EVAutocomplete.atom";
 import EVButton from "../../components/atoms/EVButton.atom";
+import EVCheckbox from "../../components/atoms/EVCheckbox.atom";
 import EVTextField from "../../components/atoms/EVTextField.atom";
 import FormHeader from "../../components/organisms/FormHeader.organism";
 import ApiRoutes from "../../constants/ApiRoutes.constants";
@@ -19,7 +20,7 @@ const CreateUsuario = () => {
 
   const history = useHistory();
 
-  const { values, setValues, errors, setErrors, handleInputChange } = useForm({
+  const { values, setValues, errors, setErrors, handleInputChange, handleCheckChange } = useForm({
     primer_nombre: '',
     segundo_nombre: '',
     primer_apellido: '',
@@ -29,9 +30,11 @@ const CreateUsuario = () => {
     numero_celular: '',
     company: {
       id: 0,
-      label: 'Selecciona una empresa'
+      label: 'Selecciona una empresa',
+      es_propia: false
     },
     cargo: '',
+    es_admin: false
   });
 
   const { empresas } = useSimpleListEmpresas();
@@ -67,6 +70,15 @@ const CreateUsuario = () => {
       })
     }
   }
+
+  useEffect(() => {
+    if (!values.company.es_propia) {
+      setValues(s => ({
+        ...s,
+        es_admin: false
+      }));
+    }
+  }, [values.company.es_propia])
 
   return (
     <ListViewContainer>
@@ -196,6 +208,18 @@ const CreateUsuario = () => {
             error={errors.cargo ? true : false}
             helperText={errors.cargo}
             onChange={handleInputChange} />
+
+          <div style={{display: (values.company.es_propia ? "flex" : "none"), alignItems: 'center'}}>
+            <EVCheckbox
+              disabled={!values.company.es_propia}
+              name="es_admin"
+              checked={values.es_admin}
+              onChange={handleCheckChange} />
+
+            <div className="etiqueta-estandar estado-uno">
+              Es administrador
+            </div>
+          </div>
         </Collapse>
       </FormGroupContainer>
     </ListViewContainer>

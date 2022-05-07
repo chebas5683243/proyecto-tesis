@@ -38,6 +38,15 @@ const GeneralInfo = ({ values }) => {
     setActiveStep(index);
   }
 
+  const getEstadoFase = (estado) => {
+    switch (estado) {
+      case 1: return "Planeado";
+      case 2: return "En Progreso";
+      case 3: return "Terminado";
+      default: return "Terminado";
+    }
+  }
+
   return (
     <GeneralInfoContainer>
       <div className="info-card">
@@ -51,7 +60,7 @@ const GeneralInfo = ({ values }) => {
           </div>
           <div className="detalle-container">
             <img src={CalendarIcon} alt="icono-calendario"/>
-            <span>{values.fecha_inicio} → {values.fecha_fin}</span>
+            <span>{values.fecha_inicio} → {values.fecha_fin || 'presente'}</span>
           </div>
           <div className="detalle-container">
             <img src={CheckIcon} alt="icono-empresa" />
@@ -64,24 +73,26 @@ const GeneralInfo = ({ values }) => {
           <p className="descripcion-proyecto">
             {values.descripcion}
           </p>
-          <span className="ultimo-registro-proyecto">Último monitoreo hace 14 días</span>
+          <span className="ultimo-registro-proyecto">Último monitoreo hace 1 día</span>
         </div>
       </div>
       <div className="fases-proyectos">
         <span className="titulo-fases">Fases del Proyecto</span>
         <Stepper nonLinear activeStep={activeStep} orientation="vertical">
-          {steps.map((step, index) => (
-            <Step key={step.label} completed={completed[index]}>
+          {values.fases.map((fase, index) => (
+            <Step key={fase.id} completed={completed[index]}>
               <StepLabel
                 onClick={() => updateDisplayedStep(index)}
                 optional={
-                  <span className="estado-fase">En progreso</span>
+                  <span className="estado-fase">
+                    {getEstadoFase(fase.estado)}
+                  </span>
                 }
               >
-                <span className="titulo-fase">{step.label}</span>
+                <span className="titulo-fase">{fase.nombre}</span>
               </StepLabel>
               <StepContent>
-                <span className="descripcion-fase">{step.description}</span>
+                <span className="descripcion-fase">{fase.descripcion}</span>
               </StepContent>
             </Step>
           ))}

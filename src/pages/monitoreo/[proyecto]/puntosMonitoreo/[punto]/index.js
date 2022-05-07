@@ -51,6 +51,29 @@ const PuntoMonitoreo = () => {
     <PuntosMonitoreoContainer>
       <div className="points-map-container">
         <MapView puntos={[punto]}/>
+        <div className="info-punto-container">
+          <div className="titulo-info">
+            <span className="nombre-punto">{punto?.nombre}</span>
+            <span className="codigo-punto">{punto?.codigo}</span>
+          </div>
+          <div className="coordenadas-container">
+            <div className="coordenadas">
+              <div className="nombre-coordenada">
+                <span>Longitud:</span>
+                <span>Latitud:</span>
+                <span>Altitud:</span>
+              </div>
+              <div className="data-coordenada">
+                <span>{punto?.longitud}</span>
+                <span>{punto?.latitud}</span>
+                <span>{punto?.altitud}</span>
+              </div>
+            </div>
+            <div className="ultimo-registro">
+              <p>Último registro hace 13 horas</p>
+            </div>
+          </div>
+        </div>
       </div>
       <ListViewContainer className="points-list">
         <HeaderContainer>

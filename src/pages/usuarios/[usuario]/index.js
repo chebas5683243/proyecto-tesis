@@ -11,6 +11,7 @@ import { FormGroupContainer } from "../../../styles/containers/FormGroup.style";
 import { ButtonsContainer, HeaderContainer, ListViewContainer, PrimaryTitle } from "../../../styles/containers/View.style";
 import EVAutocomplete from "../../../components/atoms/EVAutocomplete.atom";
 import { useSimpleListEmpresas } from "../../../services/Empresas.service";
+import EVCheckbox from "../../../components/atoms/EVCheckbox.atom";
 
 const DetalleUsuario = () => {
 
@@ -22,7 +23,7 @@ const DetalleUsuario = () => {
 
   const { empresas } = useSimpleListEmpresas();
 
-  const { values, setValues, errors, handleInputChange } = useForm({
+  const { values, setValues, errors, handleInputChange, handleCheckChange } = useForm({
     primer_nombre: '',
     segundo_nombre: '',
     primer_apellido: '',
@@ -33,9 +34,11 @@ const DetalleUsuario = () => {
     numero_celular: '',
     company: {
       id: 0,
-      label: ''
+      label: 'Selecciona una empresa',
+      es_propia: false
     },
     cargo: '',
+    es_admin: false
   })
 
   const [ formExpand, setFormExpand ] = useState({
@@ -63,6 +66,15 @@ const DetalleUsuario = () => {
     if(!loadingUsuario) setValues(usuario);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loadingUsuario]);
+
+  useEffect(() => {
+    if (!values.company.es_propia) {
+      setValues(s => ({
+        ...s,
+        es_admin: false
+      }));
+    }
+  }, [values.company.es_propia])
 
   return (
     <ListViewContainer>
@@ -208,6 +220,18 @@ const DetalleUsuario = () => {
             error={errors.cargo ? true : false}
             helperText={errors.cargo}
             onChange={handleInputChange} />
+
+          <div style={{display: (values.company.es_propia ? "flex" : "none"), alignItems: 'center'}}>
+            <EVCheckbox
+              disabled
+              name="es_admin"
+              checked={values.es_admin}
+              onChange={handleCheckChange} />
+
+            <div className="etiqueta-estandar estado-uno">
+              Es administrador
+            </div>
+          </div>
         </Collapse>
       </FormGroupContainer>
     </ListViewContainer>

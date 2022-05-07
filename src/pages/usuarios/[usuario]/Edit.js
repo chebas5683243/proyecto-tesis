@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router";
 import EVTextField from "../../../components/atoms/EVTextField.atom";
 import EVButton from "../../../components/atoms/EVButton.atom";
+import EVCheckbox from "../../../components/atoms/EVCheckbox.atom";
 import FormHeader from "../../../components/organisms/FormHeader.organism";
 import useForm from "../../../hooks/useForm.hook";
 import { useEditUsuario, useFetchDetalleUsuario } from "../../../services/Usuarios.service";
@@ -19,7 +20,7 @@ const EditUsuario = () => {
 
   const { id } = useParams();
 
-  const { values, setValues, errors, setErrors, handleInputChange } = useForm({
+  const { values, setValues, errors, setErrors, handleInputChange, handleCheckChange } = useForm({
     primer_nombre: '',
     segundo_nombre: '',
     primer_apellido: '',
@@ -30,9 +31,11 @@ const EditUsuario = () => {
     numero_celular: '',
     company: {
       id: 0,
-      label: ''
+      label: 'Selecciona una empresa',
+      es_propia: false
     },
     cargo: '',
+    es_admin: false
   })
 
   const { loadingUsuario, usuario } = useFetchDetalleUsuario(id);
@@ -71,6 +74,15 @@ const EditUsuario = () => {
     if(!loadingUsuario) setValues(usuario);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loadingUsuario]);
+
+  useEffect(() => {
+    if (!values.company.es_propia) {
+      setValues(s => ({
+        ...s,
+        es_admin: false
+      }));
+    }
+  }, [values.company.es_propia])
 
   return (
     <ListViewContainer>
@@ -210,6 +222,18 @@ const EditUsuario = () => {
             error={errors.cargo ? true : false}
             helperText={errors.cargo}
             onChange={handleInputChange} />
+
+          <div style={{display: (values.company.es_propia ? "flex" : "none"), alignItems: 'center'}}>
+            <EVCheckbox
+              disabled={!values.company.es_propia}
+              name="es_admin"
+              checked={values.es_admin}
+              onChange={handleCheckChange} />
+
+            <div className="etiqueta-estandar estado-uno">
+              Es administrador
+            </div>
+          </div>
         </Collapse>
       </FormGroupContainer>
     </ListViewContainer>
