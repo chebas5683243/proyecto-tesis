@@ -173,3 +173,11 @@ export const validateCreatePuntoMonitoreo = (values) => {
 
   return parseValidation(temp);
 }
+
+export const validateCreateCausa = (values) => {
+  let temp = {};
+  temp.tipo = isAssignedValidation(values.tipo) ? false : "Seleccione un tipo de causa";
+  temp.descripcion = notBlankValidation(values.descripcion) ? false : "Este campo no puede ser vacío";
+
+  return parseValidation(temp);
+}

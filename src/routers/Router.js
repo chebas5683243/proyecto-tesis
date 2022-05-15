@@ -29,6 +29,7 @@ import CreateTipoIncidente from '../pages/tipoIncidente/Create';
 import DetalleTipoIncidente from '../pages/tipoIncidente/[tipoIncidente]';
 import EditTipoIncidente from '../pages/tipoIncidente/[tipoIncidente]/Edit';
 import MonitoreoProyecto from '../pages/monitoreo/[proyecto]';
+import CreateIncidente from '../pages/incidentes/Create';
 
 const Router = () => {
 
@@ -81,6 +82,8 @@ const Router = () => {
             </Route>
             
             <Route exact path="/incidentes" component={Incidentes} />
+            <Route exact path="/incidentes/create" component={CreateIncidente} />
+
             <Route exact path="/repositorio" component={Repositorio} />
             <Route render={() => <Redirect to="/monitoreoAmbiental" />} />
           </Switch>
