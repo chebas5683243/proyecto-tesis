@@ -2,14 +2,18 @@ import { Modal } from "@mui/material";
 import useForm from "../../../../hooks/useForm.hook";
 import { ModalContainer } from "../../../../styles/containers/Modal.style";
 import { validateCreateCausa } from "../../../../utils/formValidations";
+import EVAutocomplete from "../../../atoms/EVAutocomplete.atom";
 import EVButton from "../../../atoms/EVButton.atom";
 import EVTextField from "../../../atoms/EVTextField.atom";
 
-const AddCausaModal = ({open, handleCloseModal, addCausa}) => {
+const AddCausaModal = ({open, handleCloseModal, addCausa, tiposCausa}) => {
 
   const { values, setValues, errors, setErrors, handleInputChange } = useForm({
     id: '_' + Math.random().toString(36).substr(2, 9),
-    tipo: '',
+    tipo: {
+      id: 0,
+      label: 'Selecciona un tipo de causa inmediata',
+    },
     descripcion: '',
     created: true
   });
@@ -28,7 +32,10 @@ const AddCausaModal = ({open, handleCloseModal, addCausa}) => {
   const handleClose = () => {
     setValues({
       id: '_' + Math.random().toString(36).substr(2, 9),
-      tipo: '',
+      tipo: {
+        id: 0,
+        label: 'Selecciona un tipo de causa inmediata',
+      },
       descripcion: '',
       created: true,
       estado: 1,
@@ -47,15 +54,15 @@ const AddCausaModal = ({open, handleCloseModal, addCausa}) => {
           <span>Agregar nueva Causa Inmediata</span>
         </div>
         <form className="fields-container" onSubmit={handleSave}>
-          <EVTextField
-            type="text"
+          <EVAutocomplete
             label="TIPO DE CAUSA"
             size={4}
+            options={tiposCausa}
             name="tipo"
             value={values.tipo}
+            setValues={setValues}
             error={errors.tipo ? true : false}
-            helperText={errors.tipo}
-            onChange={handleInputChange} />
+            helperText={errors.tipo} />
 
           <EVTextField
             type="text"

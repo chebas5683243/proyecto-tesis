@@ -2,29 +2,25 @@ import { Modal } from "@mui/material";
 import { useEffect } from "react";
 import useForm from "../../../../hooks/useForm.hook";
 import { ModalContainer } from "../../../../styles/containers/Modal.style";
-import { validateCreateCausa } from "../../../../utils/formValidations";
-import EVAutocomplete from "../../../atoms/EVAutocomplete.atom";
+import { validateCreateAccionInmediata } from "../../../../utils/formValidations";
 import EVButton from "../../../atoms/EVButton.atom";
 import EVTextField from "../../../atoms/EVTextField.atom";
 
-const EditCausaModal = ({open, handleCloseModal, tiposCausa, causa, setSelectedCausa, editCausa}) => {
+const EditAccionInmediataModal = ({open, handleCloseModal, accion, setSelectedAccion, editAccion}) => {
 
   const { values, setValues, errors, setErrors, handleInputChange } = useForm({
     id: -1,
-    tipo: {
-      id: 0,
-      label: 'Selecciona un tipo de causa inmediata',
-    },
+    responsable: '',
     descripcion: ''
   });
 
   const handleEdit = (e) => {
     e.preventDefault();
     setErrors(f => ({}));
-    let validation = validateCreateCausa(values);
+    let validation = validateCreateAccionInmediata(values);
     setErrors(f => validation.errors);
     if(validation.isValid){
-      editCausa(values);
+      editAccion(values);
       handleClose();
     }
   }
@@ -32,20 +28,17 @@ const EditCausaModal = ({open, handleCloseModal, tiposCausa, causa, setSelectedC
   const handleClose = () => {
     setValues({
       id: -1,
-      tipo: {
-        id: 0,
-        label: 'Selecciona un tipo de causa inmediata',
-      },
+      responsable: '',
       descripcion: ''
     });
     setErrors(f => ({}));
     handleCloseModal("edit");
-    setSelectedCausa(null);
+    setSelectedAccion(null);
   }
 
   useEffect(() => {
-    if (causa !== null) setValues({...causa, edited: true});
-  }, [causa])
+    if (accion !== null) setValues({...accion, edited: true});
+  }, [accion])
 
   return (
     <Modal
@@ -54,18 +47,18 @@ const EditCausaModal = ({open, handleCloseModal, tiposCausa, causa, setSelectedC
     >
       <ModalContainer>
         <div className="title">
-          <span>Editar Causa Inmediata</span>
+          <span>Editar Accion Inmediata</span>
         </div>
         <form className="fields-container" onSubmit={handleEdit}>
-          <EVAutocomplete
-            label="TIPO DE CAUSA"
+          <EVTextField
+            type="text"
+            label="RESPONSABLE"
             size={4}
-            options={tiposCausa}
-            name="tipo"
-            value={values.tipo}
-            setValues={setValues}
-            error={errors.tipo ? true : false}
-            helperText={errors.tipo} />
+            name="responsable"
+            value={values.responsable}
+            error={errors.responsable ? true : false}
+            helperText={errors.responsable}
+            onChange={handleInputChange} />
 
           <EVTextField
             type="text"
@@ -89,4 +82,4 @@ const EditCausaModal = ({open, handleCloseModal, tiposCausa, causa, setSelectedC
   );
 }
  
-export default EditCausaModal;
+export default EditAccionInmediataModal;

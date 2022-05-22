@@ -89,3 +89,27 @@ export const useEditProyecto = ( proyectoData ) => {
 
   return {loadingEdit, editProyecto};
 }
+
+export const useSimpleListProyectos = (params = {}, auto = true) => {
+  const [proyectos, setProyectos] = useState([]);
+  const [loadingProyectos, setLoadingProyectos] = useState(true);
+
+  const simpleListProyectos = async function () {
+    setLoadingProyectos(true);
+    setProyectos([]);
+    await axios.get(`${Config.API_URL}${Config.API_PATH}${ApiRoutes.PROYECTOS}simpleListar`, {params: params})
+    .then((response) => {
+      setProyectos(response.data.data.proyectos);
+    })
+    .finally(() => {
+      setLoadingProyectos(false);
+    })
+  };
+
+  useEffect(() => {
+    if(auto) simpleListProyectos();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  return {loadingProyectos, proyectos, simpleListProyectos};
+}

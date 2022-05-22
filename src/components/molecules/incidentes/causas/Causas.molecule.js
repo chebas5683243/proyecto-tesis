@@ -1,6 +1,7 @@
 import { Add } from "@mui/icons-material";
 import { useState } from "react";
-import { useColumnsListCausas } from "../../../../constants/IncidentesColumns.constants";
+import { useColumnsListCausas, useColumnsListDetalleCausas } from "../../../../constants/IncidentesColumns.constants";
+import { useFetchTiposCausas } from "../../../../services/TiposCausas.service";
 import { CreateFasesContainer } from "../../../../styles/proyectos/CreateFases.style";
 import EVButton from "../../../atoms/EVButton.atom";
 import EVDataGridSecondary from "../../../atoms/EVDataGridSecondary.atom";
@@ -11,6 +12,8 @@ import EditCausaModal from "./EditCausaModal.molecule";
 const Causas = ({disabled, causas, setValues}) => {
 
   const [selectedCausa, setSelectedCausa] = useState(null);
+
+  const { tiposCausa } = useFetchTiposCausas();
 
   const [ openModal, setOpenModal ] = useState({
     create: false,
@@ -86,7 +89,8 @@ const Causas = ({disabled, causas, setValues}) => {
     setSelectedCausa(null);
   }
 
-  const columnasDetalle = useColumnsListCausas(handleOpenEditCausaModal, handleOpenDeleteCausaModal, setSelectedCausa);
+  const columnasEdit = useColumnsListCausas(handleOpenEditCausaModal, handleOpenDeleteCausaModal, setSelectedCausa);
+  const columnasDetalle = useColumnsListDetalleCausas();
 
   return (
     <CreateFasesContainer>
@@ -99,13 +103,13 @@ const Causas = ({disabled, causas, setValues}) => {
         />
       }
       <EVDataGridSecondary
-        columns={columnasDetalle}
+        columns={disabled ? columnasDetalle : columnasEdit}
         rows={causas.filter(causa => {
           return !causa.deleted;
         })}
       />
-      <AddCausaModal open={openModal.create} handleCloseModal={handleCloseModal} addCausa={addCausa} />
-      <EditCausaModal open={openModal.edit} handleCloseModal={handleCloseModal} causa={selectedCausa} setSelectedCausa={setSelectedCausa} editCausa={editCausa} />
+      <AddCausaModal open={openModal.create} handleCloseModal={handleCloseModal} addCausa={addCausa} tiposCausa={tiposCausa}/>
+      <EditCausaModal open={openModal.edit} handleCloseModal={handleCloseModal} tiposCausa={tiposCausa} causa={selectedCausa} setSelectedCausa={setSelectedCausa} editCausa={editCausa} />
       <DeleteCausaModal open={openModal.delete} handleCloseModal={handleCloseModal} deleteCausa={deleteCausa} />
     </CreateFasesContainer>
   );

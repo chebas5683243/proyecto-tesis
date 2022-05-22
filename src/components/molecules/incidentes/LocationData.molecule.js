@@ -1,7 +1,35 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import EVTextField from '../../atoms/EVTextField.atom';
 
-const LocationData = ({ disabled, values, errors, handleInputChange }) => {
+const LocationData = ({ disabled, values, setValues, errors, handleInputChange }) => {
+
+  const getDisabledUTM = () => {
+    if (disabled) return true;
+    const proyecto = values.proyecto;
+    const punto = values.punto;
+
+    if(proyecto === null || punto === null || punto.id !== -1) return true;
+
+    return false;
+  }
+
+  useEffect(() => {
+    if (values.punto.id !== 0 && values.punto.id !== -1) {
+      setValues(s => ({
+        ...s,
+        coordenada_norte: values.punto.utmy,
+        coordenada_este: values.punto.utmx 
+      }));
+    }
+    else {
+      setValues(s => ({
+        ...s,
+        coordenada_norte: '',
+        coordenada_este: '' 
+      }));
+    }
+  }, [values.punto])
+
   return (
     <React.Fragment>
       <EVTextField
@@ -60,7 +88,7 @@ const LocationData = ({ disabled, values, errors, handleInputChange }) => {
         onChange={handleInputChange} />
 
       <EVTextField
-        disabled={disabled}
+        disabled={getDisabledUTM()}
         type="text"
         label="COORDENADA UTM ESTE"
         size={1}
@@ -71,7 +99,7 @@ const LocationData = ({ disabled, values, errors, handleInputChange }) => {
         onChange={handleInputChange} />
 
       <EVTextField
-        disabled={disabled}
+        disabled={getDisabledUTM()}
         type="text"
         label="COORDENADA UTM NORTE"
         size={1}

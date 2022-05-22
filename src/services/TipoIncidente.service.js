@@ -65,3 +65,27 @@ export const useEditTipoIncidente = ( tipoIncidenteData ) => {
 
   return {loadingEdit, editTipoIncidente};
 }
+
+export const useSimpleListTiposIncidente = (params = {}, auto = true) => {
+  const [tiposIncidente, setTiposIncidente] = useState([]);
+  const [loadingTiposIncidente, setLoadingTiposIncidente] = useState(true);
+
+  const simpleListTiposIncidente = async function () {
+    setLoadingTiposIncidente(true);
+    setTiposIncidente([]);
+    await axios.get(`${Config.API_URL}${Config.API_PATH}${ApiRoutes.TIPOS_INCIDENTES}simpleListar`, {params: params})
+    .then((response) => {
+      setTiposIncidente(response.data.data.tipos_incidente);
+    })
+    .finally(() => {
+      setLoadingTiposIncidente(false);
+    })
+  };
+
+  useEffect(() => {
+    if(auto) simpleListTiposIncidente();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  return {loadingTiposIncidente, tiposIncidente, simpleListTiposIncidente};
+}

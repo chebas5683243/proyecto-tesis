@@ -1,19 +1,24 @@
 import React from 'react';
+import { useSimpleListTiposIncidente } from '../../../services/TipoIncidente.service';
+import EVAutocomplete from '../../atoms/EVAutocomplete.atom';
 import EVTextField from '../../atoms/EVTextField.atom';
 
-const EventData = ({ disabled, values, errors, handleInputChange }) => {
+const EventData = ({ disabled, values, setValues, errors, handleInputChange }) => {
+
+  const { tiposIncidente } = useSimpleListTiposIncidente();
+
   return (
     <React.Fragment>
-      <EVTextField
+      <EVAutocomplete
         disabled={disabled}
-        type="text"
         label="TIPO DE INCIDENTE"
         size={4}
-        name="tipo_incidente"
-        value={values.tipo_incidente}
-        error={errors.tipo_incidente ? true : false}
-        helperText={errors.tipo_incidente}
-        onChange={handleInputChange} />
+        options={tiposIncidente}
+        name="tipoIncidente"
+        value={values.tipoIncidente}
+        setValues={setValues}
+        error={errors.tipoIncidente ? true : false}
+        helperText={errors.tipoIncidente} />
         
       <EVTextField
         disabled={disabled}

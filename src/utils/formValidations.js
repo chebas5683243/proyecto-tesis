@@ -181,3 +181,41 @@ export const validateCreateCausa = (values) => {
 
   return parseValidation(temp);
 }
+
+export const validateCreateAccionInmediata = (values) => {
+  let temp = {};
+  temp.responsable = notBlankValidation(values.responsable) ? false : "Este campo no puede ser vacío";
+  temp.descripcion = notBlankValidation(values.descripcion) ? false : "Este campo no puede ser vacío";
+
+  return parseValidation(temp);
+}
+
+export const validateCreateIncidente = (values, handleOpenSnackbar) => {
+  let temp = {};
+  temp.proyecto = isAssignedValidation(values.proyecto) ? false : "Seleccione un proyecto";
+  temp.punto = isAssignedValidation(values.punto) ? false : "Seleccione un punto";
+  temp.tipoIncidente = isAssignedValidation(values.tipoIncidente) ? false : "Seleccione un tipo de incidente";
+  temp.detalle_evento = notBlankValidation(values.detalle_evento) ? false : "Este campo no puede ser vacío";
+  temp.fecha_incidente = notBlankValidation(values.fecha_incidente) ? false : "Este campo no puede ser vacío";
+  temp.hora_incidente = notBlankValidation(values.hora_incidente) ? false : "Este campo no puede ser vacío";
+  temp.localidad = notBlankValidation(values.localidad) ? false : "Este campo no puede ser vacío";
+  temp.zona_sector = notBlankValidation(values.zona_sector) ? false : "Este campo no puede ser vacío";
+  temp.distrito = notBlankValidation(values.distrito) ? false : "Este campo no puede ser vacío";
+  temp.provincia = notBlankValidation(values.provincia) ? false : "Este campo no puede ser vacío";
+  temp.departamento = notBlankValidation(values.departamento) ? false : "Este campo no puede ser vacío";
+  temp.coordenada_norte = isNumberValidation(values.coordenada_norte) ? false : "Este campo no puede ser vacío";
+  temp.coordenada_este = isNumberValidation(values.coordenada_este) ? false : "Este campo no puede ser vacío";
+  temp.detalle_ubicacion = notBlankValidation(values.detalle_ubicacion) ? false : "Este campo no puede ser vacío";
+
+  if(!arrayHasElementValidation(values.causas)) {
+    temp.causas = "El incidente debe tener asociado al menos una causa";
+    handleOpenSnackbar("causas");
+  }
+
+  if(!arrayHasElementValidation(values.acciones_inmediatas)) {
+    temp.acciones_inmediatas = "El incidente debe tener asociado al menos una acción inmediata";
+    handleOpenSnackbar("acciones");
+  }
+
+  return parseValidation(temp);
+}

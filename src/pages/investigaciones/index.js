@@ -10,21 +10,17 @@ import { HeaderContainer, ListViewContainer, MiddleContainer, PrimaryTitle, Seco
 import { StyledTab, StyledTabs } from "../../styles/Tabs.style";
 import { StyledSearchTextField } from "../../styles/TextField.style";
 
-const Incidentes = () => {
+const Investigaciones = () => {
 
   const history = useHistory();
 
   const { loadingIncidentes, incidentes } = useFetchIncidentes();
 
-  const [ tab, setTab ] = useState(0);
-
-  const handleCreate = () => {
-    history.push("/incidentes/create");
-  }
+  const [ tab, setTab ] = useState(1);
 
   const handleChange = (event, newValue) => {
     setTab(newValue);
-    history.push("/investigaciones");
+    history.push("/incidentes");
   }
 
   return (
@@ -37,15 +33,9 @@ const Incidentes = () => {
       </Box>
       <HeaderContainer>
         <div>
-          <PrimaryTitle>Reportes Preliminares</PrimaryTitle>
+          <PrimaryTitle>Reportes Finales</PrimaryTitle>
           <SecondaryTitle>{incidentes.length} reportes</SecondaryTitle>
         </div>
-        <EVButton
-          label="Nuevo Reporte"
-          variant="contained"
-          startIcon={<Add style={{ fontSize: 24 }}/>}
-          onClick={handleCreate}
-        />  
       </HeaderContainer>
       <MiddleContainer>
         <StyledSearchTextField
@@ -71,4 +61,4 @@ const Incidentes = () => {
   );
 }
  
-export default Incidentes;
+export default Investigaciones;

@@ -11,4 +11,5 @@ export default class ApiRoutes {
   static PUNTOS = "puntos/";
   static REGISTROS = "registros/";
   static INCIDENTES = "incidentes/";
+  static CAUSAS = "causas/";
 }

@@ -30,6 +30,9 @@ import DetalleTipoIncidente from '../pages/tipoIncidente/[tipoIncidente]';
 import EditTipoIncidente from '../pages/tipoIncidente/[tipoIncidente]/Edit';
 import MonitoreoProyecto from '../pages/monitoreo/[proyecto]';
 import CreateIncidente from '../pages/incidentes/Create';
+import DetalleIncidente from '../pages/incidentes/[incidente]';
+import EditIncidente from '../pages/incidentes/[incidente]/Edit';
+import Investigaciones from '../pages/investigaciones';
 
 const Router = () => {
 
@@ -83,6 +86,13 @@ const Router = () => {
             
             <Route exact path="/incidentes" component={Incidentes} />
             <Route exact path="/incidentes/create" component={CreateIncidente} />
+            <Route exact path="/incidentes/:id" component={DetalleIncidente}/>
+            <Route exact path="/incidentes/:id/edit" component={EditIncidente} />
+
+            <Route exact path="/investigaciones" component={Investigaciones} />
+            {/* <Route exact path="/investigaciones/create" component={CreateIncidente} />
+            <Route exact path="/investigaciones/:id" component={DetalleIncidente}/>
+            <Route exact path="/investigaciones/:id/edit" component={EditIncidente} /> */}
 
             <Route exact path="/repositorio" component={Repositorio} />
             <Route render={() => <Redirect to="/monitoreoAmbiental" />} />

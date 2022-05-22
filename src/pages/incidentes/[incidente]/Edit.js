@@ -1,25 +1,29 @@
 import { Close, Save } from "@mui/icons-material";
-import { useHistory } from "react-router";
-import useForm from "../../hooks/useForm.hook";
-import { HeaderContainer, ListViewContainer, PrimaryTitle, ButtonsContainer } from "../../styles/containers/View.style";
-import EVButton from "../../components/atoms/EVButton.atom";
-import { FormGroupContainer } from "../../styles/containers/FormGroup.style";
-import FormHeader from "../../components/organisms/FormHeader.organism";
-import { useState } from "react";
 import { Alert, Collapse, Snackbar } from "@mui/material";
-import { validateCreateIncidente } from "../../utils/formValidations";
-import axios from "axios";
-import Config from "../../constants/Config.constants";
-import ApiRoutes from "../../constants/ApiRoutes.constants";
-import EventData from "../../components/molecules/incidentes/EventData.molecule";
-import LocationData from "../../components/molecules/incidentes/LocationData.molecule";
-import Causas from "../../components/molecules/incidentes/causas/Causas.molecule";
-import ProjectData from "../../components/molecules/incidentes/ProjectData.molecule";
-import AccionesInmediatas from "../../components/molecules/incidentes/accionesInmediatas/AccionesInmediatas.molecule";
+import { useEffect, useState } from "react";
+import { useHistory, useParams } from "react-router";
+import EVButton from "../../../components/atoms/EVButton.atom";
+import AccionesInmediatas from "../../../components/molecules/incidentes/accionesInmediatas/AccionesInmediatas.molecule";
+import Causas from "../../../components/molecules/incidentes/causas/Causas.molecule";
+import EventData from "../../../components/molecules/incidentes/EventData.molecule";
+import LocationData from "../../../components/molecules/incidentes/LocationData.molecule";
+import ProjectData from "../../../components/molecules/incidentes/ProjectData.molecule";
+import FormHeader from "../../../components/organisms/FormHeader.organism";
+import useForm from "../../../hooks/useForm.hook";
+import { useEditIncidente, useFetchDetalleIncidente } from "../../../services/Incidentes.services";
+import { FormGroupContainer } from "../../../styles/containers/FormGroup.style";
+import { ButtonsContainer, HeaderContainer, ListViewContainer, PrimaryTitle } from "../../../styles/containers/View.style";
+import { validateCreateIncidente } from "../../../utils/formValidations";
 
-const CreateIncidente = () => {
+const EditIncidente = () => {
 
   const history = useHistory();
+
+  const { id } = useParams();
+
+  const [changePunto, setChangePunto] = useState(false);
+
+  const { loadingIncidente, incidente } = useFetchDetalleIncidente(id);
 
   const { values, setValues, errors, setErrors, handleInputChange } = useForm({
     proyecto: {
@@ -54,11 +58,8 @@ const CreateIncidente = () => {
     acciones_inmediatas: []
   });
 
-  const [ openSnackbar, setOpenSnackbar] = useState({
-    causas: false,
-    acciones: false
-  })
-
+  const { loadingEdit, editIncidente } = useEditIncidente(values);
+  
   const [ formExpand, setFormExpand ] = useState({
     general: true,
     evento: true,
@@ -68,7 +69,10 @@ const CreateIncidente = () => {
     evidencias: true
   });
 
-  const [ disableSave, setDisableSave ] = useState(false);
+  const [ openSnackbar, setOpenSnackbar] = useState({
+    causas: false,
+    acciones: false
+  })
 
   const handleExpand = ( name ) => {
     setFormExpand(f => ({
@@ -79,20 +83,6 @@ const CreateIncidente = () => {
 
   const handleGoBack = () => {
     history.push('/incidentes');
-  }
-
-  const handleSave = () => {
-    setErrors(f => ({}));
-    let validation = validateCreateIncidente(values, handleOpenSnackbar);
-    setErrors(f => validation.errors);
-    if(validation.isValid){
-      // setDisableSave(true);
-      axios.post(`${Config.API_URL}${Config.API_PATH}${ApiRoutes.INCIDENTES}crear`, values)
-      .then((response) => {
-        // history.push("/incidentes/" + response.data.data.incidente.id);
-        alert("ok");
-      })
-    }
   }
 
   const handleCloseSnackbar = (snackbar) => {
@@ -109,11 +99,27 @@ const CreateIncidente = () => {
     }));
   }
 
+  const handleEdit = () => {
+    setErrors(f => ({}));
+    let validation = validateCreateIncidente(values, handleOpenSnackbar);
+    setErrors(f => validation.errors);
+    if(validation.isValid){
+      editIncidente();
+    }
+  }
+
+  useEffect(() => {
+    if(!loadingIncidente) {
+      setValues(incidente);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loadingIncidente]);
+  
   return (
     <ListViewContainer>
       <HeaderContainer>
         <div>
-          <PrimaryTitle>Nuevo Reporte Preliminar</PrimaryTitle>
+          <PrimaryTitle>Editar Reporte Preliminar</PrimaryTitle>
         </div>
         <ButtonsContainer>
           <EVButton
@@ -123,11 +129,10 @@ const CreateIncidente = () => {
             onClick={handleGoBack}
           />
           <EVButton
-            disabled={disableSave}
             label="Guardar"
             variant="contained"
             startIcon={<Save style={{ fontSize: 24 }}/>}
-            onClick={handleSave}
+            onClick={handleEdit}
           />
         </ButtonsContainer>
       </HeaderContainer>
@@ -136,7 +141,8 @@ const CreateIncidente = () => {
         <Collapse className="inputs-container" in={formExpand.general}>
           <div style={{width: '100%', height: '0'}}></div>
           <ProjectData
-            changePunto={true}
+            changePunto={changePunto}
+            setChangePunto={setChangePunto}
             values={values}
             setValues={setValues}
             errors={errors}
@@ -185,7 +191,7 @@ const CreateIncidente = () => {
           <AccionesInmediatas
             acciones={values.acciones_inmediatas}
             setValues={setValues} />
-
+          
         </Collapse>
       </FormGroupContainer>
       <FormGroupContainer>
@@ -209,4 +215,4 @@ const CreateIncidente = () => {
   );
 }
  
-export default CreateIncidente;
+export default EditIncidente;

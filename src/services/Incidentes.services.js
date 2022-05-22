@@ -27,3 +27,41 @@ export const useFetchIncidentes = (auto = true) => {
 
   return {loadingIncidentes, incidentes, fetchIncidentes};
 }
+
+export const useFetchDetalleIncidente = ( idIncidente ) => {
+  const [incidente, setIncidente] = useState(null);
+  const [loadingIncidente, setLoadingIncidente] = useState(true);
+
+  const fetchIncidente = async function () {
+    setLoadingIncidente(true);
+    await axios.get(`${Config.API_URL}${Config.API_PATH}${ApiRoutes.INCIDENTES}detalle/${idIncidente}`)
+    .then((response) => {
+      setIncidente(response.data.data.incidente);
+    })
+    .finally(() => {
+      setLoadingIncidente(false);
+    })
+  };
+
+  useEffect(() => {
+    fetchIncidente();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  return {loadingIncidente, incidente};
+}
+
+export const useEditIncidente = ( incidenteData ) => {
+  const [loadingEdit, setLoadingEdit] = useState(false);
+  const history = useHistory();
+
+  const editIncidente = async function () {
+    setLoadingEdit(true);
+    await axios.put(`${Config.API_URL}${Config.API_PATH}${ApiRoutes.INCIDENTES}editar`, incidenteData)
+    .then((response) => {
+      history.push("/incidentes/" + incidenteData.id);
+    })
+  }
+
+  return {loadingEdit, editIncidente};
+}

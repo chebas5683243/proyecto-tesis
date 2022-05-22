@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { DataGridPrimaryStyle } from '../../styles/DataGrid.style';
 // import { GridToolbar } from '@mui/x-data-grid-pro';
 
-const EVDataGrid = ({rowHeight, loading, rows, columns, density}) => {
+const EVDataGrid = ({rowHeight, loading, rows, columns, density, components}) => {
 
   const [ pageSize, setPageSize ] = useState(10);
 
@@ -25,6 +25,7 @@ const EVDataGrid = ({rowHeight, loading, rows, columns, density}) => {
             disableSelectionOnClick
             components={{
               Toolbar: GridToolbar,
+              ...components
             }}
             // checkboxSelection
           />
