@@ -182,13 +182,13 @@ const DetalleIncidente = () => {
 
         </Collapse>
       </FormGroupContainer>
-      <FormGroupContainer>
+      {/* <FormGroupContainer>
         <FormHeader isExpanded={formExpand.evidencias} expand={() => handleExpand("evidencias")} title="Evidencias"/>
         <Collapse className="inputs-container" in={formExpand.evidencias}>
           <div style={{width: '100%', height: '0'}}></div>
 
         </Collapse>
-      </FormGroupContainer>
+      </FormGroupContainer> */}
     </ListViewContainer>
   );
 }

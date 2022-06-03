@@ -219,3 +219,93 @@ export const validateCreateIncidente = (values, handleOpenSnackbar) => {
 
   return parseValidation(temp);
 }
+
+export const validateCreateInvestigacion = (values) => {
+  let temp = {};
+  temp.proyecto = isAssignedValidation(values.proyecto) ? false : "Seleccione un proyecto";
+  temp.punto = isAssignedValidation(values.punto) ? false : "Seleccione un punto";
+  temp.tipoIncidente = isAssignedValidation(values.tipoIncidente) ? false : "Seleccione un tipo de incidente";
+  temp.detalle_pre_evento = notBlankValidation(values.detalle_pre_evento) ? false : "Este campo no puede ser vacío";
+  temp.detalle_evento = notBlankValidation(values.detalle_evento) ? false : "Este campo no puede ser vacío";
+  temp.detalle_post_evento = notBlankValidation(values.detalle_post_evento) ? false : "Este campo no puede ser vacío";
+  temp.fecha_incidente = notBlankValidation(values.fecha_incidente) ? false : "Este campo no puede ser vacío";
+  temp.hora_incidente = notBlankValidation(values.hora_incidente) ? false : "Este campo no puede ser vacío";
+  temp.localidad = notBlankValidation(values.localidad) ? false : "Este campo no puede ser vacío";
+  temp.zona_sector = notBlankValidation(values.zona_sector) ? false : "Este campo no puede ser vacío";
+  temp.distrito = notBlankValidation(values.distrito) ? false : "Este campo no puede ser vacío";
+  temp.provincia = notBlankValidation(values.provincia) ? false : "Este campo no puede ser vacío";
+  temp.departamento = notBlankValidation(values.departamento) ? false : "Este campo no puede ser vacío";
+  // temp.coordenada_norte = isNumberValidation(values.coordenada_norte) ? false : "Este campo no puede ser vacío";
+  // temp.coordenada_este = isNumberValidation(values.coordenada_este) ? false : "Este campo no puede ser vacío";
+  temp.detalle_ubicacion = notBlankValidation(values.detalle_ubicacion) ? false : "Este campo no puede ser vacío";
+
+  return parseValidation(temp);
+}
+
+export const validateCreateImpacto = (values) => {
+  let temp = {};
+  temp.tipo = isAssignedValidation(values.tipo) ? false : "Seleccione un tipo de impacto";
+  temp.descripcion = notBlankValidation(values.descripcion) ? false : "Este campo no puede ser vacío";
+
+  return parseValidation(temp);
+}
+
+export const validateCreatePersonaAfectada = (values) => {
+  let temp = {};
+  temp.nombre_completo = notBlankValidation(values.nombre_completo) ? false : "Este campo no puede ser vacío";
+  temp.dni = dniValidation(values.dni) ? false : "DNI no válido";
+  temp.descripcion = notBlankValidation(values.descripcion) ? false : "Este campo no puede ser vacío";
+
+  return parseValidation(temp);
+}
+
+export const validateCreateAccion = (values) => {
+  let temp = {};
+  temp.responsable = notBlankValidation(values.responsable) ? false : "Este campo no puede ser vacío";
+  temp.fecha_planeada = notBlankValidation(values.fecha_planeada) ? false : "Este campo no puede ser vacío";
+  temp.descripcion = notBlankValidation(values.descripcion) ? false : "Este campo no puede ser vacío";
+  temp.tipo = isAssignedValidation(values.tipo) ? false : "Seleccione un tipo de acción";
+
+  return parseValidation(temp);
+}
+
+export const validateGuardarDatosGeneralesInvestigacion = (values) => {
+  let temp = {};
+  temp.proyecto = isAssignedValidation(values.proyecto) ? false : "Seleccione un proyecto";
+  temp.punto = isAssignedValidation(values.punto) ? false : "Seleccione un punto";
+  temp.tipoIncidente = isAssignedValidation(values.tipoIncidente) ? false : "Seleccione un tipo de incidente";
+  temp.detalle_pre_evento = notBlankValidation(values.detalle_pre_evento) ? false : "Este campo no puede ser vacío";
+  temp.detalle_evento = notBlankValidation(values.detalle_evento) ? false : "Este campo no puede ser vacío";
+  temp.detalle_post_evento = notBlankValidation(values.detalle_post_evento) ? false : "Este campo no puede ser vacío";
+  temp.fecha_incidente = notBlankValidation(values.fecha_incidente) ? false : "Este campo no puede ser vacío";
+  temp.hora_incidente = notBlankValidation(values.hora_incidente) ? false : "Este campo no puede ser vacío";
+  temp.localidad = notBlankValidation(values.localidad) ? false : "Este campo no puede ser vacío";
+  temp.zona_sector = notBlankValidation(values.zona_sector) ? false : "Este campo no puede ser vacío";
+  temp.distrito = notBlankValidation(values.distrito) ? false : "Este campo no puede ser vacío";
+  temp.provincia = notBlankValidation(values.provincia) ? false : "Este campo no puede ser vacío";
+  temp.departamento = notBlankValidation(values.departamento) ? false : "Este campo no puede ser vacío";
+
+  return parseValidation(temp);
+}
+
+export const validateGuardarCausasAccionesInvestigacion = (values, handleOpenSnackbar) => {
+  let temp = {};
+
+  if(!arrayHasElementValidation(values.causas)) {
+    temp.causas = "El incidente debe tener asociado al menos una causa";
+    handleOpenSnackbar("causas");
+  }
+
+  return parseValidation(temp);
+}
+
+export const validateGuardarPlanAccionesInvestigacion = (values, handleOpenSnackbar) => {
+  let temp = {};
+
+  if(!arrayHasElementValidation(values.acciones)) {
+    temp.acciones = "El incidente debe tener un plan de acción con al menos una acción";
+    handleOpenSnackbar("acciones");
+  }
+
+  return parseValidation(temp);
+}

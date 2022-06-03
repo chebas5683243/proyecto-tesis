@@ -17,7 +17,7 @@ export const useColumnsListIncidentes = () => {
       actions = [
         <GridActionsCellItem
           label="Crear reporte final"
-          onClick={() => handleSeeDetails(params.id)}
+          onClick={() => handleCreateInvestigacion(params.id)}
           showInMenu
         />,
         <GridActionsCellItem
@@ -57,6 +57,10 @@ export const useColumnsListIncidentes = () => {
   
   const handleSeeDetails = (selectedId) => {
     history.push("/incidentes/" + selectedId);
+  }
+
+  const handleCreateInvestigacion = (selectedId) => {
+    history.push("/incidentes/" + selectedId + "/investigacion");
   }
 
   const handleEdit = (selectedId) => {

@@ -1,21 +1,22 @@
 import { Close, Save } from "@mui/icons-material";
-import { Alert, Collapse, Snackbar } from "@mui/material";
+import { Collapse } from "@mui/material";
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router";
 import EVButton from "../../../components/atoms/EVButton.atom";
-import AccionesInmediatas from "../../../components/molecules/incidentes/accionesInmediatas/AccionesInmediatas.molecule";
-import Causas from "../../../components/molecules/incidentes/causas/Causas.molecule";
-import EventData from "../../../components/molecules/incidentes/EventData.molecule";
-import LocationData from "../../../components/molecules/incidentes/LocationData.molecule";
-import ProjectData from "../../../components/molecules/incidentes/ProjectData.molecule";
+import EventData from "../../../components/molecules/investigaciones/EventData.molecule";
+import LocationData from "../../../components/molecules/investigaciones/LocationData.molecule";
+import ProjectData from "../../../components/molecules/investigaciones/ProjectData.molecule";
 import FormHeader from "../../../components/organisms/FormHeader.organism";
+import ApiRoutes from "../../../constants/ApiRoutes.constants";
+import Config from "../../../constants/Config.constants";
 import useForm from "../../../hooks/useForm.hook";
-import { useEditIncidente, useFetchDetalleIncidente } from "../../../services/Incidentes.services";
+import { useFetchDetalleIncidente, useFetchInfoCreacionInvestigacion } from "../../../services/Incidentes.services";
 import { FormGroupContainer } from "../../../styles/containers/FormGroup.style";
 import { ButtonsContainer, HeaderContainer, ListViewContainer, PrimaryTitle } from "../../../styles/containers/View.style";
-import { validateCreateIncidente } from "../../../utils/formValidations";
+import { validateCreateInvestigacion } from "../../../utils/formValidations";
 
-const EditIncidente = () => {
+const CrearInvestigacion = () => {
 
   const history = useHistory();
 
@@ -23,7 +24,7 @@ const EditIncidente = () => {
 
   const [changePunto, setChangePunto] = useState(false);
 
-  const { loadingIncidente, incidente } = useFetchDetalleIncidente(id);
+  const { loadingInvestigacion, investigacion } = useFetchInfoCreacionInvestigacion(id);
 
   const { values, setValues, errors, setErrors, handleInputChange } = useForm({
     proyecto: {
@@ -43,7 +44,12 @@ const EditIncidente = () => {
       id: 0,
       label: "Selecciona un tipo de incidente"
     },
+    codigo: '',
+    fecha_inicio_investigacion: '',
+    fecha_fin_investigacion: '',
     detalle_evento: '',
+    detalle_pre_evento: '',
+    detalle_post_evento: '',
     fecha_incidente: '',
     hora_incidente: '',
     localidad: '',
@@ -54,11 +60,7 @@ const EditIncidente = () => {
     coordenada_norte: '',
     coordenada_este: '',
     detalle_ubicacion: '',
-    causas: [],
-    acciones_inmediatas: []
   });
-
-  const { loadingEdit, editIncidente } = useEditIncidente(values);
   
   const [ formExpand, setFormExpand ] = useState({
     general: true,
@@ -69,10 +71,7 @@ const EditIncidente = () => {
     evidencias: true
   });
 
-  const [ openSnackbar, setOpenSnackbar] = useState({
-    causas: false,
-    acciones: false
-  })
+  const [ disableSave, setDisableSave ] = useState(false);
 
   const handleExpand = ( name ) => {
     setFormExpand(f => ({
@@ -85,41 +84,32 @@ const EditIncidente = () => {
     history.push('/incidentes');
   }
 
-  const handleCloseSnackbar = (snackbar) => {
-    setOpenSnackbar(p => ({
-      ...p,
-      [snackbar]: false
-    }));
-  }
-
-  const handleOpenSnackbar = (snackbar) => {
-    setOpenSnackbar(p => ({
-      ...p,
-      [snackbar]: true
-    }));
-  }
-
-  const handleEdit = () => {
+  const handleSave = () => {
     setErrors(f => ({}));
-    let validation = validateCreateIncidente(values, handleOpenSnackbar);
+    let validation = validateCreateInvestigacion(values);
     setErrors(f => validation.errors);
     if(validation.isValid){
-      editIncidente();
+      // setDisableSave(true);
+      axios.post(`${Config.API_URL}${Config.API_PATH}${ApiRoutes.INVESTIGACIONES}crear`, values)
+      .then((response) => {
+        // history.push("/incidentes/" + response.data.data.incidente.id);
+        alert("ok");
+      })
     }
   }
 
   useEffect(() => {
-    if(!loadingIncidente) {
-      setValues(incidente);
+    if(!loadingInvestigacion) {
+      setValues(investigacion);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loadingIncidente]);
+  }, [loadingInvestigacion]);
   
   return (
     <ListViewContainer>
       <HeaderContainer>
         <div>
-          <PrimaryTitle>Crear nuevo Reporte Final de Investigación</PrimaryTitle>
+          <PrimaryTitle>Crear Reporte Final de Investigación</PrimaryTitle>
         </div>
         <ButtonsContainer>
           <EVButton
@@ -129,10 +119,11 @@ const EditIncidente = () => {
             onClick={handleGoBack}
           />
           <EVButton
+            disabled={disableSave}
             label="Guardar"
             variant="contained"
             startIcon={<Save style={{ fontSize: 24 }}/>}
-            onClick={handleEdit}
+            onClick={handleSave}
           />
         </ButtonsContainer>
       </HeaderContainer>
@@ -174,45 +165,8 @@ const EditIncidente = () => {
             
         </Collapse>
       </FormGroupContainer>
-      <FormGroupContainer>
-        <FormHeader isExpanded={formExpand.causas} expand={() => handleExpand("causas")} title="Causas inmediatas"/>
-        <Collapse className="inputs-container" in={formExpand.causas}>
-          <div style={{width: '100%', height: '0'}}></div>
-          <Causas
-            causas={values.causas}
-            setValues={setValues} />
-
-        </Collapse>
-      </FormGroupContainer>
-      <FormGroupContainer>
-        <FormHeader isExpanded={formExpand.acciones} expand={() => handleExpand("acciones")} title="Acciones inmediatas"/>
-        <Collapse className="inputs-container" in={formExpand.acciones}>
-          <div style={{width: '100%', height: '0'}}></div>
-          <AccionesInmediatas
-            acciones={values.acciones_inmediatas}
-            setValues={setValues} />
-          
-        </Collapse>
-      </FormGroupContainer>
-      <FormGroupContainer>
-        <FormHeader isExpanded={formExpand.evidencias} expand={() => handleExpand("evidencias")} title="Evidencias"/>
-        <Collapse className="inputs-container" in={formExpand.evidencias}>
-          <div style={{width: '100%', height: '0'}}></div>
-
-        </Collapse>
-      </FormGroupContainer>
-      <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'right' }} open={openSnackbar.causas} autoHideDuration={6000} onClose={() => handleCloseSnackbar("causas")}>
-        <Alert onClose={() => handleCloseSnackbar("causas")} variant="filled" severity="error" sx={{ width: '100%' }}>
-          {errors.causas}
-        </Alert>
-      </Snackbar>
-      <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'right' }} open={openSnackbar.acciones} autoHideDuration={6000} onClose={() => handleCloseSnackbar("acciones")}>
-        <Alert onClose={() => handleCloseSnackbar("acciones")} variant="filled" severity="error" sx={{ width: '100%' }}>
-          {errors.acciones_inmediatas}
-        </Alert>
-      </Snackbar>
     </ListViewContainer>
   );
 }
  
-export default EditIncidente;
+export default CrearInvestigacion;

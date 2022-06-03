@@ -65,3 +65,26 @@ export const useEditIncidente = ( incidenteData ) => {
 
   return {loadingEdit, editIncidente};
 }
+
+export const useFetchInfoCreacionInvestigacion = ( idIncidente ) => {
+  const [investigacion, setInvestigacion] = useState(null);
+  const [loadingInvestigacion, setLoadingInvestigacion] = useState(true);
+
+  const fetchInvestigacion = async function () {
+    setLoadingInvestigacion(true);
+    await axios.get(`${Config.API_URL}${Config.API_PATH}${ApiRoutes.INCIDENTES}getInfoCrearInvestigacion/${idIncidente}`)
+    .then((response) => {
+      setInvestigacion(response.data.data.investigacion);
+    })
+    .finally(() => {
+      setLoadingInvestigacion(false);
+    })
+  };
+
+  useEffect(() => {
+    fetchInvestigacion();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  return {loadingInvestigacion, investigacion};
+}
