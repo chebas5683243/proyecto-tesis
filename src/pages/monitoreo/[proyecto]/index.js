@@ -16,9 +16,9 @@ const MonitoreoProyecto = () => {
 
   const { idProyecto } = useParams();
 
-  const { setProyectoId, puntoId, setPuntoId, registroId } = useContext(ProjectContext);
+  const { setProyectoId, puntoId, setPuntoId, registroId, setRegistroId } = useContext(ProjectContext);
 
-  const { loadingProyecto, proyecto } = useFetchDetalleProyecto(idProyecto);
+  const { loadingProyecto, proyecto, fetchProyecto } = useFetchDetalleProyecto(idProyecto);
 
   const { values, setValues } = useForm({
     nombre: '',
@@ -32,7 +32,8 @@ const MonitoreoProyecto = () => {
       id: 0,
       label: 'Selecciona una empresa'
     },
-    fases: []
+    fases: [],
+    fecha_mas_reciente: null
   });
 
   const [ tab, setTab ] = useState(0);
@@ -48,6 +49,8 @@ const MonitoreoProyecto = () => {
 
   useEffect(() => {
     setPuntoId(null);
+    setRegistroId(null);
+    if (tab === 0) fetchProyecto();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tab])
 

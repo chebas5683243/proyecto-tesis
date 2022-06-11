@@ -16,7 +16,7 @@ const ReporteRegistro = () => {
 
   const { openTooltip, closeTooltip, getTooltipLabel } = useTooltipContext();
 
-  const { registroId } = useContext(ProjectContext);
+  const { registroId, setRegistroId } = useContext(ProjectContext);
 
   const { loadingReporte, registro, parametros, aqi, wqi, estandar, noAplica } = useFetchReporteRegistro(registroId);
 
@@ -45,7 +45,7 @@ const ReporteRegistro = () => {
   return (
     <ReporteContainer>
       <div className="header-container">
-        <div>Volver</div>
+        <div className="go-back-button" onClick={() => setRegistroId(null)}> {'<<'} <span>Volver</span></div>
         <BreadcrumbsReporte />
       </div>
       <div className="titulo-container">
@@ -56,10 +56,10 @@ const ReporteRegistro = () => {
           <span className="info-titulo">Proyecto:</span>
           <span className="info-valor">{loadingReporte ? <Skeleton /> : registro?.proyecto}</span>
         </div>
-        <div className="info-container">
+        {/* <div className="info-container">
           <span className="info-titulo">Fase:</span>
           <span className="info-valor">{loadingReporte ? <Skeleton /> : registro?.proyecto}</span>
-        </div>
+        </div> */}
         <div className="info-container">
           <span className="info-titulo">Punto de Monitoreo:</span>
           <span className="info-valor">{loadingReporte ? <Skeleton /> : registro?.punto}</span>
@@ -197,12 +197,12 @@ const ReporteRegistro = () => {
                   <span style={{color: ColoresCategorias.TIPO_6.fontColor}}>Peligrosa</span>
                 </div>
                 <div className="leyenda-der">
-                  <span>{loadingReporte ? <Skeleton width={40}/> : Math.round(100 * aqi?.aqi_1 / aqi?.cantidad) + "%"}</span>
-                  <span>{loadingReporte ? <Skeleton width={40}/> : Math.round(100 * aqi?.aqi_2 / aqi?.cantidad) + "%"}</span>
-                  <span>{loadingReporte ? <Skeleton width={40}/> : Math.round(100 * aqi?.aqi_3 / aqi?.cantidad) + "%"}</span>
-                  <span>{loadingReporte ? <Skeleton width={40}/> : Math.round(100 * aqi?.aqi_4 / aqi?.cantidad) + "%"}</span>
-                  <span>{loadingReporte ? <Skeleton width={40}/> : Math.round(100 * aqi?.aqi_5 / aqi?.cantidad) + "%"}</span>
-                  <span>{loadingReporte ? <Skeleton width={40}/> : Math.round(100 * aqi?.aqi_6 / aqi?.cantidad) + "%"}</span>
+                  <span>{loadingReporte ? <Skeleton width={40}/> : (100 * aqi?.aqi_1 / aqi?.cantidad).toFixed(2) + "%"}</span>
+                  <span>{loadingReporte ? <Skeleton width={40}/> : (100 * aqi?.aqi_2 / aqi?.cantidad).toFixed(2) + "%"}</span>
+                  <span>{loadingReporte ? <Skeleton width={40}/> : (100 * aqi?.aqi_3 / aqi?.cantidad).toFixed(2) + "%"}</span>
+                  <span>{loadingReporte ? <Skeleton width={40}/> : (100 * aqi?.aqi_4 / aqi?.cantidad).toFixed(2) + "%"}</span>
+                  <span>{loadingReporte ? <Skeleton width={40}/> : (100 * aqi?.aqi_5 / aqi?.cantidad).toFixed(2) + "%"}</span>
+                  <span>{loadingReporte ? <Skeleton width={40}/> : (100 * aqi?.aqi_6 / aqi?.cantidad).toFixed(2) + "%"}</span>
                 </div>
               </div>
             </div>
@@ -243,11 +243,11 @@ const ReporteRegistro = () => {
                   <span style={{color: ColoresCategorias.TIPO_6.fontColor}}>Inadecuada</span>
                 </div>
                 <div className="leyenda-der">
-                  <span>{loadingReporte ? <Skeleton width={40}/> : Math.round(100 * wqi?.wqi_1 / wqi?.cantidad) + "%"}</span>
-                  <span>{loadingReporte ? <Skeleton width={40}/> : Math.round(100 * wqi?.wqi_2 / wqi?.cantidad) + "%"}</span>
-                  <span>{loadingReporte ? <Skeleton width={40}/> : Math.round(100 * wqi?.wqi_3 / wqi?.cantidad) + "%"}</span>
-                  <span>{loadingReporte ? <Skeleton width={40}/> : Math.round(100 * wqi?.wqi_4 / wqi?.cantidad) + "%"}</span>
-                  <span>{loadingReporte ? <Skeleton width={40}/> : Math.round(100 * wqi?.wqi_5 / wqi?.cantidad) + "%"}</span>
+                  <span>{loadingReporte ? <Skeleton width={40}/> : (100 * wqi?.wqi_1 / wqi?.cantidad).toFixed(2) + "%"}</span>
+                  <span>{loadingReporte ? <Skeleton width={40}/> : (100 * wqi?.wqi_2 / wqi?.cantidad).toFixed(2) + "%"}</span>
+                  <span>{loadingReporte ? <Skeleton width={40}/> : (100 * wqi?.wqi_3 / wqi?.cantidad).toFixed(2) + "%"}</span>
+                  <span>{loadingReporte ? <Skeleton width={40}/> : (100 * wqi?.wqi_4 / wqi?.cantidad).toFixed(2) + "%"}</span>
+                  <span>{loadingReporte ? <Skeleton width={40}/> : (100 * wqi?.wqi_5 / wqi?.cantidad).toFixed(2) + "%"}</span>
                 </div>
               </div>
             </div>
@@ -285,8 +285,8 @@ const ReporteRegistro = () => {
                   <span style={{color: ColoresCategorias.TIPO_6.fontColor}}>Inadecuada</span>
                 </div>
                 <div className="leyenda-der">
-                  <span>{loadingReporte ? <Skeleton width={40}/> : Math.round(100 * estandar?.buena / estandar?.cantidad) + "%"}</span>
-                  <span>{loadingReporte ? <Skeleton width={40}/> : Math.round(100 * estandar?.inadecuada / estandar?.cantidad) + "%"}</span>
+                  <span>{loadingReporte ? <Skeleton width={40}/> : (100 * estandar?.buena / estandar?.cantidad).toFixed(2) + "%"}</span>
+                  <span>{loadingReporte ? <Skeleton width={40}/> : (100 * estandar?.inadecuada / estandar?.cantidad).toFixed(2) + "%"}</span>
                 </div>
               </div>
             </div>
@@ -299,7 +299,6 @@ const ReporteRegistro = () => {
         rows={parametros}
         rowHeight={60}
       />
-      {registroId}
     </ReporteContainer>
   );
 }

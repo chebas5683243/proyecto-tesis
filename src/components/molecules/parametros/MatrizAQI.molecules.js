@@ -56,7 +56,7 @@ const MatrizAQI = ({ values, errors, handleInputChange, disabled }) => {
               disabled
               value={0}
               InputProps={{
-                endAdornment: <InputAdornment position="end">{values.unidad.nombre_corto}</InputAdornment>,
+                endAdornment: <InputAdornment position="end">{values.unidad?.nombre_corto}</InputAdornment>,
               }} />
           </div>
           <div className="inputs-matriz">
@@ -64,7 +64,7 @@ const MatrizAQI = ({ values, errors, handleInputChange, disabled }) => {
               disabled
               value={values.aqi_1}
               InputProps={{
-                endAdornment: <InputAdornment position="end">{values.unidad.nombre_corto}</InputAdornment>,
+                endAdornment: <InputAdornment position="end">{values.unidad?.nombre_corto}</InputAdornment>,
               }} />
           </div>
           <div className="inputs-matriz">
@@ -72,7 +72,7 @@ const MatrizAQI = ({ values, errors, handleInputChange, disabled }) => {
               disabled
               value={values.aqi_2}
               InputProps={{
-                endAdornment: <InputAdornment position="end">{values.unidad.nombre_corto}</InputAdornment>,
+                endAdornment: <InputAdornment position="end">{values.unidad?.nombre_corto}</InputAdornment>,
               }} />
           </div>
           <div className="inputs-matriz">
@@ -80,7 +80,7 @@ const MatrizAQI = ({ values, errors, handleInputChange, disabled }) => {
               disabled
               value={values.aqi_3}
               InputProps={{
-                endAdornment: <InputAdornment position="end">{values.unidad.nombre_corto}</InputAdornment>,
+                endAdornment: <InputAdornment position="end">{values.unidad?.nombre_corto}</InputAdornment>,
               }} />
           </div>
           <div className="inputs-matriz">
@@ -88,7 +88,7 @@ const MatrizAQI = ({ values, errors, handleInputChange, disabled }) => {
               disabled
               value={values.aqi_4}
               InputProps={{
-                endAdornment: <InputAdornment position="end">{values.unidad.nombre_corto}</InputAdornment>,
+                endAdornment: <InputAdornment position="end">{values.unidad?.nombre_corto}</InputAdornment>,
               }} />
           </div>
           <div className="inputs-matriz">
@@ -96,7 +96,7 @@ const MatrizAQI = ({ values, errors, handleInputChange, disabled }) => {
               disabled
               value={values.aqi_5}
               InputProps={{
-                endAdornment: <InputAdornment position="end">{values.unidad.nombre_corto}</InputAdornment>,
+                endAdornment: <InputAdornment position="end">{values.unidad?.nombre_corto}</InputAdornment>,
               }} />
           </div>
         </div>
@@ -118,7 +118,7 @@ const MatrizAQI = ({ values, errors, handleInputChange, disabled }) => {
               name="aqi_1"
               error={errors.aqi_1 ? true : false}
               InputProps={{
-                endAdornment: <InputAdornment position="end">{values.unidad.nombre_corto}</InputAdornment>,
+                endAdornment: <InputAdornment position="end">{values.unidad?.nombre_corto}</InputAdornment>,
               }} />
             {errors.aqi_1 ?
               <Tooltip title={errors.aqi_1} followCursor>
@@ -138,7 +138,7 @@ const MatrizAQI = ({ values, errors, handleInputChange, disabled }) => {
               name="aqi_2"
               error={errors.aqi_2 ? true : false}
               InputProps={{
-                endAdornment: <InputAdornment position="end">{values.unidad.nombre_corto}</InputAdornment>,
+                endAdornment: <InputAdornment position="end">{values.unidad?.nombre_corto}</InputAdornment>,
               }} />
             {errors.aqi_2 ?
               <Tooltip title={errors.aqi_2} followCursor>
@@ -158,7 +158,7 @@ const MatrizAQI = ({ values, errors, handleInputChange, disabled }) => {
               name="aqi_3"
               error={errors.aqi_3 ? true : false}
               InputProps={{
-                endAdornment: <InputAdornment position="end">{values.unidad.nombre_corto}</InputAdornment>,
+                endAdornment: <InputAdornment position="end">{values.unidad?.nombre_corto}</InputAdornment>,
               }} />
             {errors.aqi_3 ?
               <Tooltip title={errors.aqi_3} followCursor>
@@ -178,7 +178,7 @@ const MatrizAQI = ({ values, errors, handleInputChange, disabled }) => {
               name="aqi_4"
               error={errors.aqi_4 ? true : false}
               InputProps={{
-                endAdornment: <InputAdornment position="end">{values.unidad.nombre_corto}</InputAdornment>,
+                endAdornment: <InputAdornment position="end">{values.unidad?.nombre_corto}</InputAdornment>,
               }} />
             {errors.aqi_4 ?
               <Tooltip title={errors.aqi_4} followCursor>
@@ -198,7 +198,7 @@ const MatrizAQI = ({ values, errors, handleInputChange, disabled }) => {
               name="aqi_5"
               error={errors.aqi_5 ? true : false}
               InputProps={{
-                endAdornment: <InputAdornment position="end">{values.unidad.nombre_corto}</InputAdornment>,
+                endAdornment: <InputAdornment position="end">{values.unidad?.nombre_corto}</InputAdornment>,
               }} />
             {errors.aqi_5 ?
               <Tooltip title={errors.aqi_5} followCursor>

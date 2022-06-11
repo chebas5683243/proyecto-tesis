@@ -19,6 +19,8 @@ const Login = () => {
 
   const [ errorLogin, setErrorLogin ] = useState(false);
 
+  const [ loading, setLoading ] = useState(false);
+
   const { values, setValues, errors, setErrors, handleInputChange } = useForm({
     email: '',
     password: ''
@@ -30,8 +32,10 @@ const Login = () => {
     setErrors(validation.errors);
     setErrorLogin(f => false);
     if(validation.isValid){
+      setLoading(true);
       axios.post(`${Config.API_URL}${Config.API_PATH}${ApiRoutes.AUTH}login`, values)
       .then((result) => {
+        setLoading(false);
         if(result.data.access_token){
           axios.defaults.headers.common = {'Authorization': `Bearer ${result.data.access_token}`};
           Auth.authenticateUser(result.data.access_token);
@@ -97,7 +101,7 @@ const Login = () => {
                 </InputAdornment>
               ),
             }} />
-          <EVButton type="submit" label="Ingresar" variant="contained"/>
+          <EVButton disabled={loading} type="submit" label="Ingresar" variant="contained"/>
         </form>
         <div className="footer">
           <span>¿Has olvidado tu contraseña?</span>

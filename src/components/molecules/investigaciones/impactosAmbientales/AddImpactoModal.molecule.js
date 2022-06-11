@@ -12,7 +12,7 @@ const AddImpactoModal = ({open, handleCloseModal, addImpacto, tiposImpacto}) => 
     id: '_' + Math.random().toString(36).substr(2, 9),
     tipo: {
       id: 0,
-      label: 'Selecciona un tipo de impacto inmediata',
+      label: 'Selecciona un tipo de impacto',
     },
     descripcion: '',
     created: true
@@ -34,7 +34,7 @@ const AddImpactoModal = ({open, handleCloseModal, addImpacto, tiposImpacto}) => 
       id: '_' + Math.random().toString(36).substr(2, 9),
       tipo: {
         id: 0,
-        label: 'Selecciona un tipo de impacto inmediata',
+        label: 'Selecciona un tipo de impacto',
       },
       descripcion: '',
       created: true
@@ -50,11 +50,11 @@ const AddImpactoModal = ({open, handleCloseModal, addImpacto, tiposImpacto}) => 
     >
       <ModalContainer>
         <div className="title">
-          <span>Agregar nueva Impacto</span>
+          <span>Agregar nuevo Impacto</span>
         </div>
         <form className="fields-container" onSubmit={handleSave}>
           <EVAutocomplete
-            label="TIPO DE CAUSA"
+            label="TIPO DE IMPACTO"
             size={4}
             options={tiposImpacto}
             name="tipo"

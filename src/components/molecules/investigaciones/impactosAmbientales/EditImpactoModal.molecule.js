@@ -13,7 +13,7 @@ const EditImpactoModal = ({open, handleCloseModal, tiposImpacto, impacto, setSel
     id: -1,
     tipo: {
       id: 0,
-      label: 'Selecciona un tipo de impacto inmediata',
+      label: 'Selecciona un tipo de impacto',
     },
     descripcion: ''
   });
@@ -34,7 +34,7 @@ const EditImpactoModal = ({open, handleCloseModal, tiposImpacto, impacto, setSel
       id: -1,
       tipo: {
         id: 0,
-        label: 'Selecciona un tipo de impacto inmediata',
+        label: 'Selecciona un tipo de impacto',
       },
       descripcion: ''
     });
@@ -54,11 +54,11 @@ const EditImpactoModal = ({open, handleCloseModal, tiposImpacto, impacto, setSel
     >
       <ModalContainer>
         <div className="title">
-          <span>Editar Impacto Inmediata</span>
+          <span>Editar Impacto</span>
         </div>
         <form className="fields-container" onSubmit={handleEdit}>
           <EVAutocomplete
-            label="TIPO DE CAUSA"
+            label="TIPO DE IMPACTO"
             size={4}
             options={tiposImpacto}
             name="tipo"

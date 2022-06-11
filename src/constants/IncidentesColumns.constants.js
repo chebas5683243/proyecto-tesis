@@ -4,7 +4,7 @@ import { useHistory } from 'react-router';
 import Box from '@mui/material/Box';
 import { renderCellExpand } from '../utils/utils';
 
-export const useColumnsListIncidentes = () => {
+export const useColumnsListIncidentes = (handleExport) => {
 
   const history = useHistory();
 
@@ -36,7 +36,7 @@ export const useColumnsListIncidentes = () => {
       actions = [
         <GridActionsCellItem
           label="Ver reporte final"
-          onClick={() => handleSeeDetails(params.id)}
+          onClick={() => handleSeeInvestigacion(params.row.investigation_id)}
           showInMenu
         />,
         <GridActionsCellItem
@@ -46,13 +46,17 @@ export const useColumnsListIncidentes = () => {
         />,
         <GridActionsCellItem
           label="Exportar PDF"
-          onClick={() => handleSeeDetails(params.id)}
+          onClick={() => handleExport(params.id, params.row.codigo)}
           showInMenu
         />
       ];
     }
     
     return actions;
+  }
+
+  const handleSeeInvestigacion = (investigacionId) => {
+    history.push(`/investigaciones/${investigacionId}`);
   }
   
   const handleSeeDetails = (selectedId) => {

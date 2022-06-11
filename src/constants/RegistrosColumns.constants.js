@@ -101,6 +101,8 @@ export const useColumnsListReporteRegistro = () => {
       headerAlign: 'center',
       align: 'center',
       renderCell: (params) => {
+        if (!params.value) return "-";
+        if (!params.value.tipo) return "-";
         const { fontColor, backgroundColor } = getColoresCategoria(params.row.parametrizacion, params.value?.tipo);
         return (
           <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', background: backgroundColor, color: fontColor, padding: '0 .5rem', height: 30, borderRadius: 4  }}>

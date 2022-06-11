@@ -72,7 +72,7 @@ export const useFetchDetalleProyecto = ( idProyecto ) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return {loadingProyecto, proyecto};
+  return {loadingProyecto, proyecto, fetchProyecto};
 }
 
 export const useEditProyecto = ( proyectoData ) => {

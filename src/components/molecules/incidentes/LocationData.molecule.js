@@ -14,14 +14,15 @@ const LocationData = ({ disabled, values, setValues, errors, handleInputChange }
   }
 
   useEffect(() => {
-    if (values.punto.id !== 0 && values.punto.id !== -1) {
+    if (!values.punto) return;
+    if (values.punto.id !== 0) {
       setValues(s => ({
         ...s,
         coordenada_norte: values.punto.utmy,
-        coordenada_este: values.punto.utmx 
+        coordenada_este: values.punto.utmx
       }));
     }
-    else {
+    else if (values.punto.id !== -1) {
       setValues(s => ({
         ...s,
         coordenada_norte: '',

@@ -24,11 +24,11 @@ const WQIValues = ({ values, errors, handleInputChange, disabled}) => {
           disabled={disabled}
           type="number"
           name="valor_ideal"
-          value={values.valor_ideal ? values.valor_ideal : ""}
+          value={values.valor_ideal !== null ? values.valor_ideal : ""}
           error={errors.valor_ideal ? true : false}
           onChange={handleInputChange}
           InputProps={{
-            endAdornment: <InputAdornment position="end">{values.unidad.nombre_corto}</InputAdornment>,
+            endAdornment: <InputAdornment position="end">{values.unidad?.nombre_corto}</InputAdornment>,
           }} />
         
         {errors.valor_ideal ?
@@ -52,7 +52,7 @@ const WQIValues = ({ values, errors, handleInputChange, disabled}) => {
           error={errors.valor_estandar_permisible ? true : false}
           onChange={handleInputChange}
           InputProps={{
-            endAdornment: <InputAdornment position="end">{values.unidad.nombre_corto}</InputAdornment>,
+            endAdornment: <InputAdornment position="end">{values.unidad?.nombre_corto}</InputAdornment>,
           }} />
         
         {errors.valor_estandar_permisible ?

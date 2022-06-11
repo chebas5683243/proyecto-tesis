@@ -43,6 +43,21 @@ const ParametersPunto = () => {
       default: return "No aplica";
     }
   }
+
+  const getOptions = () => {
+    const parametrosPuntosIds = parametrosPunto.map(param => param.id);
+    return parametros.filter(param => !parametrosPuntosIds.includes(param.id));
+  }
+
+  const fetchParametrosPuntos = () => {
+    fetchParametros();
+    setValues({
+      parametro: {
+        id: 0,
+        label: 'Selecciona un parametro',
+      },
+    });
+  }
   
   return (
     <Drawer
@@ -55,14 +70,14 @@ const ParametersPunto = () => {
           Parámetros del punto de monitoreo
         </div>
         <div className="drawer-subtitle">
-          Monitoreando 11 parámetros
+          Monitoreando {parametrosPunto.length} parámetros
         </div>
         <div className="buscador-parametros">
           <EVAutocomplete
             disabled={loadingParametros}
             label="PARÁMETRO"
             size={3}
-            options={parametros}
+            options={getOptions()}
             name="parametro"
             value={values.parametro}
             setValues={setValues}
@@ -70,6 +85,7 @@ const ParametersPunto = () => {
             helperText={errors.parametro}
           />
           <EVButton
+            disabled={!values.parametro || values.parametro?.id === 0}
             label="Agregar"
             variant="contained"
             startIcon={<Add style={{ fontSize: 24 }}/>}
@@ -108,7 +124,7 @@ const ParametersPunto = () => {
           })}
         </div>
       </PuntoParamtrosContainer>
-      <AgregarParametro fetchParametros={fetchParametros} disabled={disabledForm}/>
+      <AgregarParametro fetchParametros={fetchParametrosPuntos} disabled={disabledForm}/>
     </Drawer>
   );
 }

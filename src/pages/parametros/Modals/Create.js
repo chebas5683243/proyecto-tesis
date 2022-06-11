@@ -1,6 +1,6 @@
 import { FormControlLabel, Modal, Radio, RadioGroup } from "@mui/material";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import EVAutocomplete from "../../../components/atoms/EVAutocomplete.atom";
 import EVButton from "../../../components/atoms/EVButton.atom";
 import EVTextField from "../../../components/atoms/EVTextField.atom";
@@ -105,6 +105,19 @@ const CreateParametros = ({ open, handleCloseModal, fetchParametros }) => {
     }));
   }
 
+  useEffect(() => {
+    if (values.no_aplica) {
+      setValues(p => ({
+        ...p,
+        unidad: {
+          id: 1,
+          label: 'Adimensional (-)',
+          nombre_corto: '-'
+        }
+      }));
+    }
+  }, [values.no_aplica])
+
   return (
     <Modal
       open={open}
@@ -138,6 +151,7 @@ const CreateParametros = ({ open, handleCloseModal, fetchParametros }) => {
                 onChange={handleInputChange} />
 
               <EVAutocomplete
+                disabled={!!values.no_aplica}
                 label="UNIDAD DE MEDIDA"
                 size={4}
                 options={unidades}

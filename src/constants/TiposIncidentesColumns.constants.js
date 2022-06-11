@@ -75,11 +75,11 @@ export const useColumnsListTiposIncidentes = (fetchEmpresas) => {
           label="Delete"
           onClick={() => handleEdit(params.id)}
         />,
-        <GridActionsCellItem
-          icon={(params.row.estado ? <Delete /> : <SettingsBackupRestore />)}
-          label="Delete"
-          //onClick={() => handleDelete(params.id, params.row.estado)}
-        />,
+        // <GridActionsCellItem
+        //   icon={(params.row.estado ? <Delete /> : <SettingsBackupRestore />)}
+        //   label="Delete"
+        //   //onClick={() => handleDelete(params.id, params.row.estado)}
+        // />,
       ]
     }
   ];

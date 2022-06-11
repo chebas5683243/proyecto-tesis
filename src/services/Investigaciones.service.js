@@ -127,7 +127,7 @@ export const useSavePlanAcciones = ( investigacionData, handleOpenSnackbar ) => 
     setLoadingEdit(true);
     await axios.put(`${Config.API_URL}${Config.API_PATH}${ApiRoutes.INVESTIGACIONES}guardarPlanAcciones`, investigacionData)
     .then((response) => {
-      handleOpenSnackbar("acciones");
+      handleOpenSnackbar("guardado");
     })
     .catch((error) => {
       handleOpenSnackbar("error");
@@ -138,4 +138,28 @@ export const useSavePlanAcciones = ( investigacionData, handleOpenSnackbar ) => 
   }
 
   return {loadingEdit, savePlanAcciones};
+}
+
+export const useFetchInvestigacionesConFiltro = (auto = true) => {
+  const [investigaciones, setInvestigaciones] = useState([]);
+  const [loadingInvestigaciones, setLoadingInvestigaciones] = useState(true);
+
+  const fetchInvestigacionesConFiltro = async function (params) {
+    setLoadingInvestigaciones(true);
+    setInvestigaciones([]);
+    await axios.post(`${Config.API_URL}${Config.API_PATH}${ApiRoutes.INVESTIGACIONES}listarConFiltro`, params)
+    .then((response) => {
+      setInvestigaciones(response.data.data.investigaciones);
+    })
+    .finally(() => {
+      setLoadingInvestigaciones(false);
+    })
+  };
+
+  useEffect(() => {
+    if(auto) fetchInvestigacionesConFiltro();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  return {loadingInvestigaciones, investigaciones, fetchInvestigacionesConFiltro};
 }

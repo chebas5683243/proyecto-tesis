@@ -2,6 +2,7 @@ import { GridActionsCellItem } from '@mui/x-data-grid';
 import { AssignmentTurnedIn, Circle, Delete, Edit, RemoveRedEye } from '@mui/icons-material';
 import { useHistory } from 'react-router';
 import { Box } from '@mui/material';
+import { renderCellExpand } from '../utils/utils';
 
 export const useColumnsListProyectos = (fetchProyectos) => {
 
@@ -67,11 +68,11 @@ export const useColumnsListProyectos = (fetchProyectos) => {
           label="Delete"
           onClick={() => handleEdit(params.id)}
         />,
-        <GridActionsCellItem
-          icon={<Delete />}
-          label="Delete"
-          onClick={() => handleDelete(params.id, params.row.estado)}
-        />,
+        // <GridActionsCellItem
+        //   icon={<Delete />}
+        //   label="Delete"
+        //   onClick={() => handleDelete(params.id, params.row.estado)}
+        // />,
       ]
     }
   ];
@@ -93,7 +94,8 @@ export const useColumnsListCreateFases = (handleOpenDeleteFaseModal, setSelected
     {
       field: 'descripcion',
       headerName: 'DESCRIPCION',
-      flex: 3
+      flex: 3,
+      renderCell: renderCellExpand
     },
     {
       field: 'estado',
@@ -138,7 +140,8 @@ export const useColumnsListDetalleFases = () => {
     {
       field: 'descripcion',
       headerName: 'DESCRIPCION',
-      flex: 3
+      flex: 3,
+      renderCell: renderCellExpand
     },
     {
       field: 'inicio',
@@ -223,7 +226,8 @@ export const useColumnsListEditFases = (handleOpenDeleteFaseModal, handleOpenEnd
     {
       field: 'descripcion',
       headerName: 'DESCRIPCION',
-      flex: 3
+      flex: 3,
+      renderCell: renderCellExpand
     },
     {
       field: 'inicio',

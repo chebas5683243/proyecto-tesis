@@ -6,21 +6,23 @@ const BreadcrumbsReporte = () => {
 
   const { registroId, setRegistroId, puntoId, setPuntoId } = useContext(ProjectContext);
 
-  const redirectToListaPuntos = () => {
+  const redirectToListaPuntos = (e) => {
+    e.preventDefault();
     setPuntoId(null);
     setRegistroId(null);
   }
 
-  const redirectToPunto = () => {
+  const redirectToPunto = (e) => {
+    e.preventDefault();
     setRegistroId(null);
   }
 
   return (
     <Breadcrumbs separator="›" aria-label="breadcrumb">
-      <Link underline="hover" color="inherit" onClick={redirectToListaPuntos}>
+      <Link underline="hover" color="inherit" onClick={redirectToListaPuntos} href="">
         Puntos de Monitoreo
       </Link>
-      <Link underline="hover" color="inherit" onClick={redirectToPunto}>
+      <Link underline="hover" color="inherit" onClick={redirectToPunto} href="">
         EV-PMA-{String(puntoId).padStart(6, '0')}
       </Link>
       <Link underline="hover" color="inherit">

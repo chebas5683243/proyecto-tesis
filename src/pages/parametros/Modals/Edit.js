@@ -119,6 +119,23 @@ const EditParametros = ({ open, handleCloseModal, fetchParametros, selectedId, s
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [parametro])
 
+  useEffect(() => {
+    if (values.no_aplica) {
+      setValues(p => ({
+        ...p,
+        unidad: {
+          id: 1,
+          label: 'Adimensional (-)',
+          nombre_corto: '-'
+        }
+      }));
+    }
+  }, [values.no_aplica])
+
+  useEffect(() => {
+    console.log(values);
+  }, [values])
+
   return (
     <Modal
       open={open}
@@ -154,7 +171,7 @@ const EditParametros = ({ open, handleCloseModal, fetchParametros, selectedId, s
                 onChange={handleInputChange} />
 
               <EVAutocomplete
-                disabled={loadingParametro}
+                disabled={loadingParametro || !!values.no_aplica}
                 label="UNIDAD DE MEDIDA"
                 size={4}
                 options={unidades}

@@ -36,7 +36,7 @@ const EstandarValues = ({ values, errors, handleInputChange, handleCheckChange, 
           error={errors.valor_minimo ? true : false}
           onChange={handleInputChange}
           InputProps={{
-            endAdornment: <InputAdornment position="end">{values.unidad.nombre_corto}</InputAdornment>,
+            endAdornment: <InputAdornment position="end">{values.unidad?.nombre_corto}</InputAdornment>,
           }} />
 
         {errors.valor_minimo ?
@@ -67,7 +67,7 @@ const EstandarValues = ({ values, errors, handleInputChange, handleCheckChange, 
           error={errors.valor_maximo ? true : false}
           onChange={handleInputChange}
           InputProps={{
-            endAdornment: <InputAdornment position="end">{values.unidad.nombre_corto}</InputAdornment>,
+            endAdornment: <InputAdornment position="end">{values.unidad?.nombre_corto}</InputAdornment>,
           }} />
 
         {errors.valor_maximo ?

@@ -89,11 +89,10 @@ const CrearInvestigacion = () => {
     let validation = validateCreateInvestigacion(values);
     setErrors(f => validation.errors);
     if(validation.isValid){
-      // setDisableSave(true);
+      setDisableSave(true);
       axios.post(`${Config.API_URL}${Config.API_PATH}${ApiRoutes.INVESTIGACIONES}crear`, values)
       .then((response) => {
-        // history.push("/incidentes/" + response.data.data.incidente.id);
-        alert("ok");
+        history.push("/investigaciones/" + response.data.data.investigacion.id);
       })
     }
   }

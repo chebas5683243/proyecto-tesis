@@ -19,7 +19,8 @@ const GeneralData = ({disabled, values, errors, handleInputChange}) => {
         disabled={disabled}
         type="text"
         multiline
-        rows={4}
+        minRows={4}
+        maxRows={15}
         label="DESCRIPCIÓN DEL PROYECTO"
         size={4}
         name="descripcion"

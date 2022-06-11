@@ -56,6 +56,7 @@ export const MatrixAQIContainer = styled.div`
 
         input {
           text-align: right;
+          height: 2.1875rem;
         }
 
         svg {

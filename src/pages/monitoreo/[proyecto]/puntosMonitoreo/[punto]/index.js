@@ -70,7 +70,7 @@ const PuntoMonitoreo = () => {
               </div>
             </div>
             <div className="ultimo-registro">
-              <p>Último registro hace 13 horas</p>
+              {!!punto?.fecha_mas_reciente && <p>Último registro el {punto.fecha_mas_reciente.fecha} a la(s) {punto.fecha_mas_reciente.hora}</p>}
             </div>
           </div>
         </div>
@@ -86,10 +86,10 @@ const PuntoMonitoreo = () => {
               startIcon={<BarChart style={{ fontSize: 24 }}/>}
               onClick={() => setOpenParametros(true)}
             />
-            <EVIconButton
+            {/* <EVIconButton
               variant="outlined"
               startIcon={<StackedLineChart style={{ fontSize: 24 }}/>}
-            />
+            /> */}
             {punto?.estado ?
               <EVButton
                 variant="contained"

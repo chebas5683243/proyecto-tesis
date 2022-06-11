@@ -10,7 +10,16 @@ export const ReporteContainer = styled.div`
   .header-container {
     margin-top: 1.5rem;
     display: flex;
+    align-items: center;
     gap: 2rem;
+
+    .go-back-button {
+      cursor: pointer;
+
+      &:hover span {
+        text-decoration: underline;
+      }
+    }
   }
 
   .titulo-container {

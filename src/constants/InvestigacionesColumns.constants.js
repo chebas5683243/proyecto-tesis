@@ -3,26 +3,20 @@ import { Circle, Delete, Edit } from '@mui/icons-material';
 import { useHistory } from 'react-router';
 import Box from '@mui/material/Box';
 import { renderCellExpand } from '../utils/utils';
+import { useContext } from 'react';
+import { UserContext } from '../context/UserContext';
 
 export const useColumnsListInvestigaciones = (setOpenModal, setSelectedId, handleExport) => {
 
   const history = useHistory();
+
+  const { infoUsuario } = useContext(UserContext);
 
   const getRowActions = (params) => {
     let isCompleted = params.row.estado >= 1;
     let isClosed = params.row.estado === 2;
 
     let actions = [];
-
-    if (isCompleted) {
-      actions = [
-        <GridActionsCellItem
-          label="Exportar PDF"
-          onClick={() => handleExport(params.id)}
-          showInMenu
-        />
-      ];
-    }
 
     actions.push(
       <GridActionsCellItem
@@ -32,7 +26,17 @@ export const useColumnsListInvestigaciones = (setOpenModal, setSelectedId, handl
       />
     );
 
-    if (isClosed) {
+    if (isCompleted) {
+      actions.push(
+        <GridActionsCellItem
+          label="Exportar PDF"
+          onClick={() => handleExport(params.id, params.row.codigo)}
+          showInMenu
+        />
+      );
+    }
+
+    if (isClosed && infoUsuario.tipo !== 3) {
       actions.push(
         <GridActionsCellItem
           label="Validar reporte"
@@ -261,6 +265,8 @@ export const useColumnsListDetallePersona = () => {
 
 export const useColumnsListAcciones = (handleOpenEditAccionModal, handleOpenDeleteAccionModal, setSelectedAccion, goNextStateAccion) => {
 
+  const { infoUsuario } = useContext(UserContext);
+
   const handleEdit = (accion) => {
     setSelectedAccion(accion);
     handleOpenEditAccionModal();
@@ -292,10 +298,10 @@ export const useColumnsListAcciones = (handleOpenEditAccionModal, handleOpenDele
       );
     }
 
-    if (isExecuted) {
+    if (isExecuted && infoUsuario.tipo !== 3) {
       actions.push(
         <GridActionsCellItem
-          label="Validar"
+          label="Verificar"
           onClick={() => handleGoNextStep(params.row)}
           showInMenu
         />

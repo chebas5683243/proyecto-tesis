@@ -68,13 +68,13 @@ const DetalleUsuario = () => {
   }, [loadingUsuario]);
 
   useEffect(() => {
-    if (!values.company.es_propia) {
+    if (!values.company?.es_propia) {
       setValues(s => ({
         ...s,
         es_admin: false
       }));
     }
-  }, [values.company.es_propia])
+  }, [values.company?.es_propia])
 
   return (
     <ListViewContainer>
@@ -221,7 +221,7 @@ const DetalleUsuario = () => {
             helperText={errors.cargo}
             onChange={handleInputChange} />
 
-          <div style={{display: (values.company.es_propia ? "flex" : "none"), alignItems: 'center'}}>
+          <div style={{display: (values.company?.es_propia ? "flex" : "none"), alignItems: 'center'}}>
             <EVCheckbox
               disabled
               name="es_admin"

@@ -98,7 +98,12 @@ const PlanAcciones = ({ values, setValues, errors, setErrors, handleInputChange,
         </Collapse>
       </FormGroupContainer>
       <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'right' }} open={openSnackbar.acciones} autoHideDuration={6000} onClose={() => handleCloseSnackbar("acciones")}>
-        <Alert onClose={() => handleCloseSnackbar("acciones")} variant="filled" severity="success" sx={{ width: '100%' }}>
+        <Alert onClose={() => handleCloseSnackbar("acciones")} variant="filled" severity="error" sx={{ width: '100%' }}>
+          {errors.acciones}
+        </Alert>
+      </Snackbar>
+      <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'right' }} open={openSnackbar.guardado} autoHideDuration={6000} onClose={() => handleCloseSnackbar("guardado")}>
+        <Alert onClose={() => handleCloseSnackbar("guardado")} variant="filled" severity="success" sx={{ width: '100%' }}>
           Plan de acciones guardado correctamente
         </Alert>
       </Snackbar>

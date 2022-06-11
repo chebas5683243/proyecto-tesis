@@ -60,7 +60,7 @@ const AddAccionModal = ({ open, handleCloseModal, addAccion, tiposAccion }) => {
         </div>
         <form className="fields-container" onSubmit={handleSave}>
           <EVAutocomplete
-            label="TIPO DE CAUSA"
+            label="TIPO DE ACCIÓN"
             size={4}
             options={tiposAccion}
             name="tipo"
@@ -81,7 +81,7 @@ const AddAccionModal = ({ open, handleCloseModal, addAccion, tiposAccion }) => {
 
           <EVTextField
             type="date"
-            label="fecha_planeada"
+            label="FECHA PLANEADA"
             size={4}
             name="fecha_planeada"
             value={values.fecha_planeada}

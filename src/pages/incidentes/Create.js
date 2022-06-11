@@ -86,11 +86,10 @@ const CreateIncidente = () => {
     let validation = validateCreateIncidente(values, handleOpenSnackbar);
     setErrors(f => validation.errors);
     if(validation.isValid){
-      // setDisableSave(true);
+      setDisableSave(true);
       axios.post(`${Config.API_URL}${Config.API_PATH}${ApiRoutes.INCIDENTES}crear`, values)
       .then((response) => {
-        // history.push("/incidentes/" + response.data.data.incidente.id);
-        alert("ok");
+        history.push("/incidentes/" + response.data.data.incidente.id);
       })
     }
   }
@@ -188,13 +187,13 @@ const CreateIncidente = () => {
 
         </Collapse>
       </FormGroupContainer>
-      <FormGroupContainer>
+      {/* <FormGroupContainer>
         <FormHeader isExpanded={formExpand.evidencias} expand={() => handleExpand("evidencias")} title="Evidencias"/>
         <Collapse className="inputs-container" in={formExpand.evidencias}>
           <div style={{width: '100%', height: '0'}}></div>
 
         </Collapse>
-      </FormGroupContainer>
+      </FormGroupContainer> */}
       <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'right' }} open={openSnackbar.causas} autoHideDuration={6000} onClose={() => handleCloseSnackbar("causas")}>
         <Alert onClose={() => handleCloseSnackbar("causas")} variant="filled" severity="error" sx={{ width: '100%' }}>
           {errors.causas}

@@ -1,5 +1,5 @@
 import { Add, Search, Settings } from "@mui/icons-material";
-import { Box, InputAdornment } from "@mui/material";
+import { Alert, Box, InputAdornment, Snackbar } from "@mui/material";
 import axios from "axios";
 import { useState } from "react";
 import { useHistory } from "react-router";
@@ -59,13 +59,13 @@ const Investigaciones = () => {
     }))
   }
 
-  const handleExport = (investigacionID) => {
+  const handleExport = (investigacionID, investigacionCodigo) => {
     handleOpenSnackbar('loadingDownload');
     axios.get(`${Config.API_URL}${Config.API_PATH}${ApiRoutes.INVESTIGACIONES}exportarInvestigacion/${investigacionID}`, { responseType: 'blob' })
     .then((response) => {
       handleCloseSnackbar('loadingDownload');
       handleOpenSnackbar('successDownload');
-      FileDownload(response.data, `investigacion-${investigacionID}.pdf`);
+      FileDownload(response.data, `investigacion-${investigacionCodigo}.pdf`);
     })
   }
 
@@ -103,6 +103,16 @@ const Investigaciones = () => {
           MoreActionsIcon: Settings
         }}
       />
+      <Snackbar open={openSnackbars.loadingDownload}>
+        <Alert variant="filled" severity="info" sx={{ width: '100%' }}>
+          Descargando reporte ...
+        </Alert>
+      </Snackbar>
+      <Snackbar open={openSnackbars.successDownload} autoHideDuration={6000} onClose={() => handleCloseSnackbar('successDownload')}>
+        <Alert onClose={() => handleCloseSnackbar('successDownload')} variant="filled" severity="success" sx={{ width: '100%' }}>
+          Reporte descargado
+        </Alert>
+      </Snackbar>
       <ValidateInvestigacion open={openModal.validate} handleCloseModal={handleCloseModal} fetchInvestigaciones={fetchInvestigaciones} selectedId={selectedId} setSelectedId={setSelectedId}/>
     </ListViewContainer>
   );
